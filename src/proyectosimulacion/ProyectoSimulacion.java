@@ -8,8 +8,7 @@ public class ProyectoSimulacion {
 
         System.err.println("primer comin diego");
 
-
-
+        System.out.println("pavel");
     }
     
 }
