@@ -8,15 +8,14 @@ public class ProyectoSimulacion {
 
         System.err.println("primer comin diego");
         System.out.println("Pavel");
-<<<<<<< Updated upstream
+
      
 
         System.out.println("werwerwe");
-=======
 
         System.out.println("");
         System.out.println("Pavel");
->>>>>>> Stashed changes
+
 
     }
     
