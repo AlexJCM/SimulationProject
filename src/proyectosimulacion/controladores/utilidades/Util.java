@@ -1,17 +1,15 @@
-
 package proyectosimulacion.controladores.utilidades;
 
+import java.util.Random;
 import java.util.Scanner;
 
-
 public class Util {
-    
+
     //Metodo para generar numeros pseudoAleatorios
-    private long GenerarAleatorio(){
-        long random = 0;
-                
-        return random;
-        
-        
+    private int GenerarAleatorio() {
+        Random aleatorio = new Random();
+        int numero = aleatorio.nextInt(1);
+        return numero;
+
     }
 }
