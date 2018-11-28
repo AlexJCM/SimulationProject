@@ -6,22 +6,37 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Fase1 extends javax.swing.JFrame {
+    
+    //VARIABLES GLOBALES
+    public static double tiempoDeSalida;
+    
+    //VARIABLES LOCALES
+    private double capacidad = 100;//  Capacidad de la FASE1
+    private double clientes;//   numero de clientes
+    private double aleatorio1;//
+    private double tasaLlegada;//12/hora aprox. Tambien hay un array con un nombre similar
+    private double momentoLlegada = 0;
+    private double tiempoInicio = 0;
+    private double tiempoEspera;      
+    private double aleatorio2;   
+     //tiempo atencion es declarado cmo array
+    private double tiempoSalida;//es el tiempo de llegada de la fase1
 
     DefaultTableModel modelo;
 
-    public Fase1() {
-        initComponents();
+    public Fase1() {        
+        initComponents();        
         
         modelo = new DefaultTableModel();
         tablaFase1.setModel(modelo);
 
         modelo.addColumn("Cliente");//aprox. 12 cada hora
-       // modelo.addColumn("Aleatorio 1");
-        modelo.addColumn("Tiempo de Llegada");//Calculado en base al aleatiorio1  
+        //modelo.addColumn("Aleatorio 1");
+       // modelo.addColumn("Tiempo de Llegada");//Calculado en base al aleatiorio1  
         modelo.addColumn("Momento de Llegada");//M. de Ll. del cliente que está adelante  + T. de Ll. de éste cliente.
         modelo.addColumn("Tiempo Inicio de Servicio");//(T. de I. de servicio + T. de Atencion) del cliente que está adelante
-        modelo.addColumn("Tiempo de Espera");//T. de I. de servicio - Momento de Llegada del mismo cliente
-      // modelo.addColumn("Aleatorio 2");
+      //  modelo.addColumn("Tiempo de Espera");//T. de I. de servicio - Momento de Llegada del mismo cliente
+       // modelo.addColumn("Aleatorio 2");
         modelo.addColumn("Tiempo de Atencion");//Calculado en base al aleatiorio2
         modelo.addColumn("Tiempo de Salida");//T. de I. de servicio + T. de A. del mismo cliente
 
@@ -34,8 +49,8 @@ public class Fase1 extends javax.swing.JFrame {
         jPanelFase1 = new javax.swing.JPanel();
         jLabelCapacidad = new javax.swing.JLabel();
         capacidadField = new javax.swing.JTextField();
-        jLabelLlegada = new javax.swing.JLabel();
-        llegadaField = new javax.swing.JTextField();
+        jLabelTasaLlegada = new javax.swing.JLabel();
+        tasaLlegadaField = new javax.swing.JTextField();
         jLabelClientes = new javax.swing.JLabel();
         clientesField = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -60,14 +75,16 @@ public class Fase1 extends javax.swing.JFrame {
         });
         jPanelFase1.add(capacidadField);
 
-        jLabelLlegada.setText("Llegada");
-        jLabelLlegada.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanelFase1.add(jLabelLlegada);
-        jPanelFase1.add(llegadaField);
+        jLabelTasaLlegada.setText("Tasa Llegada / h");
+        jLabelTasaLlegada.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelFase1.add(jLabelTasaLlegada);
+        jPanelFase1.add(tasaLlegadaField);
 
-        jLabelClientes.setText("Clientes");
+        jLabelClientes.setText("Nro. Clientes");
         jLabelClientes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelFase1.add(jLabelClientes);
+        jLabelClientes.getAccessibleContext().setAccessibleDescription("");
+
         jPanelFase1.add(clientesField);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -103,6 +120,11 @@ public class Fase1 extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tablaFase1);
+        if (tablaFase1.getColumnModel().getColumnCount() > 0) {
+            tablaFase1.getColumnModel().getColumn(0).setMinWidth(48);
+            tablaFase1.getColumnModel().getColumn(0).setPreferredWidth(69);
+            tablaFase1.getColumnModel().getColumn(0).setMaxWidth(70);
+        }
         tablaFase1.getAccessibleContext().setAccessibleName("");
 
         jButtonEliminar.setText("Eliminar");
@@ -121,25 +143,24 @@ public class Fase1 extends javax.swing.JFrame {
                 .addComponent(jPanelFase1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(380, 380, 380)
-                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(221, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(224, 224, 224))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelFase1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonEliminar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonEliminar))))
         );
 
         jPanelFase1.getAccessibleContext().setAccessibleName("Formulario FASE 1");
@@ -148,30 +169,27 @@ public class Fase1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
-
-        double capacidad = 100;//  numero fijo
-        double llegada;//gerear aleatorriamente 
-        double clientes;//gerear aleatoriamente 
-        double aleatorio1;//gerear aleatoriamente 
-        double momentoLlegada = 0;
-        double tiempoEspera;
-        double aleatorio2;
-        double tiempoInicio = 0;
-        double tiempoSalida;//es el tiempo de llegada de la fase1
-
-        Random aleatorio = new Random(System.currentTimeMillis());
+       
+        Random aleatorio = new Random(System.currentTimeMillis());        
 
         capacidad = Integer.parseInt(capacidadField.getText());
-        llegada = Integer.parseInt(llegadaField.getText());
+        tasaLlegada = Integer.parseInt(tasaLlegadaField.getText());
         clientes = Integer.parseInt(clientesField.getText());
+        
+        
+        if(clientes > capacidad){
+              JOptionPane.showMessageDialog(this, "El # de clientes NO debe ser mayor a la capacidad del Servidor");
+              limpiar();
+        } else{
 
-        Double[] tiempoLlegada = new Double[Integer.parseInt(capacidadField.getText())];
+        Double[] tiempoLlegada = new Double[Integer.parseInt(capacidadField.getText())];    
         Double[] tiempoAtencion = new Double[Integer.parseInt(capacidadField.getText())];
 
         for (int i = 1; i <= clientes; i++) {
             aleatorio1 = aleatorio.nextDouble();
             aleatorio2 = aleatorio.nextDouble();
-            tiempoLlegada[i] = (-(Math.log(1 - aleatorio1)) * (1 / llegada) * 60);
+            tiempoLlegada[i] = (-(Math.log(1 - aleatorio1)) * (1 / tasaLlegada) * 60);
+            System.out.println("tiempoLlegada[i] = "+tiempoLlegada[i]);
             tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / capacidad) * 60);
             if (i == 1) {
                 momentoLlegada = tiempoLlegada[i];
@@ -190,21 +208,22 @@ public class Fase1 extends javax.swing.JFrame {
             }
             tiempoSalida = tiempoInicio + tiempoAtencion[i];
 
-            Object[] object = new Object[7];
+            Object[] object = new Object[5];
             object[0] = i;
-           // object[1] = aleatorio1;
-            object[1] = HoraMinuto(tiempoLlegada[i]);
-            object[2] = HoraMinuto1(momentoLlegada);
-            object[3] = HoraMinuto(tiempoInicio);
-            object[4] = HoraMinuto(tiempoEspera);
-            //object[6] = aleatorio2;
-            object[5] = HoraMinuto(tiempoAtencion[i]);
-            object[6] = HoraMinuto1(tiempoSalida);
+            //object[1] = aleatorio1;
+            //object[2] = HoraMinuto(tiempoLlegada[i]);
+            object[1] = HoraMinuto1(momentoLlegada);
+            object[2] = HoraMinuto(tiempoInicio);
+            //object[3] = HoraMinuto(tiempoEspera);
+           // object[6] = aleatorio2;
+            object[3] = HoraMinuto(tiempoAtencion[i]);
+            object[4] = HoraMinuto1(tiempoSalida);
 
             modelo.addRow(object);
         }
-
-        limpiar();
+       // limpiar();
+        }
+        
     }//GEN-LAST:event_jButtonAceptarActionPerformed
      public String HoraMinuto(double minutos) {
         String formato = "%02d:%02d";
@@ -238,7 +257,7 @@ public class Fase1 extends javax.swing.JFrame {
 
     private void limpiar() {
         capacidadField.setText("");
-        llegadaField.setText("");
+        tasaLlegadaField.setText("");
         clientesField.setText("");
     }
 
@@ -287,11 +306,11 @@ public class Fase1 extends javax.swing.JFrame {
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JLabel jLabelCapacidad;
     private javax.swing.JLabel jLabelClientes;
-    private javax.swing.JLabel jLabelLlegada;
+    private javax.swing.JLabel jLabelTasaLlegada;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelFase1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField llegadaField;
     private javax.swing.JTable tablaFase1;
+    private javax.swing.JTextField tasaLlegadaField;
     // End of variables declaration//GEN-END:variables
 }
