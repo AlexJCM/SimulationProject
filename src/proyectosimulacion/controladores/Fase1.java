@@ -10,6 +10,7 @@ public class Fase1 extends javax.swing.JFrame {
 
     public Fase1() {
         initComponents();
+      
         modelo = new DefaultTableModel();
         tabla.setModel(modelo);
 
@@ -138,6 +139,8 @@ public class Fase1 extends javax.swing.JFrame {
                         .addComponent(jButton1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel1.getAccessibleContext().setAccessibleName("Formulario FASE 2");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

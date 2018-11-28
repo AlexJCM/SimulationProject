@@ -10,8 +10,9 @@ public class Fase2 extends javax.swing.JFrame {
 
     public Fase2() {
         initComponents();
+        //myInitComponents();//////////////
         modelo = new DefaultTableModel();
-        tabla.setModel(modelo);
+        tablaFase2.setModel(modelo);
 
         modelo.addColumn("Cliente");
         modelo.addColumn("Aleatorio 1");
@@ -23,50 +24,50 @@ public class Fase2 extends javax.swing.JFrame {
         modelo.addColumn("Tiempo de Atencion");
         modelo.addColumn("Tiempo de Salida");
 
-    }
+    }        
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jPanelFase2 = new javax.swing.JPanel();
+        jLabelCapacidad = new javax.swing.JLabel();
         capacidadField = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelLlegada = new javax.swing.JLabel();
         llegadaField = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelClientes = new javax.swing.JLabel();
         clientesField = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        jButtonGuardar = new javax.swing.JButton();
+        jButtonAceptar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabla = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        tablaFase2 = new javax.swing.JTable();
+        jButtonEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Formulario"));
-        jPanel1.setLayout(new java.awt.GridLayout(9, 0));
+        jPanelFase2.setBorder(javax.swing.BorderFactory.createTitledBorder("Formulario FASE 2"));
+        jPanelFase2.setLayout(new java.awt.GridLayout(9, 0));
 
-        jLabel1.setText("Capacidad");
-        jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(jLabel1);
+        jLabelCapacidad.setText("Capacidad");
+        jLabelCapacidad.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelFase2.add(jLabelCapacidad);
 
         capacidadField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 capacidadFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(capacidadField);
+        jPanelFase2.add(capacidadField);
 
-        jLabel2.setText("Llegada");
-        jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(jLabel2);
-        jPanel1.add(llegadaField);
+        jLabelLlegada.setText("Llegada");
+        jLabelLlegada.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelFase2.add(jLabelLlegada);
+        jPanelFase2.add(llegadaField);
 
-        jLabel3.setText("Clientes");
-        jLabel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(jLabel3);
-        jPanel1.add(clientesField);
+        jLabelClientes.setText("Clientes");
+        jLabelClientes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelFase2.add(jLabelClientes);
+        jPanelFase2.add(clientesField);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -79,17 +80,17 @@ public class Fase2 extends javax.swing.JFrame {
             .addGap(0, 31, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel2);
+        jPanelFase2.add(jPanel2);
 
-        jButtonGuardar.setText("Aceptar");
-        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAceptar.setText("Aceptar");
+        jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGuardarActionPerformed(evt);
+                jButtonAceptarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonGuardar);
+        jPanelFase2.add(jButtonAceptar);
 
-        tabla.setModel(new javax.swing.table.DefaultTableModel(
+        tablaFase2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -100,12 +101,13 @@ public class Fase2 extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tabla);
+        jScrollPane1.setViewportView(tablaFase2);
+        tablaFase2.getAccessibleContext().setAccessibleName("");
 
-        jButton1.setText("Eliminar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonEliminarActionPerformed(evt);
             }
         });
 
@@ -115,11 +117,11 @@ public class Fase2 extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelFase2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(380, 380, 380)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(221, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -131,21 +133,21 @@ public class Fase2 extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelFase2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(jButtonEliminar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+    private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
 
         double capacidad = 100;//  numero fijo
-        double llegada;//gerear aleatoriamente 
+        double llegada;//gerear aleatorriamente 
         double clientes;//gerear aleatoriamente 
         double aleatorio1;//gerear aleatoriamente 
         double momentoLlegada = 0;
@@ -200,16 +202,16 @@ public class Fase2 extends javax.swing.JFrame {
         }
 
         limpiar();
-    }//GEN-LAST:event_jButtonGuardarActionPerformed
+    }//GEN-LAST:event_jButtonAceptarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int fila = tabla.getSelectedRow();
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        int fila = tablaFase2.getSelectedRow();
         if (fila != -1) {
             modelo.removeRow(fila);
         } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar una fila");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void capacidadFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capacidadFieldActionPerformed
         // TODO add your handling code here:
@@ -238,36 +240,37 @@ public class Fase2 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Fase1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Fase2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Fase1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Fase2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Fase1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Fase2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Fase1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Fase2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Fase1().setVisible(true);
+                new Fase2().setVisible(true);
+                
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField capacidadField;
     private javax.swing.JTextField clientesField;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jButtonAceptar;
+    private javax.swing.JButton jButtonEliminar;
+    private javax.swing.JLabel jLabelCapacidad;
+    private javax.swing.JLabel jLabelClientes;
+    private javax.swing.JLabel jLabelLlegada;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanelFase2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField llegadaField;
-    private javax.swing.JTable tabla;
+    private javax.swing.JTable tablaFase2;
     // End of variables declaration//GEN-END:variables
 }
