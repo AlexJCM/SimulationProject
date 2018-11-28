@@ -1,6 +1,7 @@
 package proyectosimulacion.controladores;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -192,20 +193,36 @@ public class Fase1 extends javax.swing.JFrame {
             Object[] object = new Object[7];
             object[0] = i;
            // object[1] = aleatorio1;
-            object[1] = tiempoLlegada[i];
-            object[2] = momentoLlegada;
-            object[3] = tiempoInicio;
-            object[4] = tiempoEspera;
+            object[1] = HoraMinuto(tiempoLlegada[i]);
+            object[2] = HoraMinuto1(momentoLlegada);
+            object[3] = HoraMinuto(tiempoInicio);
+            object[4] = HoraMinuto(tiempoEspera);
             //object[6] = aleatorio2;
-            object[5] = tiempoAtencion[i];
-            object[6] = tiempoSalida;
+            object[5] = HoraMinuto(tiempoAtencion[i]);
+            object[6] = HoraMinuto1(tiempoSalida);
 
             modelo.addRow(object);
         }
 
         limpiar();
     }//GEN-LAST:event_jButtonAceptarActionPerformed
+     public String HoraMinuto(double minutos) {
+        String formato = "%02d:%02d";
+        long horasReales = TimeUnit.MINUTES.toHours((int)minutos);
+        long minutosReales = TimeUnit.MINUTES.toMinutes((int)minutos) - TimeUnit.HOURS.toMinutes(TimeUnit.MINUTES.toHours((int)minutos));
 
+        return String.format(formato, horasReales, minutosReales);
+     }
+     
+      public String HoraMinuto1(double minutos) {
+        String formato = "%02d:%02d";
+
+        long horasReales = TimeUnit.MINUTES.toHours((int)minutos);
+        horasReales= horasReales+8;
+        long minutosReales = TimeUnit.MINUTES.toMinutes((int)minutos) - TimeUnit.HOURS.toMinutes(TimeUnit.MINUTES.toHours((int)minutos));
+        return String.format(formato, horasReales, minutosReales);
+    }
+       
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         int fila = tablaFase1.getSelectedRow();
         if (fila != -1) {
