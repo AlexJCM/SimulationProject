@@ -171,87 +171,91 @@ public class PanelFase1 extends javax.swing.JPanel {
         Random aleatorio = new Random(System.currentTimeMillis());
 
         boolean validarCampos = txtCapacidad.getText().isEmpty() || txtNroClientes.getText().isEmpty() || txtServidores.getText().isEmpty() || txtTasaLllegada.getText().isEmpty();
-       
+
         if (validarCampos) {
             JOptionPane.showMessageDialog(this, "Llene todos los campos", "Alerta", JOptionPane.WARNING_MESSAGE);
-        }          
-        if (clientes >= capacidad) {
-            JOptionPane.showMessageDialog(this, "El # de clientes NO debe ser mayor o igual a la Capacidad del Servidor");
-           txtNroClientes.setText("");
-        } 
-        else if (servidores > 4 ){
-            JOptionPane.showMessageDialog(this, "El # maximo de servidores permitidos es 4");
-              txtServidores.setText("");
-        }
-        else {
 
+        } else {
             servidores = Integer.parseInt(txtServidores.getText());
             capacidad = Integer.parseInt(txtCapacidad.getText());
             tasaLlegada = Integer.parseInt(txtTasaLllegada.getText());
             clientes = Integer.parseInt(txtNroClientes.getText());
-
-            Double[] tiempoLlegada = new Double[Integer.parseInt(txtCapacidad.getText())];
-            Double[] tiempoAtencion = new Double[Integer.parseInt(txtCapacidad.getText())];
-            tiempoDeSalidaFaseONE = new Double[Integer.parseInt(txtCapacidad.getText())];///
-
-        for (int i = 1; i <= clientes; i++) {
-            aleatorio1 = aleatorio.nextDouble();
-            aleatorio2 = aleatorio.nextDouble();
-            tiempoLlegada[i] = (-(Math.log(1 - aleatorio1)) * (1 / tasaLlegada) * 60);
-            tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / capacidad) * 60);
-            if (i == 1) {
-                momentoLlegada = tiempoLlegada[i];
-                tiempoEspera = 0.0000000000;
-                tiempoInicio = tiempoLlegada[i];
+            
+            if (clientes >= capacidad) {
+                JOptionPane.showMessageDialog(this, "El # de clientes NO debe ser mayor o igual a la Capacidad del Servidor");
+                txtNroClientes.setText("");
             } else {
-                momentoLlegada = momentoLlegada + tiempoLlegada[i];
-                tiempoInicio = tiempoInicio + tiempoAtencion[i - 1];
-                if (tiempoInicio < momentoLlegada) {
-                    tiempoInicio = momentoLlegada;
-                }
-                tiempoEspera = tiempoInicio - momentoLlegada;
-                if (tiempoEspera < 0) {
-                    tiempoEspera = 0;
+                if (servidores > 4) {
+                    JOptionPane.showMessageDialog(this, "El # maximo de servidores permitidos es 4");
+                    txtServidores.setText("");
+                } else {                    
+
+                    Double[] tiempoLlegada = new Double[Integer.parseInt(txtCapacidad.getText())];
+                    Double[] tiempoAtencion = new Double[Integer.parseInt(txtCapacidad.getText())];
+                    tiempoDeSalidaFaseONE = new Double[Integer.parseInt(txtCapacidad.getText())];///
+
+                    for (int i = 1; i <= clientes; i++) {
+                        aleatorio1 = aleatorio.nextDouble();
+                        aleatorio2 = aleatorio.nextDouble();
+                        tiempoLlegada[i] = (-(Math.log(1 - aleatorio1)) * (1 / tasaLlegada) * 60);
+                        tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / capacidad) * 60);
+                        if (i == 1) {
+                            momentoLlegada = tiempoLlegada[i];
+                            tiempoEspera = 0.0000000000;
+                            tiempoInicio = tiempoLlegada[i];
+                        } else {
+                            momentoLlegada = momentoLlegada + tiempoLlegada[i];
+                            tiempoInicio = tiempoInicio + tiempoAtencion[i - 1];
+                            if (tiempoInicio < momentoLlegada) {
+                                tiempoInicio = momentoLlegada;
+                            }
+                            tiempoEspera = tiempoInicio - momentoLlegada;
+                            if (tiempoEspera < 0) {
+                                tiempoEspera = 0;
+                            }
+                        }
+                        tiempoSalida = tiempoInicio + tiempoAtencion[i];
+                        tiempoDeSalidaFaseONE[i] = tiempoInicio + tiempoAtencion[i];////Para enviarlo a la fase2
+
+                        //Se guardará en el array los campos del cliente numero i
+                        Object[] object = new Object[5];
+                        object[0] = i;
+                        //object[2] = HoraMinuto(tiempoLlegada[i]);
+                        object[1] = HoraMinuto1(momentoLlegada);
+                        object[2] = HoraMinuto(tiempoInicio);
+                        //object[3] = HoraMinuto(tiempoEspera);           
+                        object[3] = HoraMinuto(tiempoAtencion[i]);
+                        object[4] = HoraMinuto1(tiempoSalida);
+
+                        modelo.addRow(object);
+                    }//Fin del for
+
+                    limpiar();
                 }
             }
-            tiempoSalida = tiempoInicio + tiempoAtencion[i];
-            tiempoDeSalidaFaseONE[i] = tiempoInicio + tiempoAtencion[i];////Para enviarlo a la fase2
-            
-            //Se guardará en el array los campos del cliente numero i
-            Object[] object = new Object[5];
-            object[0] = i;            
-            //object[2] = HoraMinuto(tiempoLlegada[i]);
-            object[1] = HoraMinuto1(momentoLlegada);
-            object[2] = HoraMinuto(tiempoInicio);
-            //object[3] = HoraMinuto(tiempoEspera);           
-            object[3] = HoraMinuto(tiempoAtencion[i]);
-            object[4] = HoraMinuto1(tiempoSalida);
+        }//fin del else principal
 
-            modelo.addRow(object);
-        }//Fin del for
-        
-       limpiar();
-       
-        }
+
     }//GEN-LAST:event_btnGenerarActionPerformed
 
-      public String HoraMinuto(double minutos) {
+    public String HoraMinuto(double minutos) {
         String formato = "%02d:%02d";
-        long horasReales = TimeUnit.MINUTES.toHours((int)minutos);
-        long minutosReales = TimeUnit.MINUTES.toMinutes((int)minutos) - TimeUnit.HOURS.toMinutes(TimeUnit.MINUTES.toHours((int)minutos));
+        long horasReales = TimeUnit.MINUTES.toHours((int) minutos);
+        long minutosReales = TimeUnit.MINUTES.toMinutes((int) minutos) - TimeUnit.HOURS.toMinutes(TimeUnit.MINUTES.toHours((int) minutos));
 
-        return String.format(formato, horasReales, minutosReales);
-     }
-     
-      public String HoraMinuto1(double minutos) {
-        String formato = "%02d:%02d";
-
-        long horasReales = TimeUnit.MINUTES.toHours((int)minutos);
-        horasReales= horasReales+8;
-        long minutosReales = TimeUnit.MINUTES.toMinutes((int)minutos) - TimeUnit.HOURS.toMinutes(TimeUnit.MINUTES.toHours((int)minutos));
         return String.format(formato, horasReales, minutosReales);
     }
-        private void limpiar() {
+
+    public String HoraMinuto1(double minutos) {
+        String formato = "%02d:%02d";
+
+        long horasReales = TimeUnit.MINUTES.toHours((int) minutos);
+        horasReales = horasReales + 8;
+        long minutosReales = TimeUnit.MINUTES.toMinutes((int) minutos) - TimeUnit.HOURS.toMinutes(TimeUnit.MINUTES.toHours((int) minutos));
+        return String.format(formato, horasReales, minutosReales);
+    }
+
+    private void limpiar() {
         txtCapacidad.setText("");
         txtNroClientes.setText("");
         txtServidores.setText("");
