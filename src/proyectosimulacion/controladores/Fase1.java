@@ -13,7 +13,7 @@ public class Fase1 extends javax.swing.JFrame {
     //VARIABLES LOCALES
     private double servidores; // numero de servidores
     ////////////////
-    private double capacidad = 100;//  Capacidad de la FASE1
+    private double capacidad;//  Capacidad de la FASE1
     private double clientes;//   numero de clientes
     private double aleatorio1;//
     private double tasaLlegada;//12/hora aprox. Tambien hay un array con un nombre similar
@@ -189,7 +189,7 @@ public class Fase1 extends javax.swing.JFrame {
             aleatorio1 = aleatorio.nextDouble();
             aleatorio2 = aleatorio.nextDouble();
             tiempoLlegada[i] = (-(Math.log(1 - aleatorio1)) * (1 / tasaLlegada) * 60);
-            tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / capacidad) * 60);
+            tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 60);
             if (i == 1) {
                 momentoLlegada = tiempoLlegada[i];
                 tiempoEspera = 0.0000000000;
@@ -213,7 +213,7 @@ public class Fase1 extends javax.swing.JFrame {
             object[0] = i;            
             //object[2] = HoraMinuto(tiempoLlegada[i]);
             object[1] = HoraMinuto1(momentoLlegada);
-            object[2] = HoraMinuto(tiempoInicio);
+            object[2] = HoraMinuto1(tiempoInicio);
             //object[3] = HoraMinuto(tiempoEspera);           
             object[3] = HoraMinuto(tiempoAtencion[i]);
             object[4] = HoraMinuto1(tiempoSalida);
