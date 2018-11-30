@@ -51,7 +51,7 @@ public class PanelFase1 extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         txtServidores = new javax.swing.JTextField();
         txtCapacidad = new javax.swing.JTextField();
-        txtTasaLllegada = new javax.swing.JTextField();
+        txtTasaLlegada = new javax.swing.JTextField();
         txtNroClientes = new javax.swing.JTextField();
         lblTituloFase1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -124,7 +124,7 @@ public class PanelFase1 extends javax.swing.JPanel {
                         .addGap(5, 5, 5)
                         .addComponent(lblTituloFase1))
                     .addComponent(jLabel3)
-                    .addComponent(txtTasaLllegada)
+                    .addComponent(txtTasaLlegada)
                     .addComponent(txtServidores)
                     .addComponent(txtCapacidad, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnGenerar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -136,29 +136,31 @@ public class PanelFase1 extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(210, 210, 210))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblTituloFase1)
                         .addGap(7, 7, 7)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtServidores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addComponent(jLabel3)
+                        .addGap(2, 2, 2)
+                        .addComponent(txtServidores)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTasaLllegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addGap(7, 7, 7)
-                .addComponent(txtNroClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGenerar)
-                .addContainerGap(91, Short.MAX_VALUE))
+                        .addComponent(txtTasaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNroClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnGenerar)
+                        .addGap(23, 23, 23))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -169,71 +171,51 @@ public class PanelFase1 extends javax.swing.JPanel {
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
 
         Random aleatorio = new Random(System.currentTimeMillis());
-
-        boolean validarCampos = txtCapacidad.getText().isEmpty() || txtNroClientes.getText().isEmpty() || txtServidores.getText().isEmpty() || txtTasaLllegada.getText().isEmpty();
-
-        if (validarCampos) {
-            JOptionPane.showMessageDialog(this, "Llene todos los campos", "Alerta", JOptionPane.WARNING_MESSAGE);
-
-        } else {
-            servidores = Integer.parseInt(txtServidores.getText());
-            capacidad = Integer.parseInt(txtCapacidad.getText());
-            tasaLlegada = Integer.parseInt(txtTasaLllegada.getText());
-            clientes = Integer.parseInt(txtNroClientes.getText());
+           
+        if (validarCampos()) {
             
-            if (clientes >= capacidad) {
-                JOptionPane.showMessageDialog(this, "El # de clientes NO debe ser mayor o igual a la Capacidad del Servidor");
-                txtNroClientes.setText("");
-            } else {
-                if (servidores > 4) {
-                    JOptionPane.showMessageDialog(this, "El # maximo de servidores permitidos es 4");
-                    txtServidores.setText("");
-                } else {                    
+            Double[] tiempoLlegada = new Double[Integer.parseInt(txtCapacidad.getText())];
+            Double[] tiempoAtencion = new Double[Integer.parseInt(txtCapacidad.getText())];
+            tiempoDeSalidaFaseONE = new Double[Integer.parseInt(txtCapacidad.getText())];///
 
-                    Double[] tiempoLlegada = new Double[Integer.parseInt(txtCapacidad.getText())];
-                    Double[] tiempoAtencion = new Double[Integer.parseInt(txtCapacidad.getText())];
-                    tiempoDeSalidaFaseONE = new Double[Integer.parseInt(txtCapacidad.getText())];///
-
-                    for (int i = 1; i <= clientes; i++) {
-                        aleatorio1 = aleatorio.nextDouble();
-                        aleatorio2 = aleatorio.nextDouble();
-                        tiempoLlegada[i] = (-(Math.log(1 - aleatorio1)) * (1 / tasaLlegada) * 60);
-                        tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / capacidad) * 60);
-                        if (i == 1) {
-                            momentoLlegada = tiempoLlegada[i];
-                            tiempoEspera = 0.0000000000;
-                            tiempoInicio = tiempoLlegada[i];
-                        } else {
-                            momentoLlegada = momentoLlegada + tiempoLlegada[i];
-                            tiempoInicio = tiempoInicio + tiempoAtencion[i - 1];
-                            if (tiempoInicio < momentoLlegada) {
-                                tiempoInicio = momentoLlegada;
-                            }
-                            tiempoEspera = tiempoInicio - momentoLlegada;
-                            if (tiempoEspera < 0) {
-                                tiempoEspera = 0;
-                            }
-                        }
-                        tiempoSalida = tiempoInicio + tiempoAtencion[i];
-                        tiempoDeSalidaFaseONE[i] = tiempoInicio + tiempoAtencion[i];////Para enviarlo a la fase2
-
-                        //Se guardará en el array los campos del cliente numero i
-                        Object[] object = new Object[5];
-                        object[0] = i;
-                        //object[2] = HoraMinuto(tiempoLlegada[i]);
-                        object[1] = HoraMinuto1(momentoLlegada);
-                        object[2] = HoraMinuto(tiempoInicio);
-                        //object[3] = HoraMinuto(tiempoEspera);           
-                        object[3] = HoraMinuto(tiempoAtencion[i]);
-                        object[4] = HoraMinuto1(tiempoSalida);
-
-                        modelo.addRow(object);
-                    }//Fin del for
-
-                    limpiar();
+            for (int i = 1; i <= clientes; i++) {
+                aleatorio1 = aleatorio.nextDouble();
+                aleatorio2 = aleatorio.nextDouble();
+                tiempoLlegada[i] = (-(Math.log(1 - aleatorio1)) * (1 / tasaLlegada) * 60);
+                tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / capacidad) * 60);
+                if (i == 1) {
+                    momentoLlegada = tiempoLlegada[i];
+                    tiempoEspera = 0.0000000000;
+                    tiempoInicio = tiempoLlegada[i];
+                } else {
+                    momentoLlegada = momentoLlegada + tiempoLlegada[i];
+                    tiempoInicio = tiempoInicio + tiempoAtencion[i - 1];
+                    if (tiempoInicio < momentoLlegada) {
+                        tiempoInicio = momentoLlegada;
+                    }
+                    tiempoEspera = tiempoInicio - momentoLlegada;
+                    if (tiempoEspera < 0) {
+                        tiempoEspera = 0;
+                    }
                 }
-            }
-        }//fin del else principal
+                tiempoSalida = tiempoInicio + tiempoAtencion[i];
+                tiempoDeSalidaFaseONE[i] = tiempoInicio + tiempoAtencion[i];////Para enviarlo a la fase2
+
+                //Se guardará en el array los campos del cliente numero i
+                Object[] object = new Object[5];
+                object[0] = i;
+                //object[2] = HoraMinuto(tiempoLlegada[i]);
+                object[1] = HoraMinuto1(momentoLlegada);
+                object[2] = HoraMinuto(tiempoInicio);
+                //object[3] = HoraMinuto(tiempoEspera);           
+                object[3] = HoraMinuto(tiempoAtencion[i]);
+                object[4] = HoraMinuto1(tiempoSalida);
+
+                modelo.addRow(object);
+            }//Fin del for
+
+            limpiar();
+        }
 
 
     }//GEN-LAST:event_btnGenerarActionPerformed
@@ -259,9 +241,40 @@ public class PanelFase1 extends javax.swing.JPanel {
         txtCapacidad.setText("");
         txtNroClientes.setText("");
         txtServidores.setText("");
-        txtTasaLllegada.setText("");
+        txtTasaLlegada.setText("");
     }
-           
+
+    public boolean validarCampos() {
+        boolean validar = txtCapacidad.getText().isEmpty() || txtNroClientes.getText().isEmpty() || 
+                txtServidores.getText().isEmpty() || txtTasaLlegada.getText().isEmpty();
+        boolean aux = false;
+        
+        if (validar) {
+            JOptionPane.showMessageDialog(this, "Llene todos los campos", "Alerta", JOptionPane.WARNING_MESSAGE);
+
+        } else {
+            servidores = Integer.parseInt(txtServidores.getText());
+            capacidad = Integer.parseInt(txtCapacidad.getText());
+            tasaLlegada = Integer.parseInt(txtTasaLlegada.getText());
+            clientes = Integer.parseInt(txtNroClientes.getText());
+
+            if (clientes >= capacidad) {
+                JOptionPane.showMessageDialog(this, "El # de clientes NO debe ser mayor o igual a la Capacidad del Servidor");
+                txtNroClientes.setText("");
+            } else {
+                if (servidores > 4) {
+                    JOptionPane.showMessageDialog(this, "El # maximo de servidores permitidos es 4");
+                    txtServidores.setText("");
+                } else 
+                {
+                    //Si llegó hasta aquí es porque todos los controles
+                    aux = true;
+                }
+            }
+        }
+
+        return aux;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGenerar;
@@ -276,6 +289,6 @@ public class PanelFase1 extends javax.swing.JPanel {
     private javax.swing.JTextField txtCapacidad;
     private javax.swing.JTextField txtNroClientes;
     private javax.swing.JTextField txtServidores;
-    private javax.swing.JTextField txtTasaLllegada;
+    private javax.swing.JTextField txtTasaLlegada;
     // End of variables declaration//GEN-END:variables
 }
