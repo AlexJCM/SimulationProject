@@ -1,9 +1,14 @@
 package proyectosimulacion.controladores;
 
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import proyectosimulacion.controladores.utilidades.Util;
 
 public class AllTables extends javax.swing.JFrame {
 
@@ -11,21 +16,23 @@ public class AllTables extends javax.swing.JFrame {
     public Double[] tiempoDeSalidaFaseONE;
     public Double[] tiempoDeSalidaFaseTWO;
     public Double[] tiempoDeSalidaFaseTHREE;
-    public Double[] tiempoDeSalidaFaseFOUR;
+    public Object[][] tabla1;
 
     //VARIABLES LOCALES
     private double servidores; // numero de servidores
     ////////////////
     private double capacidad;//  Capacidad de la FASE1
     private double clientes;//   numero de clientes
-    private double aleatorio1;//
+    private double aleatorio1;
     private double tasaLlegada;//12/hora aprox. Tambien hay un array con un nombre similar
     private double momentoLlegada = 0;
     private double tiempoInicio = 0;
     private double tiempoEspera;
     private double aleatorio2;
-    //tiempo atencion es declarado cmo array
-    private double tiempoSalida;//es el tiempo de llegada de la fase1
+    private double tiempoSalida;//es el tiempo de llegada de la fase
+    //OTRAS VARIABLES
+    private int tasaAbandonoF1 = 7;
+    private int tasaRepruebanF3 = 20;    
 
     DefaultTableModel modeloF1;
     DefaultTableModel modeloF2;
@@ -267,69 +274,191 @@ public class AllTables extends javax.swing.JFrame {
 
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
         Random aleatorio = new Random(System.currentTimeMillis());
+        int i2 = 0;
 
         if (validarCampos()) {
 
             Double[] tiempoLlegada = new Double[Integer.parseInt(txtCapacidad.getText())];
             Double[] tiempoAtencion = new Double[Integer.parseInt(txtCapacidad.getText())];
-            tiempoDeSalidaFaseONE = new Double[Integer.parseInt(txtCapacidad.getText())];///
-
-            for (int i = 1; i <= clientes; i++) {
-            aleatorio1 = aleatorio.nextDouble();
-            aleatorio2 = aleatorio.nextDouble();
-            tiempoLlegada[i] = (-(Math.log(1 - aleatorio1)) * (1 / tasaLlegada) * 60);
-            tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 60);///////
-            if (i == 1) {
-                momentoLlegada = tiempoLlegada[i];
-                tiempoEspera = 0.0000000000;
-                tiempoInicio = tiempoLlegada[i];
-            } else {
-                momentoLlegada = momentoLlegada + tiempoLlegada[i];
-                tiempoInicio = tiempoInicio + tiempoAtencion[i - 1];
-                if (tiempoInicio < momentoLlegada) {
-                    tiempoInicio = momentoLlegada;
-                }
-                tiempoEspera = tiempoInicio - momentoLlegada;
-                if (tiempoEspera < 0) {
-                    tiempoEspera = 0;
-                }
-            }
-            tiempoSalida = tiempoInicio + tiempoAtencion[i];
-            tiempoDeSalidaFaseONE[i] = tiempoInicio + tiempoAtencion[i];////Para enviarlo a la fase2
+            tiempoDeSalidaFaseONE = new Double[Integer.parseInt(txtCapacidad.getText())];
+            tiempoDeSalidaFaseTWO = new Double[Integer.parseInt(txtCapacidad.getText())];
+            tiempoDeSalidaFaseTHREE = new Double[Integer.parseInt(txtCapacidad.getText())];
+            tabla1 = new Object[Integer.parseInt(txtNroClientes.getText())][5];
             
-            //Se guardará en el array los campos del cliente numero i
-            Object[] object = new Object[5];
-            object[0] = i;            
-            //object[2] = HoraMinuto(tiempoLlegada[i]);
-            object[1] = HoraMinuto1(momentoLlegada);
-            object[2] = HoraMinuto1(tiempoInicio);
-            //object[3] = HoraMinuto(tiempoEspera);           
-            object[3] = HoraMinuto(tiempoAtencion[i]);
-            object[4] = HoraMinuto1(tiempoSalida);
 
-            modeloF1.addRow(object);
-        }//Fin del for
+// <editor-fold defaultstate="collapsed" desc="for  FASE 1">
+            for (int i = 1; i <= clientes; i++) {
+                /////////////////////////////////////////////////////////////
+                aleatorio1 = aleatorio.nextDouble();
+                aleatorio2 = aleatorio.nextDouble();
+                tiempoLlegada[i] = (-(Math.log(1 - aleatorio1)) * (1 / tasaLlegada) * 60);
+                tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 60);///////
+                if (i == 1) {
+                    momentoLlegada = tiempoLlegada[i];
+                    tiempoEspera = 0.0000000000;
+                    tiempoInicio = tiempoLlegada[i];
+                } else {
+                    momentoLlegada = momentoLlegada + tiempoLlegada[i];
+                    tiempoInicio = tiempoInicio + tiempoAtencion[i - 1];
+                    if (tiempoInicio < momentoLlegada) {
+                        tiempoInicio = momentoLlegada;
+                    }
+                    tiempoEspera = tiempoInicio - momentoLlegada;
+                    if (tiempoEspera < 0) {
+                        tiempoEspera = 0;
+                    }
+                }
+                tiempoSalida = tiempoInicio + tiempoAtencion[i];
+                tiempoDeSalidaFaseONE[i] = tiempoSalida;//para enviarlo a la fase 2                
+                  
+                //Se guardará en el array los campos del cliente numero i
+                Object[] objF1 = new Object[5];// era 5                
+                objF1[0] = i;
+                //object[2] = HoraMinuto(tiempoLlegada[i]);
+                objF1[1] = Util.HoraMinuto1(momentoLlegada);
+                objF1[2] = Util.HoraMinuto1(tiempoInicio);
+                //object[3] = HoraMinuto(tiempoEspera);           
+                objF1[3] = Util.HoraMinuto(tiempoAtencion[i]);
+                objF1[4] = Util.HoraMinuto1(tiempoSalida);                                  
+                 ///////////////////////////////////////////////////////////////////////////
+                //guarda cada fila de la tabla en array bidimensional tabla1
+                tabla1[i2][0] = objF1[0];                
+                tabla1[i2][1] = objF1[1];                
+                tabla1[i2][2] = objF1[2];               
+                tabla1[i2][3] = objF1[3];
+                tabla1[i2][4] = objF1[4];
+                i2++;
 
-            limpiar();
-        }
+                modeloF1.addRow(objF1);                      
+                
+
+            }//Fin del forF1
+            
+            //imprime el array bidimensional
+            int aux = (int) clientes;
+            System.out.println("tamanio tabla1.length: "+ tabla1.length);//filas
+            System.out.println("tamanio tabla1[0].length: "+tabla1[0].length); //columnas          
+           /* for (int u = 0; u < aux; u++) {
+                for (int v = 0; v < 5; v++) {
+                    System.out.print(tabla1[u][v] + " - ");
+                }
+                System.out.println();
+            }*/
+          // Object[][]abandona=Util.abandonan(tabla1);
+
+// </editor-fold>        
+// <editor-fold defaultstate="collapsed" desc="for  FASE 2">  
+            for (int i = 1; i <= clientes; i++) {
+                aleatorio2 = aleatorio.nextDouble();
+                tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 60);///////
+                if (i == 1) {
+                    momentoLlegada = tiempoDeSalidaFaseONE[i];//viene de la fase 1                   
+                    tiempoEspera = 0.0000000000;
+                    tiempoInicio = tiempoDeSalidaFaseONE[i];//viene de la fase 1                   
+                } else {
+                    momentoLlegada = tiempoDeSalidaFaseONE[i];//viene de la fase 1                   
+                    tiempoInicio = tiempoInicio + tiempoAtencion[i - 1];
+                    if (tiempoInicio < momentoLlegada) {
+                        tiempoInicio = momentoLlegada;
+                    }
+                    tiempoEspera = tiempoInicio - momentoLlegada;
+                    if (tiempoEspera < 0) {
+                        tiempoEspera = 0;
+                    }
+                }
+                tiempoSalida = tiempoInicio + tiempoAtencion[i];
+                tiempoDeSalidaFaseTWO[i] = tiempoSalida;//para enviarlo a la fase 3
+
+                //Se guardará en el array los campos del cliente numero i
+                Object[] objectF2 = new Object[5];
+                objectF2[0] = i;
+                //object[2] = HoraMinuto(tiempoLlegada[i]);
+                objectF2[1] = Util.HoraMinuto1(momentoLlegada);
+                objectF2[2] = Util.HoraMinuto1(tiempoInicio);
+                //object[3] = HoraMinuto(tiempoEspera);           
+                objectF2[3] = Util.HoraMinuto(tiempoAtencion[i]);
+                objectF2[4] = Util.HoraMinuto1(tiempoSalida);
+
+                modeloF2.addRow(objectF2);
+
+            }//Fin del forF2    
+// </editor-fold>  
+
+// <editor-fold defaultstate="collapsed" desc="for  FASE 3">  
+            for (int i = 1; i <= clientes; i++) {
+                aleatorio2 = aleatorio.nextDouble();
+                tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 60);///////
+                if (i == 1) {
+                    momentoLlegada = tiempoDeSalidaFaseTWO[i];//viene de la fase 2                   
+                    tiempoEspera = 0.0000000000;
+                    tiempoInicio = tiempoDeSalidaFaseTWO[i];//viene de la fase 2                   
+                } else {
+                    momentoLlegada = tiempoDeSalidaFaseTWO[i];//viene de la fase 2                  
+                    tiempoInicio = tiempoInicio + tiempoAtencion[i - 1];
+                    if (tiempoInicio < momentoLlegada) {
+                        tiempoInicio = momentoLlegada;
+                    }
+                    tiempoEspera = tiempoInicio - momentoLlegada;
+                    if (tiempoEspera < 0) {
+                        tiempoEspera = 0;
+                    }
+                }
+                tiempoSalida = tiempoInicio + tiempoAtencion[i];
+                tiempoDeSalidaFaseTHREE[i] = tiempoSalida;//para enviarlo a la fase 4
+
+                //Se guardará en el array los campos del cliente numero i
+                Object[] objectF3 = new Object[5];
+                objectF3[0] = i;
+                //object[2] = HoraMinuto(tiempoLlegada[i]);
+                objectF3[1] = Util.HoraMinuto1(momentoLlegada);
+                objectF3[2] = Util.HoraMinuto1(tiempoInicio);
+                //object[3] = HoraMinuto(tiempoEspera);           
+                objectF3[3] = Util.HoraMinuto(tiempoAtencion[i]);
+                objectF3[4] = Util.HoraMinuto1(tiempoSalida);
+
+                modeloF3.addRow(objectF3);
+
+            }//Fin del forF3 
+// </editor-fold>  
+
+// <editor-fold defaultstate="collapsed" desc="for  FASE 4">  
+            for (int i = 1; i <= clientes; i++) {
+                aleatorio2 = aleatorio.nextDouble();
+                tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 60);///////
+                if (i == 1) {
+                    momentoLlegada = tiempoDeSalidaFaseTHREE[i];//viene de la fase 3                   
+                    tiempoEspera = 0.0000000000;
+                    tiempoInicio = tiempoDeSalidaFaseTHREE[i];//viene de la fase 3                  
+                } else {
+                    momentoLlegada = tiempoDeSalidaFaseTHREE[i];//viene de la fase 3                 
+                    tiempoInicio = tiempoInicio + tiempoAtencion[i - 1];
+                    if (tiempoInicio < momentoLlegada) {
+                        tiempoInicio = momentoLlegada;
+                    }
+                    tiempoEspera = tiempoInicio - momentoLlegada;
+                    if (tiempoEspera < 0) {
+                        tiempoEspera = 0;
+                    }
+                }
+                tiempoSalida = tiempoInicio + tiempoAtencion[i];
+
+                //Se guardará en el array los campos del cliente numero i
+                Object[] objectF4 = new Object[5];
+                objectF4[0] = i;
+                //object[2] = HoraMinuto(tiempoLlegada[i]);
+                objectF4[1] = Util.HoraMinuto1(momentoLlegada);
+                objectF4[2] = Util.HoraMinuto1(tiempoInicio);
+                //object[3] = HoraMinuto(tiempoEspera);           
+                objectF4[3] = Util.HoraMinuto(tiempoAtencion[i]);
+                objectF4[4] = Util.HoraMinuto1(tiempoSalida);
+
+                modeloF4.addRow(objectF4);
+
+            }//Fin del forF4
+// </editor-fold>  
+
+        }//Fin del if
     }//GEN-LAST:event_btnGenerarActionPerformed
-
-    public String HoraMinuto(double minutos) {
-        String formato = "%02d:%02d";
-        long horasReales = TimeUnit.MINUTES.toHours((int) minutos);
-        long minutosReales = TimeUnit.MINUTES.toMinutes((int) minutos) - TimeUnit.HOURS.toMinutes(TimeUnit.MINUTES.toHours((int) minutos));
-
-        return String.format(formato, horasReales, minutosReales);
-    }
-
-    public String HoraMinuto1(double minutos) {
-        String formato = "%02d:%02d";
-
-        long horasReales = TimeUnit.MINUTES.toHours((int) minutos);
-        horasReales = horasReales + 8;
-        long minutosReales = TimeUnit.MINUTES.toMinutes((int) minutos) - TimeUnit.HOURS.toMinutes(TimeUnit.MINUTES.toHours((int) minutos));
-        return String.format(formato, horasReales, minutosReales);
-    }
 
     private void limpiar() {
         txtCapacidad.setText("");
@@ -474,4 +603,5 @@ public class AllTables extends javax.swing.JFrame {
         modeloF4.addColumn("T. de Atencion");//Calculado en base al aleatiorio2
         modeloF4.addColumn("T. de Salida");//T. de I. de servicio + T. de A. del mismo cliente
     }
+
 }
