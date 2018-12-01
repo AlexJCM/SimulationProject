@@ -106,8 +106,8 @@ public class Util {
             for (int i = escogid; i < arrayToReturn.length; i++) {
                 arrayToReturn[i++] = array[i];
             }*/
-            //cambiado momentaneamente por el siguiente for para evitar desboredamientos ...CORREGUIR
-             int fox=escogid;
+            //cambiado momentaneamente por el siguiente for para evitar desbordamientos ...CORREGUIR
+            int fox=escogid;
             for (int i = escogid; i < arrayToReturn.length; i++) {
                 arrayToReturn[fox++] = array[fox];
             }
