@@ -1,19 +1,9 @@
 package proyectosimulacion.controladores.utilidades;
 
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-import javax.swing.JOptionPane;
 
 public class Util {
-
-    //Metodo para generar numeros pseudoAleatorios
-    private static int generarAleatorio() {
-        Random aleatorio = new Random();
-        int numero = aleatorio.nextInt(1);
-        return numero;
-
-    }
 
     public static String HoraMinuto(double minutos) {
         String formato = "%02d:%02d";
