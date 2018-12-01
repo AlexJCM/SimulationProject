@@ -31,125 +31,118 @@ public class Util {
         long minutosReales = TimeUnit.MINUTES.toMinutes((int) minutos) - TimeUnit.HOURS.toMinutes(TimeUnit.MINUTES.toHours((int) minutos));
         return String.format(formato, horasReales, minutosReales);
     }
+     
+    /**
+     *  Recibe una lista de clientes de la fase 3 y retorna dicha lista con algunos clientes menos
+     * @param listaClientes
+     * @return array2d
+     */
+    public static Object[][] reprueban(Object[][] listaClientesF3) {
+        int numClientes = listaClientesF3.length;
+        int tasaReprueban = 20;// 20% reprueban examen en fase3      
+        int numClientesAEliminar = 0;
+        int seleccionClientes[];
 
-    //recibe una lista de clientes de la fase 1 y retorna dicha lista con algunos clientes menos
-    public static Object[][] abandonan(Object[][] listaClientes) {
-        int numClientes = listaClientes.length;
-        int tasaAbandono = 7;// 7% de abandono en la fase 1
+        numClientesAEliminar = cantidadClientesABorrar(numClientes, tasaReprueban);
+        System.out.println("Nro. clientes a eliminar en fase3: " + numClientesAEliminar);
+
+        seleccionClientes = seleccionarClientes(numClientesAEliminar, listaClientesF3);//recibe un array con los clientes a borrar
+      
+        Object[][] nuevaMatrizF3 = new Object[listaClientesF3.length][listaClientesF3[0].length];
+       
+        nuevaMatrizF3 = removeRowFrom2dArray(seleccionClientes, listaClientesF3);///  envia el array con los clientes sleccionados
+                
+
+        return nuevaMatrizF3;
+    }    
+    
+   /**
+    *  Recibe una lista de clientes de la fase 1 y retorna dicha lista con algunos clientes menos
+    * @param listaClientes
+    * @return array2d
+    */
+    public static Object[][] abandonan(Object[][] listaClientesF1) {
+        int numClientes = listaClientesF1.length;
+        int tasaAbandono = 7;// 7% de abandono en la fase 1        
         int numClientesAEliminar = 0;
         int seleccionClientes[];
 
         numClientesAEliminar = cantidadClientesABorrar(numClientes, tasaAbandono);
-        System.out.println("Nro. clientes a eliminar: " + numClientesAEliminar);
+        System.out.println("Nro. clientes a eliminar: " + numClientesAEliminar);        
 
-        seleccionClientes = seleccionarClientes(numClientesAEliminar, listaClientes);//recibe un array con los clientes a borrar
-
-        //int numeroSeleccionado = seleccionarNumero(listaClientes.length);
-
-        Object[][] nuevaMatriz = new Object[listaClientes.length][listaClientes[0].length];
+        seleccionClientes = seleccionarClientes(numClientesAEliminar, listaClientesF1);//recibe un array con EL INDICE de clientes a borrar
+        int numFilas= numClientes - numClientesAEliminar;
+        System.out.println("numFilass: "+numFilas);
         
-        //nuevaMatriz = removeRowFrom2dArray((numeroSeleccionado - 1), listaClientes);///    
-        nuevaMatriz = removeRowFrom2dArray(seleccionClientes, listaClientes);///  envia el array con los clientes sleccionados
+        Object[][] nuevaMatrizF1 = new Object[listaClientesF1.length][listaClientesF1[0].length];        
+       
+        nuevaMatrizF1 = removeRowFrom2dArray(seleccionClientes, listaClientesF1);///  envia el array con los clientes sleccionados
+                
+
+        return nuevaMatrizF1;
+    }
+    
+    /**
+     * Recibe clientes selecionados y la listaClientes a recortar
+     * @param escogidos
+     * @param array
+     * @return 
+     */
+    public static Object[][] removeRowFrom2dArray(int []seleccionados, Object[][] array) {       
+        int tamanioArr = array.length;    
+        int cantidadSeleccionados= seleccionados.length;
+        int numFilas = tamanioArr - cantidadSeleccionados;
+        System.out.println("numFilas: "+numFilas);
         
-        //mostrarMatriz(nuevaMatriz);
-
-        return nuevaMatriz;
-    }
-
-    //selecciona un numero al azar entre un rango delimitado por el tamaño de un arreglo
-    private static int seleccionarNumero(int tamanio) {
-        int numero = (int) (Math.random() * tamanio) + 1;
-        System.out.println("numero selecionado aleat: " + numero);
-        return numero;
-    }
-
-    public static Object[][] removeRowFrom2dArray(int []escogidos, Object[][] array) {
-        //recibe clientes selecionados y listaClientes a recortar
-        int rows = array.length;
-       /* Object[][] arrayToReturn = new Object[rows - 1][];
-        for (int i = 0; i < row; i++) {
-            arrayToReturn[i] = array[i];
-        }
-        for (int i = row; i < arrayToReturn.length; i++) {
-            arrayToReturn[i++] = array[i];
-        }*/
-       //FORMA 2
-
-        Object[][] arrayToReturn = new Object[rows - escogidos.length][];
-        for (int f = 0; f < escogidos.length; f++) {
+        Object[][] arrayToReturn = new Object[tamanioArr - cantidadSeleccionados][];
+        
+        for (int f = 0; f < cantidadSeleccionados; f++) {            
+            int escogid = seleccionados[f];           
             
-            int escogid = escogidos[f];
-            System.out.print("escogid: "+escogid+ " - ");
             for (int i = 0; i < escogid; i++) {
-                arrayToReturn[i] = array[i];
+                arrayToReturn[i] = array[i];//clona el array hasta una pos. antes del cliente escogido para excluirlo 
             }
+            /*
             for (int i = escogid; i < arrayToReturn.length; i++) {
                 arrayToReturn[i++] = array[i];
+            }*/
+            //cambiado momentaneamente por el siguiente for para evitar desboredamientos ...CORREGUIR
+             int fox=escogid;
+            for (int i = escogid; i < arrayToReturn.length; i++) {
+                arrayToReturn[fox++] = array[fox];
             }
+            
         }
-        System.out.println("");
 
         return arrayToReturn;
     }
 
-    public static void mostrarMatriz(Object[][] info) {
-        System.out.println("nueva matriz es de tamanio: " + info.length);
-        /*for (int u = 0; u < info.length; u++) {
-                for (int v = 0; v < 5; v++) {
-                    System.out.print(info[u][v] + " - ");
-                }
-                System.out.println();
-        }*/
-    }
-
-    private static int cantidadClientesABorrar(int numClientes, int tasaAbandono) {
+   /**
+    * Calcula numero de clientes que abandona o reprueban segun la cantiad de clientes que reciba
+    * @param numClientes
+    * @param tasaAbandono
+    * @return entero
+    */
+    public static int cantidadClientesABorrar(int numClientes, int tasa) {
         double clientesAEliminar;
-
-        clientesAEliminar = (numClientes * tasaAbandono) / 100;
+        clientesAEliminar = (numClientes * tasa) / 100;
         
         if (clientesAEliminar <= 1) {
             clientesAEliminar = 1;
         }
-        int convertido= (int) clientesAEliminar;
-        System.out.print("Convertido a entero: "+convertido+" --> ");
+        int convertido= (int) clientesAEliminar;       
         
         return convertido;
     }
-
+    
+    /**
+     * Selecciona aleatoriamente n clientes a borrar, recibe la cantidad a borrar y el 
+     * arreglo del que se van a borrar(especificamente su tamaño)    
+     * @param numClientesAEliminar
+     * @param listaClientes
+     * @return retorna en arreglo con los n clientes a borrarse
+     */
     public static int[] seleccionarClientes(int numClientesAEliminar, Object[][] listaClientes) {
-        //metodo que selecciona aleatoriamente n clientes a borrar, recibe la cantidad a borrar y el 
-        //arreglo del que se van a borrar(especificamente su tamaño)
-        //retorna en arreglo con los n clientes a borrarse
-                
-        ///////////FORMA 2
-       /* int nCli = numClientesAEliminar;
-        int k= nCli;
-        int[] numeros = new int[nCli];
-        int[] resultado = new int[nCli];
-        Random rnd = new Random();
-        int res;
-        //se rellena una matriz ordenada del 1 al nCli
-        for (int i = 0; i < nCli; i++) {
-            numeros[i] = i + 1;
-        }
-        //se escoge n de ellos al azar
-        for (int i = 0; i < k; i++) {
-            res = rnd.nextInt(listaClientes.length);
-            System.out.println("Random: "+res);
-            if (res <= 0) {
-                res = 1;
-            }
-            resultado[i] = numeros[res];
-            numeros[res] = numeros[k-1];
-            k--; 
-        }        
-        
-        System.out.println("El resultado de la matriz seleccion es:");
-        for (int i = 0; i < nCli; i++) {
-            System.out.print(resultado[i] + " - ");
-        }*/
-        
-        //FORMA 3
         //genera x aleatorios sin repetir entre el 0 y  n
         Random rm = new Random();
         int x = numClientesAEliminar;//cantidad de aleatorios a generar. 7
@@ -158,14 +151,13 @@ public class Util {
         int numeros[] = new int[n];
         int resutaldo[] = new int[x];
         int _t[] = new int[x];
-//rellenamos un vector con numeros ordenados del 0..n para escoger entre ellos
+        //rellenamos un vector con numeros ordenados del 0..n para escoger entre ellos
         for (int i = 0; i < numeros.length; i++) {
             numeros[i] = i;
         }
-        System.out.print("Random: ");
+        
         for (int i = 0; i < x; i++) {
-            t = rm.nextInt(n); //tira valor aleatorio desde 0 ...n (se le puso -1 para que no escoga el ultimo)
-            System.out.print( t +", ");
+            t = rm.nextInt(n); //tira valor aleatorio desde 0 ...n (se le puso -1 para que no escoga el ultimo)           
             resutaldo[i] = numeros[t];
             
             if (resutaldo[i] > (n-x) ) resutaldo[i] = (n-x); //para eitar el desbordamiento
@@ -176,7 +168,7 @@ public class Util {
                 numeros[j] = numeros[j + 1]; //corrimiento del vector
             }
             n--;
-        }System.out.println("");
+        }       
         
         for (int i = 0; i < resutaldo.length; i++) {
             System.out.println(resutaldo[i] + " y t = " + _t[i]);
