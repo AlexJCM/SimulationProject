@@ -329,22 +329,27 @@ public class AllTables extends javax.swing.JFrame {
                 tabla1[i2][4] = objF1[4];
                 i2++;
 
-                modeloF1.addRow(objF1);                      
+                modeloF1.addRow(objF1);                    
                 
-
             }//Fin del forF1
-            
-            //imprime el array bidimensional
-            int aux = (int) clientes;
-            System.out.println("tamanio tabla1.length: "+ tabla1.length);//filas
-            System.out.println("tamanio tabla1[0].length: "+tabla1[0].length); //columnas          
-           /* for (int u = 0; u < aux; u++) {
-                for (int v = 0; v < 5; v++) {
+     
+            // System.out.println("tamanio tabla1.length: "+ tabla1.length);//filas
+            //System.out.println("tamanio tabla1[0].length: "+tabla1[0].length); //columnas          
+          /* for (int u = 0; u < tabla1.length; u++) {
+                for (int v = 0; v < tabla1[0].length; v++) {
                     System.out.print(tabla1[u][v] + " - ");
                 }
                 System.out.println();
             }*/
-          // Object[][]abandona=Util.abandonan(tabla1);
+            Object[][] tablaRecortada = Util.abandonan(tabla1);            
+            System.out.println("NUEVA TABLA es de tamnio: "+tablaRecortada.length);
+            for (int f = 0; f < tablaRecortada.length; f++) {
+                for (int c = 0; c < tablaRecortada[0].length; c++) {
+                    System.out.print(tablaRecortada[f][c] + " - ");
+                }
+                System.out.println();
+            }
+
 
 // </editor-fold>        
 // <editor-fold defaultstate="collapsed" desc="for  FASE 2">  
