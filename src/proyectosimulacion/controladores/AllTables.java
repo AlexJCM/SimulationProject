@@ -274,7 +274,7 @@ public class AllTables extends javax.swing.JFrame {
 
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
         Random aleatorio = new Random(System.currentTimeMillis());
-        int i2 = 0;
+        int i2 = 0;//auxiliar para ayufdar a guardar en el array bidimensional
 
         if (validarCampos()) {
 
@@ -326,7 +326,7 @@ public class AllTables extends javax.swing.JFrame {
                 tabla1[i2][1] = objF1[1];                
                 tabla1[i2][2] = objF1[2];               
                 tabla1[i2][3] = objF1[3];
-                tabla1[i2][4] = objF1[4];
+                tabla1[i2][4] = tiempoSalida;
                 i2++;
 
                 modeloF1.addRow(objF1);                    
@@ -335,34 +335,41 @@ public class AllTables extends javax.swing.JFrame {
      
             // System.out.println("tamanio tabla1.length: "+ tabla1.length);//filas
             //System.out.println("tamanio tabla1[0].length: "+tabla1[0].length); //columnas          
-          /* for (int u = 0; u < tabla1.length; u++) {
+          /*for (int u = 0; u < tabla1.length; u++) {
                 for (int v = 0; v < tabla1[0].length; v++) {
                     System.out.print(tabla1[u][v] + " - ");
                 }
                 System.out.println();
             }*/
+            System.out.print("******* tabla1 es de tamanio: "+tabla1.length+" ______ ");
             Object[][] tablaRecortada = Util.abandonan(tabla1);            
-            System.out.println("NUEVA TABLA es de tamnio: "+tablaRecortada.length);
-            for (int f = 0; f < tablaRecortada.length; f++) {
+           System.out.println("tablaRecortada es de tamanio: "+tablaRecortada.length);System.out.println("");
+          /*  for (int f = 0; f < tablaRecortada.length; f++) {
                 for (int c = 0; c < tablaRecortada[0].length; c++) {
                     System.out.print(tablaRecortada[f][c] + " - ");
                 }
                 System.out.println();
-            }
+            }*/
+             //en lugar de tiempoDesalidaFaseONE iria tablaRecortada[i-1][4]
+             System.out.println("");
+// </editor-fold>   
 
-
-// </editor-fold>        
 // <editor-fold defaultstate="collapsed" desc="for  FASE 2">  
-            for (int i = 1; i <= clientes; i++) {
+            Double[] tiempoAtencionF2 = new Double[Integer.parseInt(txtCapacidad.getText())];
+            int filaF2 = 0;
+            for (int i = 1; i <= tablaRecortada.length; i++) {
+                tiempoSalida = (double) tablaRecortada[filaF2][4];
+                filaF2++;               
                 aleatorio2 = aleatorio.nextDouble();
-                tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 60);///////
+                tiempoAtencionF2[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 60);
                 if (i == 1) {
-                    momentoLlegada = tiempoDeSalidaFaseONE[i];//viene de la fase 1                   
-                    tiempoEspera = 0.0000000000;
-                    tiempoInicio = tiempoDeSalidaFaseONE[i];//viene de la fase 1                   
-                } else {
-                    momentoLlegada = tiempoDeSalidaFaseONE[i];//viene de la fase 1                   
-                    tiempoInicio = tiempoInicio + tiempoAtencion[i - 1];
+                    momentoLlegada = tiempoSalida;//viene de la fase 1   
+                    tiempoEspera = 0.0000000000;                       
+                    tiempoInicio = tiempoSalida;//viene de la fase 1    
+                } else {                           
+                    momentoLlegada = tiempoSalida;//viene de la fase 1
+                    tiempoInicio = tiempoInicio + tiempoAtencionF2[i - 1];
+
                     if (tiempoInicio < momentoLlegada) {
                         tiempoInicio = momentoLlegada;
                     }
@@ -371,7 +378,7 @@ public class AllTables extends javax.swing.JFrame {
                         tiempoEspera = 0;
                     }
                 }
-                tiempoSalida = tiempoInicio + tiempoAtencion[i];
+                tiempoSalida = tiempoInicio + tiempoAtencionF2[i];
                 tiempoDeSalidaFaseTWO[i] = tiempoSalida;//para enviarlo a la fase 3
 
                 //Se guardará en el array los campos del cliente numero i
@@ -381,7 +388,7 @@ public class AllTables extends javax.swing.JFrame {
                 objectF2[1] = Util.HoraMinuto1(momentoLlegada);
                 objectF2[2] = Util.HoraMinuto1(tiempoInicio);
                 //object[3] = HoraMinuto(tiempoEspera);           
-                objectF2[3] = Util.HoraMinuto(tiempoAtencion[i]);
+                objectF2[3] = Util.HoraMinuto(tiempoAtencionF2[i]);
                 objectF2[4] = Util.HoraMinuto1(tiempoSalida);
 
                 modeloF2.addRow(objectF2);
@@ -389,16 +396,17 @@ public class AllTables extends javax.swing.JFrame {
             }//Fin del forF2    
 // </editor-fold>  
 
+
 // <editor-fold defaultstate="collapsed" desc="for  FASE 3">  
-            for (int i = 1; i <= clientes; i++) {
+            for (int i = 1; i <= tablaRecortada.length; i++) {
                 aleatorio2 = aleatorio.nextDouble();
-                tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 60);///////
+                tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 60);
                 if (i == 1) {
                     momentoLlegada = tiempoDeSalidaFaseTWO[i];//viene de la fase 2                   
                     tiempoEspera = 0.0000000000;
                     tiempoInicio = tiempoDeSalidaFaseTWO[i];//viene de la fase 2                   
                 } else {
-                    momentoLlegada = tiempoDeSalidaFaseTWO[i];//viene de la fase 2                  
+                    momentoLlegada = tiempoDeSalidaFaseTWO[i];//viene de la fase 2                 
                     tiempoInicio = tiempoInicio + tiempoAtencion[i - 1];
                     if (tiempoInicio < momentoLlegada) {
                         tiempoInicio = momentoLlegada;
@@ -427,7 +435,7 @@ public class AllTables extends javax.swing.JFrame {
 // </editor-fold>  
 
 // <editor-fold defaultstate="collapsed" desc="for  FASE 4">  
-            for (int i = 1; i <= clientes; i++) {
+            for (int i = 1; i <= tablaRecortada.length; i++) {
                 aleatorio2 = aleatorio.nextDouble();
                 tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 60);///////
                 if (i == 1) {
@@ -462,7 +470,7 @@ public class AllTables extends javax.swing.JFrame {
             }//Fin del forF4
 // </editor-fold>  
 
-        }//Fin del if
+       }//Fin del if
     }//GEN-LAST:event_btnGenerarActionPerformed
 
     private void limpiar() {
