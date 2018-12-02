@@ -13,7 +13,7 @@ public class Util {
 
         return String.format(formato, horasReales, minutosReales);
     }
-
+        
     public static String HoraMinuto1(double minutos) {
         String formato = "%02d:%02d";
 
@@ -22,6 +22,42 @@ public class Util {
         long minutosReales = TimeUnit.MINUTES.toMinutes((int) minutos) - TimeUnit.HOURS.toMinutes(TimeUnit.MINUTES.toHours((int) minutos));
         
         return String.format(formato, horasReales, minutosReales);
+    }
+    
+    public static String horaMinutoSegundo1(double minutos) {
+        String formato = "%02d:%02d:%02d";
+        
+        long hours = TimeUnit.SECONDS.toHours((int)minutos) ;
+        hours = hours + 8;        
+        long tempSec = (long) (minutos - (TimeUnit.HOURS.toSeconds(hours-8)));
+        long minute = TimeUnit.SECONDS.toMinutes(tempSec);
+        if (tempSec > TimeUnit.MINUTES.toSeconds(minute)) {
+            tempSec = tempSec - (TimeUnit.MINUTES.toSeconds(minute));
+        } else {
+            tempSec = TimeUnit.MINUTES.toSeconds(minute) - tempSec;
+        }
+        
+        long second = TimeUnit.SECONDS.toSeconds(tempSec) ; 
+        
+        return String.format(formato, hours, minute, second);
+        
+    }
+    public static String horaMinutoSegundo(double minutos) {
+        String formato = "%02d:%02d:%02d";
+                     
+        long hours = TimeUnit.SECONDS.toHours((int)minutos) ;
+            
+        long tempSec = (long) (minutos - (TimeUnit.HOURS.toSeconds(hours)));
+        long minute = TimeUnit.SECONDS.toMinutes(tempSec);
+        if (tempSec > TimeUnit.MINUTES.toSeconds(minute)) {
+            tempSec = tempSec - (TimeUnit.MINUTES.toSeconds(minute));
+        } else {
+            tempSec = TimeUnit.MINUTES.toSeconds(minute) - tempSec;
+        }
+        
+        long second = TimeUnit.SECONDS.toSeconds(tempSec) ; 
+        
+        return String.format(formato, hours, minute, second);
     }
      
     /**
