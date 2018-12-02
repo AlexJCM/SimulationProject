@@ -7,6 +7,7 @@ public class Util {
 
     public static String HoraMinuto(double minutos) {
         String formato = "%02d:%02d";
+        
         long horasReales = TimeUnit.MINUTES.toHours((int) minutos);
         long minutosReales = TimeUnit.MINUTES.toMinutes((int) minutos) - TimeUnit.HOURS.toMinutes(TimeUnit.MINUTES.toHours((int) minutos));
 
@@ -19,6 +20,7 @@ public class Util {
         long horasReales = TimeUnit.MINUTES.toHours((int) minutos);
         horasReales = horasReales + 8;
         long minutosReales = TimeUnit.MINUTES.toMinutes((int) minutos) - TimeUnit.HOURS.toMinutes(TimeUnit.MINUTES.toHours((int) minutos));
+        
         return String.format(formato, horasReales, minutosReales);
     }
      
