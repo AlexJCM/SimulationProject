@@ -185,7 +185,7 @@ public class AllTables extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(tblFase2);
 
-        btnExportarExcel.setText("EXPORTAR XLS");
+        btnExportarExcel.setText("EXPORTAR EXCEL");
         btnExportarExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExportarExcelActionPerformed(evt);
@@ -221,30 +221,30 @@ public class AllTables extends javax.swing.JFrame {
             panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInferiorLayout.createSequentialGroup()
                 .addGap(90, 90, 90)
-                .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInferiorLayout.createSequentialGroup()
-                        .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(0, 44, Short.MAX_VALUE))
-                    .addComponent(lblNumClientesF1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblNumClientesF3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblNumClientesF2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblNumClientesF4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNumClientesF1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNumClientesF3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNumClientesF2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNumClientesF4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelInferiorLayout.createSequentialGroup()
+                        .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addGap(0, 44, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelInferiorLayout.createSequentialGroup()
-                        .addComponent(Animacion)
-                        .addGap(387, 387, 387)
-                        .addComponent(btnExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
                             .addComponent(jScrollPane3)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(panelInferiorLayout.createSequentialGroup()
+                        .addComponent(Animacion, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(323, 323, 323)
+                        .addComponent(btnExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(16, 16, 16))
         );
         panelInferiorLayout.setVerticalGroup(
@@ -327,8 +327,8 @@ public class AllTables extends javax.swing.JFrame {
                 aleatorio1 = aleatorio.nextDouble();
                 aleatorio2 = aleatorio.nextDouble();
 
-                tiempoLlegada[i] = (-(Math.log(1 - aleatorio1)) * (1 / tasaLlegada) * 60);
-                tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 60);//               
+                tiempoLlegada[i] = (-(Math.log(1 - aleatorio1)) * (1 / tasaLlegada) * 3600);
+                tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 3600);//               
 
                 if (i == 1) {
                     momentoLlegada = tiempoLlegada[i];
@@ -397,6 +397,7 @@ public class AllTables extends javax.swing.JFrame {
             System.out.print("***************** FIN FASE1 ******************");
 
             // </editor-fold>  
+            
             // <editor-fold defaultstate="collapsed" desc="for  FASE 2">  
             Double[] tiempoAtencionF2 = new Double[Integer.parseInt(txtCapacidad.getText())];
             int filaF2 = 0;
@@ -404,7 +405,7 @@ public class AllTables extends javax.swing.JFrame {
                 tiempoSalida = (double) tablaRecortadaF1[filaF2][4];
                 filaF2++;
                 aleatorio2 = aleatorio.nextDouble();
-                tiempoAtencionF2[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 60);
+                tiempoAtencionF2[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 3600);
                 if (i == 1) {
                     momentoLlegada = tiempoSalida;//viene de la fase 1   
                     tiempoEspera = 0.0000000000;
@@ -452,7 +453,7 @@ public class AllTables extends javax.swing.JFrame {
 
             for (int i = 1; i <= tablaRecortadaF1.length; i++) {
                 aleatorio2 = aleatorio.nextDouble();
-                tiempoAtencionF3[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 60);
+                tiempoAtencionF3[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 3600);
                 if (i == 1) {
                     momentoLlegada = tiempoDeSalidaFaseTWO[i];//viene de la fase 2                   
                     tiempoEspera = 0.0000000000;
@@ -512,6 +513,7 @@ public class AllTables extends javax.swing.JFrame {
             System.out.println("***************** FIN FASE3 *****************");
 
             // </editor-fold>  
+            
             // <editor-fold defaultstate="collapsed" desc="for  FASE 4">  
             Double[] tiempoAtencionF4 = new Double[Integer.parseInt(txtCapacidad.getText())];
             int filaF4 = 0;
@@ -519,7 +521,7 @@ public class AllTables extends javax.swing.JFrame {
                 tiempoSalida = (double) tablaRecortada3[filaF4][4];
                 filaF4++;
                 aleatorio2 = aleatorio.nextDouble();
-                tiempoAtencionF4[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 60);///////
+                tiempoAtencionF4[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 3600);///////
                 if (i == 1) {
                     momentoLlegada = tiempoSalida;//viene de la fase 3                   
                     tiempoEspera = 0.0000000000;

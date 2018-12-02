@@ -64,7 +64,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "numCliente: "+ numCliente + ", momentoLllegada: " + momentoLllegada + ", tiempoInicio:" + tiempoInicio + ", tiempoAtencion: " + tiempoAtencion + ", tiempoSalida: " + tiempoSalida;
+        return numCliente + ", momentoLllegada: " + momentoLllegada + ", tiempoInicio:" + tiempoInicio + ", tiempoAtencion: " + tiempoAtencion + ", tiempoSalida: " + tiempoSalida;
     }
     
 

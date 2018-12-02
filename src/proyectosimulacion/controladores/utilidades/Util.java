@@ -21,13 +21,22 @@ public class Util {
             tempSec = tempSec - (TimeUnit.MINUTES.toSeconds(minute));
         } else {
             tempSec = TimeUnit.MINUTES.toSeconds(minute) - tempSec;
-        }
-        
+        }        
         long second = TimeUnit.SECONDS.toSeconds(tempSec) ; 
         
         return String.format(formato, hours, minute, second);
         
     }
+    
+    public static void calculateTime(long seconds) { 
+    long sec = seconds % 60; 
+    long minutes = seconds % 3600/60; 
+    long hours = seconds % 86400/3600; 
+    long days = seconds/86400; 
+
+    System.out.println("Day " + days + " Hour " + hours + " Minute " + minutes + " Seconds " + sec); 
+} 
+    
     /**
      * Convierte los minutos recibidos al formato hh:mm:ss
      * @param minutos

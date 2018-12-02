@@ -16,12 +16,16 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 
 public class clsExportarExcel {
-
+    /**
+     * Metodo que recibe una tabla para exportarla y guardarla como tipo Excel
+     * @param tabla
+     * @throws IOException 
+     */
     public void exportarExcel(JTable t) throws IOException {
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos de excel", "xls");
         chooser.setFileFilter(filter);
-        chooser.setDialogTitle("Guardar archivo");
+        chooser.setDialogTitle("Guardar Tabla");
         chooser.setAcceptAllFileFilterUsed(false);
         if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             String ruta = chooser.getSelectedFile().toString().concat(".xls");
