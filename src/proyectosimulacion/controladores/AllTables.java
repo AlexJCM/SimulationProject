@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import proyectosimulacion.controladores.exportar.*;
 import proyectosimulacion.controladores.utilidades.Util;
+import proyectosimulacion.animaciones.Ventana;
 import proyectosimulacion.modelo.Cliente;
 
 public class AllTables extends javax.swing.JFrame {
@@ -19,6 +20,10 @@ public class AllTables extends javax.swing.JFrame {
     public Double[] tiempoDeSalidaFaseTHREE;
     public Object[][] tabla1;
     public Object[][] tabla3;
+    public static ArrayList<Cliente> arrayClientesF1 = new ArrayList<Cliente>();
+    public static ArrayList<Cliente> arrayClientesF2 = new ArrayList<Cliente>();
+    public static ArrayList<Cliente> arrayClientesF3 = new ArrayList<Cliente>();
+    public static ArrayList<Cliente> arrayClientesF4 = new ArrayList<Cliente>();
 
     //VARIABLES LOCALES
     private double servidores; // numero de servidores
@@ -75,6 +80,7 @@ public class AllTables extends javax.swing.JFrame {
         lblNumClientesF2 = new javax.swing.JLabel();
         lblNumClientesF3 = new javax.swing.JLabel();
         lblNumClientesF4 = new javax.swing.JLabel();
+        Animacion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -202,36 +208,43 @@ public class AllTables extends javax.swing.JFrame {
 
         lblNumClientesF4.setText("--");
 
+        Animacion.setText("Animacion");
+        Animacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AnimacionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelInferiorLayout = new javax.swing.GroupLayout(panelInferior);
         panelInferior.setLayout(panelInferiorLayout);
         panelInferiorLayout.setHorizontalGroup(
             panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInferiorLayout.createSequentialGroup()
+                .addGap(90, 90, 90)
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelInferiorLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelInferiorLayout.createSequentialGroup()
-                        .addGap(90, 90, 90)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInferiorLayout.createSequentialGroup()
                         .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInferiorLayout.createSequentialGroup()
-                                .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 57, Short.MAX_VALUE))
-                            .addComponent(lblNumClientesF1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblNumClientesF3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblNumClientesF2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblNumClientesF4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
-                                .addComponent(jScrollPane3)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 44, Short.MAX_VALUE))
+                    .addComponent(lblNumClientesF1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNumClientesF3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNumClientesF2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNumClientesF4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelInferiorLayout.createSequentialGroup()
+                        .addComponent(Animacion)
+                        .addGap(387, 387, 387)
+                        .addComponent(btnExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addGap(16, 16, 16))
         );
         panelInferiorLayout.setVerticalGroup(
@@ -266,7 +279,9 @@ public class AllTables extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblNumClientesF4)))
                 .addGap(18, 18, 18)
-                .addComponent(btnExportarExcel)
+                .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnExportarExcel)
+                    .addComponent(Animacion))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -295,14 +310,9 @@ public class AllTables extends javax.swing.JFrame {
         int iF3 = 0;//auxiliar para ayudar a guardar en el array bidimensional      
 
         if (validarCampos()) {
-            
-            // <editor-fold defaultstate="collapsed" desc="INICIALIZAR ARREGLOS"> 
 
+            // <editor-fold defaultstate="collapsed" desc="INICIALIZAR ARREGLOS"> 
             //--------------------  ARREGLOS CON OBJETOS CLIENTE DE CADA TABLA -----------------------------
-            ArrayList<Cliente> arrayClientesF1 = new ArrayList<Cliente>();
-            ArrayList<Cliente> arrayClientesF2 = new ArrayList<Cliente>();
-            ArrayList<Cliente> arrayClientesF3 = new ArrayList<Cliente>();
-            ArrayList<Cliente> arrayClientesF4 = new ArrayList<Cliente>();
             //----------------------------------------------------------------------------------------------            
             Double[] tiempoLlegada = new Double[Integer.parseInt(txtCapacidad.getText())];
             Double[] tiempoAtencion = new Double[Integer.parseInt(txtCapacidad.getText())];
@@ -387,7 +397,6 @@ public class AllTables extends javax.swing.JFrame {
             System.out.print("***************** FIN FASE1 ******************");
 
             // </editor-fold>  
-            
             // <editor-fold defaultstate="collapsed" desc="for  FASE 2">  
             Double[] tiempoAtencionF2 = new Double[Integer.parseInt(txtCapacidad.getText())];
             int filaF2 = 0;
@@ -503,7 +512,6 @@ public class AllTables extends javax.swing.JFrame {
             System.out.println("***************** FIN FASE3 *****************");
 
             // </editor-fold>  
-            
             // <editor-fold defaultstate="collapsed" desc="for  FASE 4">  
             Double[] tiempoAtencionF4 = new Double[Integer.parseInt(txtCapacidad.getText())];
             int filaF4 = 0;
@@ -565,6 +573,11 @@ public class AllTables extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnExportarExcelActionPerformed
 
+    private void AnimacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnimacionActionPerformed
+        Ventana ven = new Ventana();
+        ven.setVisible(true);
+    }//GEN-LAST:event_AnimacionActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -598,6 +611,7 @@ public class AllTables extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Animacion;
     private javax.swing.JButton btnExportarExcel;
     private javax.swing.JButton btnGenerar;
     private javax.swing.JLabel jLabel1;
@@ -702,6 +716,6 @@ public class AllTables extends javax.swing.JFrame {
 
         return aux;
     }
-    
-     // </editor-fold> 
+
+    // </editor-fold> 
 }
