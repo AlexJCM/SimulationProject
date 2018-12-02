@@ -4,26 +4,12 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class Util {
-
-    public static String HoraMinuto(double minutos) {
-        String formato = "%02d:%02d";
-        
-        long horasReales = TimeUnit.MINUTES.toHours((int) minutos);
-        long minutosReales = TimeUnit.MINUTES.toMinutes((int) minutos) - TimeUnit.HOURS.toMinutes(TimeUnit.MINUTES.toHours((int) minutos));
-
-        return String.format(formato, horasReales, minutosReales);
-    }
-        
-    public static String HoraMinuto1(double minutos) {
-        String formato = "%02d:%02d";
-
-        long horasReales = TimeUnit.MINUTES.toHours((int) minutos);
-        horasReales = horasReales + 8;
-        long minutosReales = TimeUnit.MINUTES.toMinutes((int) minutos) - TimeUnit.HOURS.toMinutes(TimeUnit.MINUTES.toHours((int) minutos));
-        
-        return String.format(formato, horasReales, minutosReales);
-    }
     
+     /**
+      * Convierte los minutos recibidos al formato hh:mm:ss
+      * @param minutos
+      * @return 
+      */    
     public static String horaMinutoSegundo1(double minutos) {
         String formato = "%02d:%02d:%02d";
         
@@ -42,6 +28,11 @@ public class Util {
         return String.format(formato, hours, minute, second);
         
     }
+    /**
+     * Convierte los minutos recibidos al formato hh:mm:ss
+     * @param minutos
+     * @return 
+     */
     public static String horaMinutoSegundo(double minutos) {
         String formato = "%02d:%02d:%02d";
                      

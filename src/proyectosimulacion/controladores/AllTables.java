@@ -292,17 +292,18 @@ public class AllTables extends javax.swing.JFrame {
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
         Random aleatorio = new Random(System.currentTimeMillis());
         int iF1 = 0;//auxiliar para ayudar a guardar en el array bidimensional
-        int iF3 = 0;//auxiliar para ayudar a guardar en el array bidimensional
-       //--------------------  ARREGLOS CON OBJETOS CLIENTE DE CADA TABLA -----------------------------
-        ArrayList<Cliente>arrayClientesF1 = new ArrayList<Cliente>();
-        ArrayList<Cliente>arrayClientesF2 = new ArrayList<Cliente>();
-        ArrayList<Cliente>arrayClientesF3 = new ArrayList<Cliente>();
-        ArrayList<Cliente>arrayClientesF4 = new ArrayList<Cliente>();
-        //----------------------------------------------------------------------------------------------
-        
+        int iF3 = 0;//auxiliar para ayudar a guardar en el array bidimensional      
 
         if (validarCampos()) {
-            // <editor-fold defaultstate="collapsed" desc="INICIALIZAR ARREGLOS">           
+            
+            // <editor-fold defaultstate="collapsed" desc="INICIALIZAR ARREGLOS"> 
+
+            //--------------------  ARREGLOS CON OBJETOS CLIENTE DE CADA TABLA -----------------------------
+            ArrayList<Cliente> arrayClientesF1 = new ArrayList<Cliente>();
+            ArrayList<Cliente> arrayClientesF2 = new ArrayList<Cliente>();
+            ArrayList<Cliente> arrayClientesF3 = new ArrayList<Cliente>();
+            ArrayList<Cliente> arrayClientesF4 = new ArrayList<Cliente>();
+            //----------------------------------------------------------------------------------------------            
             Double[] tiempoLlegada = new Double[Integer.parseInt(txtCapacidad.getText())];
             Double[] tiempoAtencion = new Double[Integer.parseInt(txtCapacidad.getText())];
             tiempoDeSalidaFaseONE = new Double[Integer.parseInt(txtCapacidad.getText())];
@@ -312,18 +313,13 @@ public class AllTables extends javax.swing.JFrame {
             // </editor-fold> 
 
             // <editor-fold defaultstate="collapsed" desc="for  FASE 1">
-            for (int i = 1; i <= clientes; i++) {                
+            for (int i = 1; i <= clientes; i++) {
                 aleatorio1 = aleatorio.nextDouble();
-                System.out.println("---------------------------DEBUG---------------------");
-                System.out.println("aleatorio1 = "+ aleatorio1);                
                 aleatorio2 = aleatorio.nextDouble();
-                System.out.println("aleatorio2 = " + aleatorio2);
-                
+
                 tiempoLlegada[i] = (-(Math.log(1 - aleatorio1)) * (1 / tasaLlegada) * 60);
-                System.out.println("tiempoLlegada[i] = " + tiempoLlegada[i]);
-                tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 60);//
-                System.out.println("tiempoAtencion[i] = " + tiempoAtencion[i]);
-                
+                tiempoAtencion[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 60);//               
+
                 if (i == 1) {
                     momentoLlegada = tiempoLlegada[i];
                     tiempoEspera = 0.0000000000;
@@ -335,8 +331,7 @@ public class AllTables extends javax.swing.JFrame {
                         tiempoInicio = momentoLlegada;
                     }
                     tiempoEspera = tiempoInicio - momentoLlegada;
-                    System.out.println("tiempoEspera = "+ tiempoEspera);
-                    System.out.println("------------------- FIN DEBUG -----------------");
+
                     if (tiempoEspera < 0) {
                         tiempoEspera = 0;
                     }
@@ -346,19 +341,18 @@ public class AllTables extends javax.swing.JFrame {
 
                 //Se guardará en el array los campos del cliente numero i
                 Object[] objF1 = new Object[5];
-                objF1[0] = i;                
+                objF1[0] = i;
                 objF1[1] = Util.horaMinutoSegundo1(momentoLlegada);
-                objF1[2] = Util.horaMinutoSegundo1(tiempoInicio);                          
+                objF1[2] = Util.horaMinutoSegundo1(tiempoInicio);
                 objF1[3] = Util.horaMinutoSegundo(tiempoAtencion[i]);
                 objF1[4] = Util.horaMinutoSegundo1(tiempoSalida);
                 ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////////
                 Cliente clienteF1 = new Cliente();
-                clienteF1.setNumCliente(i+"");
-                clienteF1.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada)+"");
-                clienteF1.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) +"");
-                clienteF1.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) +"");
-                clienteF1.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) +"");
-                
+                clienteF1.setNumCliente(i + "");
+                clienteF1.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada) + "");
+                clienteF1.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) + "");
+                clienteF1.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
+                clienteF1.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
                 arrayClientesF1.add(clienteF1);
                 /////////////////////////////////////////////////////////////////////////////////////////////
                 //guarda cada fila de la tabla en array bidimensional tabla1
@@ -374,7 +368,7 @@ public class AllTables extends javax.swing.JFrame {
             }//Fin del forF1
             //*****************************IMPRIME LISTA DE CLIENTES***********************************************
             for (Cliente item : arrayClientesF1) {
-                System.out.println("Cliente: "+item.toString());
+                System.out.println("Cliente: " + item.toString());
             }
             //***************************************************************************************************
             System.out.print("tabla1 es de tamanio: " + tabla1.length + " _____ ");
@@ -383,7 +377,7 @@ public class AllTables extends javax.swing.JFrame {
             System.out.println("- tablaRecortadaF1 es de tamanio: " + tablaRecortadaF1.length);
             lblNumClientesF2.setText("Hay " + tablaRecortadaF1.length + " clientes");
             lblNumClientesF3.setText("Hay " + tablaRecortadaF1.length + " clientes");
-           /* for (int f = 0; f < tablaRecortadaF1.length; f++) {
+            /* for (int f = 0; f < tablaRecortadaF1.length; f++) {
                 for (int c = 0; c < tablaRecortadaF1[0].length; c++) {
                     System.out.print(tablaRecortadaF1[f][c] + ", ");
                 }
@@ -428,17 +422,17 @@ public class AllTables extends javax.swing.JFrame {
                 objectF2[2] = Util.horaMinutoSegundo1(tiempoInicio);
                 objectF2[3] = Util.horaMinutoSegundo(tiempoAtencionF2[i]);
                 objectF2[4] = Util.horaMinutoSegundo1(tiempoSalida);
-                ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
-                Cliente clienteF2 = new Cliente();
-                clienteF2.setNumCliente(i+"");
-                clienteF2.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada)+"");
-                clienteF2.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) +"");
-                clienteF2.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) +"");
-                clienteF2.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) +"");
-                arrayClientesF2.add(clienteF2);
-                ////////////////////////////////////////////////////////////////////////////////////
 
                 modeloF2.addRow(objectF2);
+                ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
+                Cliente clienteF2 = new Cliente();
+                clienteF2.setNumCliente(i + "");
+                clienteF2.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada) + "");
+                clienteF2.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) + "");
+                clienteF2.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
+                clienteF2.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
+                arrayClientesF2.add(clienteF2);
+                ////////////////////////////////////////////////////////////////////////////////////                
 
             }//Fin del forF2    
             // </editor-fold>  
@@ -475,25 +469,23 @@ public class AllTables extends javax.swing.JFrame {
                 objF3[2] = Util.horaMinutoSegundo1(tiempoInicio);
                 objF3[3] = Util.horaMinutoSegundo(tiempoAtencionF3[i]);
                 objF3[4] = Util.horaMinutoSegundo1(tiempoSalida);
-                
+
+                modeloF3.addRow(objF3);
                 ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
                 Cliente clienteF3 = new Cliente();
-                clienteF3.setNumCliente(i+"");
-                clienteF3.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada)+"");
-                clienteF3.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) +"");
-                clienteF3.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) +"");
-                clienteF3.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) +"");
+                clienteF3.setNumCliente(i + "");
+                clienteF3.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada) + "");
+                clienteF3.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) + "");
+                clienteF3.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
+                clienteF3.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
                 arrayClientesF3.add(clienteF3);
                 ////////////////////////////////////////////////////////////////////////////////////
-
                 tabla3[iF3][0] = objF3[0];
                 tabla3[iF3][1] = objF3[1];
                 tabla3[iF3][2] = objF3[2];
                 tabla3[iF3][3] = objF3[3];
                 tabla3[iF3][4] = tiempoSalida;
                 iF3++;
-
-                modeloF3.addRow(objF3);
 
             }//Fin del forF3 
 
@@ -545,18 +537,17 @@ public class AllTables extends javax.swing.JFrame {
                 objectF4[2] = Util.horaMinutoSegundo1(tiempoInicio);
                 objectF4[3] = Util.horaMinutoSegundo(tiempoAtencionF4[i]);
                 objectF4[4] = Util.horaMinutoSegundo1(tiempoSalida);
-                
-                ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
-                Cliente clienteF4 = new Cliente();
-                clienteF4.setNumCliente(i+"");
-                clienteF4.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada)+"");
-                clienteF4.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) +"");
-                clienteF4.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) +"");
-                clienteF4.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) +"");
-                arrayClientesF4.add(clienteF4);
-                ////////////////////////////////////////////////////////////////////////////////////
 
                 modeloF4.addRow(objectF4);
+                ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
+                Cliente clienteF4 = new Cliente();
+                clienteF4.setNumCliente(i + "");
+                clienteF4.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada) + "");
+                clienteF4.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) + "");
+                clienteF4.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
+                clienteF4.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
+                arrayClientesF4.add(clienteF4);
+                ////////////////////////////////////////////////////////////////////////////////////
 
             }//Fin del forF4
             // </editor-fold>  
@@ -635,6 +626,7 @@ public class AllTables extends javax.swing.JFrame {
     private javax.swing.JTextField txtTasaLlegada;
     // End of variables declaration//GEN-END:variables
 
+    // <editor-fold defaultstate="collapsed" desc="METODOS VARIOS">     
     private void incializarTablas() {
         modeloF1 = new DefaultTableModel();
         modeloF2 = new DefaultTableModel();
@@ -710,5 +702,6 @@ public class AllTables extends javax.swing.JFrame {
 
         return aux;
     }
-
+    
+     // </editor-fold> 
 }
