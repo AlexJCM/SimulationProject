@@ -107,7 +107,7 @@ public class Contenedor extends JComponent {
 
         ImageIcon img = new ImageIcon(new ImageIcon(getClass().getResource("imagenes/1.png")).getImage());
         AllTables u = new AllTables();
-        if (Util.reverseHora(Ventana.label)==s) {
+        /*if (Util.reverseHora(Ventana.label)==s) {
             servicio4567 += 140;
             servicio2_3 += 140;
             numero += 140;
@@ -121,11 +121,10 @@ public class Contenedor extends JComponent {
             if (servicio4567 == 1155) {
                 servicio4567 = 735;
             }
-        }
+        }*/
             for (int i = 0; i < u.arrayClientesF4.size() - 1; i++) {
                 //////////////////////////////////////////////
                 //array 1
-                System.out.println(Util.reverseHora(Ventana.label));
                 if (Util.reverseHora(u.arrayClientesF1.get(i).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF1.get(i).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
                     g.drawImage(img.getImage(), numero, pos1, 80, 80, null);
                 }/*else{
@@ -171,7 +170,7 @@ public class Contenedor extends JComponent {
                 }
                 ////////////////////////////////////
                 //salida
-                if (Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida())<=Util.reverseHora(Ventana.label)&&Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida()+0.5)>=Util.reverseHora(Ventana.label)) {
+                if (Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida())<=Util.reverseHora(Ventana.label)&&Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida()+1)>=Util.reverseHora(Ventana.label)) {
                     g.drawImage(img.getImage(), 1435, 0, 80, 80, null);
                 }
                
