@@ -19,14 +19,18 @@ public class AllTables extends javax.swing.JFrame {
     public Double[] tiempoDeSalidaFaseTWO;
     public Double[] tiempoDeSalidaFaseTHREE;
     public Object[][] tabla1;
-    public Object[][] tabla3;
+    public Object[][] tabla3;    
     public static ArrayList<Cliente> arrayClientesF1 = new ArrayList<Cliente>();
     public static ArrayList<Cliente> arrayClientesF2 = new ArrayList<Cliente>();
     public static ArrayList<Cliente> arrayClientesF3 = new ArrayList<Cliente>();
     public static ArrayList<Cliente> arrayClientesF4 = new ArrayList<Cliente>();
 
     //VARIABLES LOCALES
-    private double servidores; // numero de servidores
+    private int servidor_FaseONE = 1; // numero de servidores
+    private int servidor_FaseTWO = 2;
+    private int servidor_FaseTHREE = 4;
+    private int servidor_FaseFOUR = 1;
+   
     ////////////////
     private double capacidad;//  Capacidad de la FASE1
     public static double clientes;//   numero de clientes
@@ -84,6 +88,8 @@ public class AllTables extends javax.swing.JFrame {
         Animacion = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblExportar = new javax.swing.JTable();
+        lblAbandonan = new javax.swing.JLabel();
+        lblReprueban = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -231,6 +237,10 @@ public class AllTables extends javax.swing.JFrame {
         ));
         jScrollPane5.setViewportView(tblExportar);
 
+        lblAbandonan.setText("--");
+
+        lblReprueban.setText("--");
+
         javax.swing.GroupLayout panelInferiorLayout = new javax.swing.GroupLayout(panelInferior);
         panelInferior.setLayout(panelInferiorLayout);
         panelInferiorLayout.setHorizontalGroup(
@@ -238,7 +248,8 @@ public class AllTables extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInferiorLayout.createSequentialGroup()
                 .addGap(90, 90, 90)
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNumClientesF1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNumClientesF1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblReprueban, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblNumClientesF3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblNumClientesF2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblNumClientesF4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -248,7 +259,8 @@ public class AllTables extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7))
-                        .addGap(0, 48, Short.MAX_VALUE)))
+                        .addGap(0, 48, Short.MAX_VALUE))
+                    .addComponent(lblAbandonan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,7 +288,9 @@ public class AllTables extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblNumClientesF1)))
+                        .addComponent(lblNumClientesF1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAbandonan)))
                 .addGap(18, 18, 18)
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -290,7 +304,9 @@ public class AllTables extends javax.swing.JFrame {
                     .addGroup(panelInferiorLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblNumClientesF3)))
+                        .addComponent(lblNumClientesF3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblReprueban)))
                 .addGap(29, 29, 29)
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -329,7 +345,7 @@ public class AllTables extends javax.swing.JFrame {
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
         Random aleatorio = new Random(System.currentTimeMillis());
         int iF1 = 0;//auxiliar para ayudar a guardar en el array bidimensional
-        int iF3 = 0;//auxiliar para ayudar a guardar en el array bidimensional      
+        int iF3 = 0;//auxiliar para ayudar a guardar en el array bidimensional2      
 
         if (validarCampos()) {
 
@@ -371,13 +387,15 @@ public class AllTables extends javax.swing.JFrame {
                 tiempoSalida = tiempoInicio + tiempoAtencion[i];
                 tiempoDeSalidaFaseONE[i] = tiempoSalida;//para enviarlo a la fase 2                
 
-                //Se guardará en el array los campos del cliente numero i
+                //Se guardará en el array y en la tabla los campos del cliente numero i
                 Object[] objF1 = new Object[5];
-                objF1[0] = i;
-                objF1[1] = Util.horaMinutoSegundo1(momentoLlegada);
-                objF1[2] = Util.horaMinutoSegundo1(tiempoInicio);
-                objF1[3] = Util.horaMinutoSegundo(tiempoAtencion[i]);
+                tabla1[iF1][0] = objF1[0] = i;
+                tabla1[iF1][1] = objF1[1] = Util.horaMinutoSegundo1(momentoLlegada);
+                tabla1[iF1][2] = objF1[2] = Util.horaMinutoSegundo1(tiempoInicio);
+                tabla1[iF1][3] = objF1[3] = Util.horaMinutoSegundo(tiempoAtencion[i]);
                 objF1[4] = Util.horaMinutoSegundo1(tiempoSalida);
+                tabla1[iF1][4] = tiempoSalida;
+                 iF1++;
                 ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////////
                 Cliente clienteF1 = new Cliente();
                 clienteF1.setNumCliente(i + "");
@@ -386,15 +404,8 @@ public class AllTables extends javax.swing.JFrame {
                 clienteF1.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
                 clienteF1.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
                 arrayClientesF1.add(clienteF1);
-                /////////////////////////////////////////////////////////////////////////////////////////////
-                //guarda cada fila de la tabla en array bidimensional tabla1
-                tabla1[iF1][0] = objF1[0];
-                tabla1[iF1][1] = objF1[1];
-                tabla1[iF1][2] = objF1[2];
-                tabla1[iF1][3] = objF1[3];
-                tabla1[iF1][4] = tiempoSalida;
-                iF1++;
-
+                /////////////////////////////////////////////////////////////////////////////////////////////                                        
+               
                 modeloF1.addRow(objF1);
                 modeloAExportar.addRow(objF1);
 
@@ -406,12 +417,8 @@ public class AllTables extends javax.swing.JFrame {
             System.out.println("- tablaRecortadaF1 es de tamanio: " + tablaRecortadaF1.length);
             lblNumClientesF2.setText("Hay " + tablaRecortadaF1.length + " clientes");
             lblNumClientesF3.setText("Hay " + tablaRecortadaF1.length + " clientes");
-            /* for (int f = 0; f < tablaRecortadaF1.length; f++) {
-                for (int c = 0; c < tablaRecortadaF1[0].length; c++) {
-                    System.out.print(tablaRecortadaF1[f][c] + ", ");
-                }
-                System.out.println();
-            }*/
+            lblAbandonan.setText("Abandonan "+(tabla1.length - tablaRecortadaF1.length));//
+            
             ///////////en lugar de tiempoDesalidaFaseONE iria tablaRecortada[i-1][4]
             System.out.print("***************** FIN FASE1 ******************");
 
@@ -425,7 +432,7 @@ public class AllTables extends javax.swing.JFrame {
                 tiempoSalida = (double) tablaRecortadaF1[filaF2][4];
                 filaF2++;
                 aleatorio2 = aleatorio.nextDouble();
-                tiempoAtencionF2[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 3600);
+                tiempoAtencionF2[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * (3600));
                 if (i == 1) {
                     momentoLlegada = tiempoSalida;//viene de la fase 1   
                     tiempoEspera = 0.0000000000;
@@ -475,7 +482,7 @@ public class AllTables extends javax.swing.JFrame {
 
             for (int i = 1; i <= tablaRecortadaF1.length; i++) {
                 aleatorio2 = aleatorio.nextDouble();
-                tiempoAtencionF3[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 3600);
+                tiempoAtencionF3[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * (3600));
                 if (i == 1) {
                     momentoLlegada = tiempoDeSalidaFaseTWO[i];//viene de la fase 2                   
                     tiempoEspera = 0.0000000000;
@@ -496,12 +503,14 @@ public class AllTables extends javax.swing.JFrame {
 
                 //Se guardará en el array los campos del cliente numero i
                 Object[] objF3 = new Object[5];
-                objF3[0] = i;
-                objF3[1] = Util.horaMinutoSegundo1(momentoLlegada);
-                objF3[2] = Util.horaMinutoSegundo1(tiempoInicio);
-                objF3[3] = Util.horaMinutoSegundo(tiempoAtencionF3[i]);
+                tabla3[iF3][0] = objF3[0] = i;
+                tabla3[iF3][1] = objF3[1] = Util.horaMinutoSegundo1(momentoLlegada);
+                tabla3[iF3][2] =objF3[2] = Util.horaMinutoSegundo1(tiempoInicio);
+                tabla3[iF3][3] = objF3[3] = Util.horaMinutoSegundo(tiempoAtencionF3[i]);
                 objF3[4] = Util.horaMinutoSegundo1(tiempoSalida);
-
+                tabla3[iF3][4] = tiempoSalida;
+                iF3++;
+                
                 modeloF3.addRow(objF3);
                 modeloAExportar.addRow(objF3);
                 ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
@@ -513,12 +522,7 @@ public class AllTables extends javax.swing.JFrame {
                 clienteF3.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
                 arrayClientesF3.add(clienteF3);
                 ////////////////////////////////////////////////////////////////////////////////////
-                tabla3[iF3][0] = objF3[0];
-                tabla3[iF3][1] = objF3[1];
-                tabla3[iF3][2] = objF3[2];
-                tabla3[iF3][3] = objF3[3];
-                tabla3[iF3][4] = tiempoSalida;
-                iF3++;
+                               
 
             }//Fin del forF3 
 
@@ -526,12 +530,8 @@ public class AllTables extends javax.swing.JFrame {
             Object[][] tablaRecortada3 = Util.reprueban(tabla3);
             System.out.println("- tablaRecortada3 es de tamanio: " + tablaRecortada3.length);
             lblNumClientesF4.setText("Hay " + tablaRecortada3.length + " clientes");
-            for (int f = 0; f < tablaRecortada3.length; f++) {
-                for (int c = 0; c < tablaRecortada3[0].length; c++) {
-                    System.out.print(tablaRecortada3[f][c] + " - ");
-                }
-                System.out.println();
-            }
+            lblReprueban.setText("Reprueban "+(tabla3.length - tablaRecortada3.length));//
+            
             //en lugar de tiempoDesalidaFaseTHREE iria tablaRecortada3[i-1][4]
             System.out.println("***************** FIN FASE3 *****************");
 
@@ -653,10 +653,12 @@ public class AllTables extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JLabel lblAbandonan;
     private javax.swing.JLabel lblNumClientesF1;
     private javax.swing.JLabel lblNumClientesF2;
     private javax.swing.JLabel lblNumClientesF3;
     private javax.swing.JLabel lblNumClientesF4;
+    private javax.swing.JLabel lblReprueban;
     private javax.swing.JPanel panelInferior;
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JTable tblExportar;
@@ -676,6 +678,7 @@ public class AllTables extends javax.swing.JFrame {
         modeloF3 = new DefaultTableModel();
         modeloF4 = new DefaultTableModel();
         modeloAExportar = new DefaultTableModel();
+        
         tblFase1.setModel(modeloF1);
         tblFase2.setModel(modeloF2);
         tblFase3.setModel(modeloF3);
@@ -688,12 +691,15 @@ public class AllTables extends javax.swing.JFrame {
         primeraFilaDeCadaTabla(modeloF4);
         primeraFilaDeCadaTabla(modeloAExportar);
         
-        //Ocultamos la tabla a exportar
+        //Ocultamos la tabla a Exportar
         tblExportar.setVisible(false);
         jScrollPane5.setVisible(false);      
        
     }
-    
+    /**
+     * Metodo que recibe un modelo y le colaca la primera fila
+     * @param model 
+     */
     private void primeraFilaDeCadaTabla(DefaultTableModel model){
         model.addColumn("Cliente");//aprox. 12 cada hora       
         model.addColumn("Momento Llegada");//M. de Ll. del cliente que está adelante  + T. de Ll. de éste cliente.

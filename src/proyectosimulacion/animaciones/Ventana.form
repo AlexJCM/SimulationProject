@@ -33,12 +33,13 @@
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
               <Component id="boton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="parar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="517" max="-2" attributes="0"/>
               <Component id="etiquetaTiempo" min="-2" pref="260" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="455" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
