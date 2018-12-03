@@ -724,6 +724,9 @@ public class AllTables extends javax.swing.JFrame {
         //  modelo.addColumn("Tiempo de Espera");//T. de I. de servicio - Momento de Llegada del mismo cliente        
         modeloAExportar.addColumn("T. de Atencion");//Calculado en base al aleatiorio2
         modeloAExportar.addColumn("T. de Salida");//T. de I. de servicio + T. de A. del mismo cliente
+        
+        tblExportar.setVisible(false);
+        jScrollPane5.setVisible(false);
     }
 
     private Object[] rowTitulosExportar(){
@@ -757,11 +760,11 @@ public class AllTables extends javax.swing.JFrame {
             clientes = Integer.parseInt(txtNroClientes.getText());
 
             if (clientes >= capacidad) {
-                JOptionPane.showMessageDialog(this, "El # de clientes NO debe ser mayor o igual a la Capacidad del Servidor");
+                JOptionPane.showMessageDialog(this, "El # de clientes NO debe ser mayor o igual a la Capacidad del Servidor");//
                 txtNroClientes.setText("");
             } else {
 
-                //Si llegó hasta aquí es porque todos los controles
+                //Si llegó hasta aquí es porque todos los controles 
                 aux = true;
 
             }
