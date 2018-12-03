@@ -34,11 +34,14 @@ public class Contenedor extends JComponent {
     public void paint(Graphics g) {
         //solo prestar atencion al img de este depende que se dibujen los clientes
         
-        AllTables u=new AllTables();
-
+        AllTables u = new AllTables();
+        for (int i = 0; i < u.arrayClientesF1.size(); i++) {
         ImageIcon img = new ImageIcon(new ImageIcon(getClass().getResource("imagenes/" + numero + ".png")).getImage());
         g.drawImage(img.getImage(), columna, fila, 80, 80, null);
+        }
+
         
+        ///solo hasta aqui hay que realizar algun metodo para recrear mas clientes AYUDA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         ImageIcon silla = new ImageIcon(new ImageIcon(getClass().getResource("imagenes/silla.png")).getImage());
         ImageIcon puerta = new ImageIcon(new ImageIcon(getClass().getResource("imagenes/puerta.png")).getImage());
@@ -92,6 +95,7 @@ public class Contenedor extends JComponent {
    //static Thread hilo_inicio_servicio = new Thread() {
         //@/Override
     //hilos para el movimiento del dibujo recive a cordenada del servcio a entrar todo funciona mediane filas y columnas 
+    
         static void hilo_inicio_servicio(int servicio) {
             //try {
                

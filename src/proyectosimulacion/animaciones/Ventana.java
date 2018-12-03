@@ -22,6 +22,7 @@ public class Ventana extends javax.swing.JFrame {
     private String tiempoInicio;
     private String tiempoAtencion;
     private String tiempoSalida;
+    public int i=0;
 
     private Timer t;
     private int h = 8, m, s;
@@ -51,140 +52,124 @@ public class Ventana extends javax.swing.JFrame {
 
     private void actualizarLabel() {
         //actualiza el label para ser parecr que esta corriendo el tiempo y ademas se da la animacion median el reocrrido de los objeto ojo hay que hacer bien este metodo depende de toda la animacion
-        //ayudar a haecr el metodo eficiente para que se vean mas naturales las corridas
+        //ayudar a haecr el metodo eficiente para que se vean mas naturales las corridas AYUDA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         String tiempo = (h <= 9 ? "0" : "") + h + ":" + (m <= 9 ? "0" : "") + m + ":" + (s <= 9 ? "0" : "") + s;
         etiquetaTiempo.setText(tiempo);
         AllTables u = new AllTables();
-        for (Cliente cliente : u.arrayClientesF1) {
-            momentoLllegada = cliente.getMomentoLllegada().toString();
-            tiempoInicio = cliente.getTiempoInicio().toString();
-            for (int i = 0; i < u.arrayClientesF1.size(); i++) {
-                if (tiempo.equals(momentoLllegada)) {
-                    int silla1 = 315;
-                    int silla2 = 455;
-                    int silla3 = 595;
-                    int silla4 = 735;
-                    int silla5 = 875;
-                    int silla6 = 1015;
-                    int silla7 = 1155;
+        
+        if (tiempo.equals(u.arrayClientesF1.get(i).getMomentoLllegada())) {
+            int silla1 = 315;
+            int silla2 = 455;
+            int silla3 = 595;
+            int silla4 = 735;
+            int silla5 = 875;
+            int silla6 = 1015;
+            int silla7 = 1155;
 
-                    int pos1 = 0;
-                    int pos2 = 150;
-                    int pos3 = 300;
-                    int pos4 = 450;
+            int pos1 = 0;
+            int pos2 = 150;
+            int pos3 = 300;
+            int pos4 = 450;
 
-                    Contenedor.hilo_espera(silla1, pos1);
-                }
-                if (tiempo.equals(tiempoInicio)) {
-                    int servicio1 = 35;
-                    int servicio2 = 315;
-                    int servicio3 = 455;
-                    int servicio4 = 735;
-                    int servicio5 = 875;
-                    int servicio6 = 1015;
-                    int servicio7 = 1155;
-                    int servicio8 = 1435;
-                    Contenedor.hilo_inicio_servicio(servicio1);
-                }
+            Contenedor.hilo_espera(silla1, pos1);
+        }
+        if (tiempo.equals(u.arrayClientesF1.get(i).getTiempoInicio())) {
+            int servicio1 = 35;
+            int servicio2 = 315;
+            int servicio3 = 455;
+            int servicio4 = 735;
+            int servicio5 = 875;
+            int servicio6 = 1015;
+            int servicio7 = 1155;
+            int servicio8 = 1435;
+            Contenedor.hilo_inicio_servicio(servicio1);
+        }
 
-                for (Cliente cliente1 : u.arrayClientesF2) {
-                    String momentoLllegada1 = cliente1.getMomentoLllegada().toString();
-                    String tiempoInicio1 = cliente1.getTiempoInicio().toString();
-                    if (tiempo.equals(momentoLllegada1)) {
-                        int silla1 = 315;
-                        int silla2 = 455;
-                        int silla3 = 595;
-                        int silla4 = 735;
-                        int silla5 = 875;
-                        int silla6 = 1015;
-                        int silla7 = 1155;
+        if (tiempo.equals(u.arrayClientesF2.get(i).getMomentoLllegada())) {
+            int silla1 = 315;
+            int silla2 = 455;
+            int silla3 = 595;
+            int silla4 = 735;
+            int silla5 = 875;
+            int silla6 = 1015;
+            int silla7 = 1155;
 
-                        int pos1 = 0;
-                        int pos2 = 150;
-                        int pos3 = 300;
-                        int pos4 = 450;
-                        Contenedor.hilo_espera(silla1, pos2);
-                    }
+            int pos1 = 0;
+            int pos2 = 150;
+            int pos3 = 300;
+            int pos4 = 450;
+            Contenedor.hilo_espera(silla1, pos2);
+        }
 
-                    if (tiempo.equals(tiempoInicio1)) {
-                        int servicio1 = 35;
-                        int servicio2 = 315;
-                        int servicio3 = 455;
-                        int servicio4 = 735;
-                        int servicio5 = 875;
-                        int servicio6 = 1015;
-                        int servicio7 = 1155;
-                        int servicio8 = 1435;
-                        Contenedor.hilo_inicio_servicio(servicio3);
-                    }
-                    for (Cliente cliente2 : u.arrayClientesF3) {
-                        String momentoLllegada2 = cliente2.getMomentoLllegada().toString();
-                        String tiempoInicio2 = cliente2.getTiempoInicio().toString();
-                        if (tiempo.equals(momentoLllegada2)) {
-                            int silla1 = 315;
-                            int silla2 = 455;
-                            int silla3 = 595;
-                            int silla4 = 735;
-                            int silla5 = 875;
-                            int silla6 = 1015;
-                            int silla7 = 1155;
+        if (tiempo.equals(u.arrayClientesF2.get(i).getTiempoInicio())) {
+            int servicio1 = 35;
+            int servicio2 = 315;
+            int servicio3 = 455;
+            int servicio4 = 735;
+            int servicio5 = 875;
+            int servicio6 = 1015;
+            int servicio7 = 1155;
+            int servicio8 = 1435;
+            Contenedor.hilo_inicio_servicio(servicio3);
+        }
 
-                            int pos1 = 0;
-                            int pos2 = 150;
-                            int pos3 = 300;
-                            int pos4 = 450;
-                            Contenedor.hilo_espera(silla3, pos3);
-                        }
-                        if (tiempo.equals(tiempoInicio2)) {
-                            int servicio1 = 35;
-                            int servicio2 = 315;
-                            int servicio3 = 455;
-                            int servicio4 = 735;
-                            int servicio5 = 875;
-                            int servicio6 = 1015;
-                            int servicio7 = 1155;
-                            int servicio8 = 1435;
-                            Contenedor.hilo_inicio_servicio(servicio5);
-                        }
-                        for (Cliente cliente3 : u.arrayClientesF4) {
-                            String momentoLllegada3 = cliente3.getMomentoLllegada().toString();
-                            String tiempoInicio3 = cliente3.getTiempoInicio().toString();
-                            tiempoSalida = cliente3.getTiempoSalida().toString();
-                            if (tiempo.equals(momentoLllegada3)) {
-                                int silla1 = 315;
-                                int silla2 = 455;
-                                int silla3 = 595;
-                                int silla4 = 735;
-                                int silla5 = 875;
-                                int silla6 = 1015;
-                                int silla7 = 1155;
+        if (tiempo.equals(u.arrayClientesF3.get(i).getMomentoLllegada())) {
+            int silla1 = 315;
+            int silla2 = 455;
+            int silla3 = 595;
+            int silla4 = 735;
+            int silla5 = 875;
+            int silla6 = 1015;
+            int silla7 = 1155;
 
-                                int pos1 = 0;
-                                int pos2 = 150;
-                                int pos3 = 300;
-                                int pos4 = 450;
-                                Contenedor.hilo_espera(silla4, pos4);
-                            }
-                            if (tiempo.equals(tiempoInicio3)) {
-                                int servicio1 = 35;
-                                int servicio2 = 315;
-                                int servicio3 = 455;
-                                int servicio4 = 735;
-                                int servicio5 = 875;
-                                int servicio6 = 1015;
-                                int servicio7 = 1155;
-                                int servicio8 = 1435;
-                                Contenedor.hilo_inicio_servicio(servicio8);
-                            }
+            int pos1 = 0;
+            int pos2 = 150;
+            int pos3 = 300;
+            int pos4 = 450;
+            Contenedor.hilo_espera(silla3, pos3);
+        }
+        if (tiempo.equals(u.arrayClientesF3.get(i).getTiempoInicio())) {
+            int servicio1 = 35;
+            int servicio2 = 315;
+            int servicio3 = 455;
+            int servicio4 = 735;
+            int servicio5 = 875;
+            int servicio6 = 1015;
+            int servicio7 = 1155;
+            int servicio8 = 1435;
+            Contenedor.hilo_inicio_servicio(servicio5);
+        }
 
-                            if (tiempo.equals(tiempoSalida)) {
+        if (tiempo.equals(u.arrayClientesF4.get(i).getMomentoLllegada())) {
+            int silla1 = 315;
+            int silla2 = 455;
+            int silla3 = 595;
+            int silla4 = 735;
+            int silla5 = 875;
+            int silla6 = 1015;
+            int silla7 = 1155;
 
-                                Contenedor.hilo_salida();
-                            }
-                        }
-                    }
-                }
-            }
+            int pos1 = 0;
+            int pos2 = 150;
+            int pos3 = 300;
+            int pos4 = 450;
+            Contenedor.hilo_espera(silla4, pos4);
+        }
+        if (tiempo.equals(u.arrayClientesF4.get(i).getTiempoInicio())) {
+            int servicio1 = 35;
+            int servicio2 = 315;
+            int servicio3 = 455;
+            int servicio4 = 735;
+            int servicio5 = 875;
+            int servicio6 = 1015;
+            int servicio7 = 1155;
+            int servicio8 = 1435;
+            Contenedor.hilo_inicio_servicio(servicio8);
+        }
+
+        if (tiempo.equals(u.arrayClientesF4.get(i).getTiempoSalida())) {
+
+            Contenedor.hilo_salida();
         }
     }
 
