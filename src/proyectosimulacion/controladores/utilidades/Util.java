@@ -86,6 +86,30 @@ public class Util {
 
         return String.format(formato, hours, minute, second);
     }
+    
+    /**
+     * Recibe una lista de clientes de la fase 2 y retorna dicha lista con algunos clientes menos
+     * @param listaClientesF2
+     * @return 
+     */
+     public static Object[][]duplicado(Object[][] listaClientesF2) {
+        int numClientes = listaClientesF2.length;
+        int tasaDuplicado = 20;// 20% tiene duplicado en la fase 2      
+        int numClientesAEliminar = 0;
+        int seleccionClientes[];
+
+        numClientesAEliminar = cantidadClientesABorrar(numClientes, tasaDuplicado);
+        System.out.println("Nro. clientes a eliminar en fase2: " + numClientesAEliminar);
+
+        seleccionClientes = seleccionarClientes(numClientesAEliminar, listaClientesF2);//recibe un array con los clientes a borrar
+
+        Object[][] nuevaMatrizF2 = new Object[listaClientesF2.length][listaClientesF2[0].length];
+
+        nuevaMatrizF2 = removeRowFrom2dArray(seleccionClientes, listaClientesF2);///  envia el array con los clientes sleccionados
+
+        return nuevaMatrizF2;
+    }
+
 
     /**
      * Recibe una lista de clientes de la fase 3 y retorna dicha lista con
