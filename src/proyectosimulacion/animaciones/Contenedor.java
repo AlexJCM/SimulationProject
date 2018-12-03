@@ -29,9 +29,11 @@ public class Contenedor extends JComponent {
 
         setBounds(0, 0, panel.getWidth(), panel.getHeight());
     }
-
+//dibujado de la pantalla la columna, fila de el aspecto de movimiento mediante los hilos
     @Override
     public void paint(Graphics g) {
+        //solo prestar atencion al img de este depende que se dibujen los clientes
+        
         AllTables u=new AllTables();
 
         ImageIcon img = new ImageIcon(new ImageIcon(getClass().getResource("imagenes/" + numero + ".png")).getImage());
@@ -89,6 +91,7 @@ public class Contenedor extends JComponent {
     }
    //static Thread hilo_inicio_servicio = new Thread() {
         //@/Override
+    //hilos para el movimiento del dibujo recive a cordenada del servcio a entrar todo funciona mediane filas y columnas 
         static void hilo_inicio_servicio(int servicio) {
             //try {
                

@@ -14,6 +14,7 @@ public class Ventana extends javax.swing.JFrame {
 
         panel.add(new Contenedor(panel));
         t = new Timer(15, acciones);
+        //timer tiempo de demora 15 se puede aumentar para hacer mas lento
 
     }
     private String numCliente;
@@ -25,7 +26,7 @@ public class Ventana extends javax.swing.JFrame {
     private Timer t;
     private int h = 8, m, s;
     private ActionListener acciones = new ActionListener() {
-
+//acciones para recorrer hora, minuto y segundo
         @Override
         public void actionPerformed(ActionEvent ae) {
             ++s;
@@ -49,6 +50,8 @@ public class Ventana extends javax.swing.JFrame {
     };
 
     private void actualizarLabel() {
+        //actualiza el label para ser parecr que esta corriendo el tiempo y ademas se da la animacion median el reocrrido de los objeto ojo hay que hacer bien este metodo depende de toda la animacion
+        //ayudar a haecr el metodo eficiente para que se vean mas naturales las corridas
         String tiempo = (h <= 9 ? "0" : "") + h + ":" + (m <= 9 ? "0" : "") + m + ":" + (s <= 9 ? "0" : "") + s;
         etiquetaTiempo.setText(tiempo);
         AllTables u = new AllTables();
