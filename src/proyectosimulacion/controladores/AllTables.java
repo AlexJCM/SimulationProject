@@ -303,8 +303,8 @@ public class AllTables extends javax.swing.JFrame {
                     .addComponent(btnExportarExcel)
                     .addComponent(Animacion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -682,53 +682,26 @@ public class AllTables extends javax.swing.JFrame {
         tblFase4.setModel(modeloF4);
         tblExportar.setModel(modeloAExportar);
 
-        modeloF1.addColumn("Cliente");//aprox. 12 cada hora        
-        // modelo.addColumn("Tiempo de Llegada");//Calculado en base al aleatiorio1  
-        modeloF1.addColumn("Momento Llegada");//M. de Ll. del cliente que está adelante  + T. de Ll. de éste cliente.
-        modeloF1.addColumn("T. Inicio de Servicio");//(T. de I. de servicio + T. de Atencion) del cliente que está adelante
-        //  modelo.addColumn("Tiempo de Espera");//T. de I. de servicio - Momento de Llegada del mismo cliente        
-        modeloF1.addColumn("T. de Atencion");//Calculado en base al aleatiorio2
-        modeloF1.addColumn("T. de Salida");//T. de I. de servicio + T. de A. del mismo cliente
-
-        modeloF2.addColumn("Cliente");//aprox. 12 cada hora        
-        // modelo.addColumn("Tiempo de Llegada");//Calculado en base al aleatiorio1  
-        modeloF2.addColumn("Momento Llegada");//M. de Ll. del cliente que está adelante  + T. de Ll. de éste cliente.
-        modeloF2.addColumn("T. Inicio de Servicio");//(T. de I. de servicio + T. de Atencion) del cliente que está adelante
-        //  modelo.addColumn("Tiempo de Espera");//T. de I. de servicio - Momento de Llegada del mismo cliente     
-        modeloF2.addColumn("T. de Atencion");//Calculado en base al aleatiorio2
-        modeloF2.addColumn("T. de Salida");//T. de I. de servicio + T. de A. del mismo cliente
-
-        modeloF3.addColumn("Cliente");//aprox. 12 cada hora       
-        // modelo.addColumn("Tiempo de Llegada");//Calculado en base al aleatiorio1  
-        modeloF3.addColumn("Momento Llegada");//M. de Ll. del cliente que está adelante  + T. de Ll. de éste cliente.
-        modeloF3.addColumn("T. Inicio de Servicio");//(T. de I. de servicio + T. de Atencion) del cliente que está adelante
-        //  modelo.addColumn("Tiempo de Espera");//T. de I. de servicio - Momento de Llegada del mismo cliente        
-        modeloF3.addColumn("T. de Atencion");//Calculado en base al aleatiorio2
-        modeloF3.addColumn("T. de Salida");//T. de I. de servicio + T. de A. del mismo cliente
-
-        modeloF4.addColumn("Cliente");//aprox. 12 cada hora        
-        // modelo.addColumn("Tiempo de Llegada");//Calculado en base al aleatiorio1  
-        modeloF4.addColumn("Momento Llegada");//M. de Ll. del cliente que está adelante  + T. de Ll. de éste cliente.
-        modeloF4.addColumn("T. Inicio de Servicio");//(T. de I. de servicio + T. de Atencion) del cliente que está adelante
-        //  modelo.addColumn("Tiempo de Espera");//T. de I. de servicio - Momento de Llegada del mismo cliente        
-        modeloF4.addColumn("T. de Atencion");//Calculado en base al aleatiorio2
-        modeloF4.addColumn("T. de Salida");//T. de I. de servicio + T. de A. del mismo cliente
+        primeraFilaDeCadaTabla(modeloF1);
+        primeraFilaDeCadaTabla(modeloF2);
+        primeraFilaDeCadaTabla(modeloF3);
+        primeraFilaDeCadaTabla(modeloF4);
+        primeraFilaDeCadaTabla(modeloAExportar);
         
-        cabeceraTablaExportar();
-    }
-    private void cabeceraTablaExportar(){
-     modeloAExportar.addColumn("Cliente");//aprox. 12 cada hora        
-        // modelo.addColumn("Tiempo de Llegada");//Calculado en base al aleatiorio1  
-        modeloAExportar.addColumn("Momento Llegada");//M. de Ll. del cliente que está adelante  + T. de Ll. de éste cliente.
-        modeloAExportar.addColumn("T. Inicio de Servicio");//(T. de I. de servicio + T. de Atencion) del cliente que está adelante
-        //  modelo.addColumn("Tiempo de Espera");//T. de I. de servicio - Momento de Llegada del mismo cliente        
-        modeloAExportar.addColumn("T. de Atencion");//Calculado en base al aleatiorio2
-        modeloAExportar.addColumn("T. de Salida");//T. de I. de servicio + T. de A. del mismo cliente
-        
+        //Ocultamos la tabla a exportar
         tblExportar.setVisible(false);
-        jScrollPane5.setVisible(false);
+        jScrollPane5.setVisible(false);      
+       
     }
-
+    
+    private void primeraFilaDeCadaTabla(DefaultTableModel model){
+        model.addColumn("Cliente");//aprox. 12 cada hora       
+        model.addColumn("Momento Llegada");//M. de Ll. del cliente que está adelante  + T. de Ll. de éste cliente.
+        model.addColumn("T. Inicio de Servicio");//(T. de I. de servicio + T. de Atencion) del cliente que está adelante
+        model.addColumn("T. de Atencion");//Calculado en base al aleatiorio2
+        model.addColumn("T. de Salida");//T. de I. de servicio + T. de A. del mismo cliente
+    }
+        
     private Object[] rowTitulosExportar(){
         Object[]filaExportar=new Object[5];
         filaExportar[0]= "Cliente";

@@ -17,7 +17,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 public class clsExportarExcel {
     /**
-     * Metodo que recibe una tabla para exportarla y guardarla como tipo Excel
+     * Metodo que recibe una tabla para exportarla y guardarla como tipo Excel..........
      * @param tabla
      * @throws IOException 
      */
