@@ -14,7 +14,7 @@ public class Ventana extends javax.swing.JFrame {
         initComponents();
 
         panel.add(new Contenedor(panel));
-        t = new Timer(50, acciones);
+        t = new Timer(15, acciones);
         //timer tiempo de demora 15 se puede aumentar para hacer mas lento
 
     }

@@ -44,7 +44,7 @@ public class Contenedor extends JComponent {
 
     int pos11 = 820;
 
-    int s, p;
+    int s=0;
 
     Contenedor(JPanel panel) {
         Contenedor.panel = panel;
@@ -107,7 +107,11 @@ public class Contenedor extends JComponent {
 
         ImageIcon img = new ImageIcon(new ImageIcon(getClass().getResource("imagenes/1.png")).getImage());
         AllTables u = new AllTables();
-        if (!Ventana.label.equals("08:00:00")) {
+        /*if (Util.reverseHora(Ventana.label)==s) {
+            servicio4567 += 140;
+            servicio2_3 += 140;
+            numero += 140;
+            s++;
             if (numero == 1155) {
                 numero = 315;
             }
@@ -117,10 +121,10 @@ public class Contenedor extends JComponent {
             if (servicio4567 == 1155) {
                 servicio4567 = 735;
             }
+        }*/
             for (int i = 0; i < u.arrayClientesF4.size() - 1; i++) {
                 //////////////////////////////////////////////
                 //array 1
-                System.out.println(Util.reverseHora(Ventana.label));
                 if (Util.reverseHora(u.arrayClientesF1.get(i).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF1.get(i).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
                     g.drawImage(img.getImage(), numero, pos1, 80, 80, null);
                 }/*else{
@@ -166,81 +170,11 @@ public class Contenedor extends JComponent {
                 }
                 ////////////////////////////////////
                 //salida
-                if (Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida())<=Util.reverseHora(Ventana.label)&&Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida()+0.5)>=Util.reverseHora(Ventana.label)) {
+                if (Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida())<=Util.reverseHora(Ventana.label)&&Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida()+1)>=Util.reverseHora(Ventana.label)) {
                     g.drawImage(img.getImage(), 1435, 0, 80, 80, null);
                 }
-                
-                /*if (Ventana.label.equals(u.arrayClientesF4.get(i).getTiempoSalida())) {
-                    g.drawImage(img.getImage(), 1435, 0, 80, 80, null);
-                }
-
-                if (u.arrayClientesF1.get(i).getMomentoLllegada().equals(u.arrayClientesF1.get(i).getTiempoInicio())) {
-                    if (Ventana.label.equals(u.arrayClientesF1.get(i).getTiempoInicio())) {
-
-                        g.drawImage(img.getImage(), servicio1, pos11, 80, 80, null);
-                    }
-                } else {
-                    if (Ventana.label.equals(u.arrayClientesF1.get(i).getMomentoLllegada())) {
-                        g.drawImage(img.getImage(), numero, pos1, 80, 80, null);
-                    }
-                    if (Ventana.label.equals(u.arrayClientesF1.get(i).getTiempoInicio())) {
-
-                        g.drawImage(img.getImage(), servicio1, pos11, 80, 80, null);
-                    }
-                }
-                if (u.arrayClientesF2.get(i).getMomentoLllegada().equals(u.arrayClientesF2.get(i).getTiempoInicio())) {
-                    if (Ventana.label.equals(u.arrayClientesF2.get(i).getTiempoInicio())) {
-
-                        g.drawImage(img.getImage(), servicio2_3, pos11, 80, 80, null);
-                    }
-                } else {
-                    if (Ventana.label.equals(u.arrayClientesF2.get(i).getMomentoLllegada())) {
-
-                        g.drawImage(img.getImage(), numero, pos2, 80, 80, null);
-                    }
-                    if (Ventana.label.equals(u.arrayClientesF2.get(i).getTiempoInicio())) {
-
-                        g.drawImage(img.getImage(), servicio2_3, pos11, 80, 80, null);
-                    }
-                }
-                if (u.arrayClientesF3.get(i).getMomentoLllegada().equals(u.arrayClientesF3.get(i).getTiempoInicio())) {
-                    if (Ventana.label.equals(u.arrayClientesF3.get(i).getTiempoInicio())) {
-
-                        g.drawImage(img.getImage(), servicio4567, pos11, 80, 80, null);
-                    }
-                } else {
-                    if (Ventana.label.equals(u.arrayClientesF3.get(i).getMomentoLllegada())) {
-
-                        g.drawImage(img.getImage(), numero, pos3, 80, 80, null);
-                    }
-                    if (Ventana.label.equals(u.arrayClientesF3.get(i).getTiempoInicio())) {
-
-                        g.drawImage(img.getImage(), servicio4567, pos11, 80, 80, null);
-                    }
-                }
-
-                if (u.arrayClientesF4.get(i).getMomentoLllegada().equals(u.arrayClientesF4.get(i).getTiempoInicio())) {
-                    if (Ventana.label.equals(u.arrayClientesF4.get(i).getTiempoInicio())) {
-
-                        g.drawImage(img.getImage(), servicio8, pos11, 80, 80, null);
-                    }
-                } else {
-                    if (Ventana.label.equals(u.arrayClientesF4.get(i).getMomentoLllegada())) {
-
-                        g.drawImage(img.getImage(), numero, pos4, 80, 80, null);
-                    }
-                    if (Ventana.label.equals(u.arrayClientesF4.get(i).getTiempoInicio())) {
-
-                        g.drawImage(img.getImage(), servicio8, pos11, 80, 80, null);
-                    }
-                }
-                if (Ventana.label.equals(u.arrayClientesF4.get(i).getTiempoSalida())) {
-                    s = 1435;
-                    p = 0;
-                    g.drawImage(img.getImage(), 1435, 0, 80, 80, null);
-                }*/
+               
             }
 
-        }
     }
 }
