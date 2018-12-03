@@ -9,9 +9,11 @@ import javax.swing.ImageIcon;
 import java.awt.Graphics;
 
 import java.awt.Color;
+import java.time.LocalTime;
 import proyectosimulacion.controladores.AllTables;
 import proyectosimulacion.animaciones.Ventana;
 import proyectosimulacion.modelo.Cliente;
+import proyectosimulacion.controladores.utilidades.Util;
 
 public class Contenedor extends JComponent {
 
@@ -102,6 +104,7 @@ public class Contenedor extends JComponent {
         g.drawImage(silla.getImage(), 875, 450, 100, 100, null);
         g.drawImage(silla.getImage(), 1015, 450, 100, 100, null);
         g.drawImage(silla.getImage(), 1155, 450, 100, 100, null);
+
         ImageIcon img = new ImageIcon(new ImageIcon(getClass().getResource("imagenes/1.png")).getImage());
         AllTables u = new AllTables();
         if (!Ventana.label.equals("08:00:00")) {
@@ -114,8 +117,63 @@ public class Contenedor extends JComponent {
             if (servicio4567 == 1155) {
                 servicio4567 = 735;
             }
-
             for (int i = 0; i < u.arrayClientesF4.size() - 1; i++) {
+                //////////////////////////////////////////////
+                //array 1
+                System.out.println(Util.reverseHora(Ventana.label));
+                if (Util.reverseHora(u.arrayClientesF1.get(i).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF1.get(i).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+                    g.drawImage(img.getImage(), numero, pos1, 80, 80, null);
+                }/*else{
+                    numero += 140;
+                }*/
+                if (Util.reverseHora(u.arrayClientesF1.get(i).getTiempoInicio()) <= Util.reverseHora(Ventana.label) &&Util.reverseHora(u.arrayClientesF1.get(i).getTiempoSalida())  >=Util.reverseHora(Ventana.label) ) {
+                    g.drawImage(img.getImage(), servicio1, pos11, 80, 80, null);
+                }
+                /////////////////////////////////////////////
+                //array 2
+                if (Util.reverseHora(u.arrayClientesF2.get(i).getMomentoLllegada()) <=Util.reverseHora(Ventana.label)  &&Util.reverseHora(u.arrayClientesF2.get(i).getTiempoInicio() ) >= Util.reverseHora(Ventana.label)) {
+                    g.drawImage(img.getImage(), numero, pos2, 80, 80, null);
+                }/*else{
+                    numero += 140;
+                }*/
+                if (Util.reverseHora(u.arrayClientesF2.get(i).getTiempoInicio()) <=Util.reverseHora(Ventana.label)  && Util.reverseHora(u.arrayClientesF2.get(i).getTiempoSalida()) >=Util.reverseHora(Ventana.label) ) {
+                    g.drawImage(img.getImage(), servicio2_3, pos11, 80, 80, null);
+                }/*else{
+                    servicio2_3 += 140;
+                }*/
+                ////////////////////////////////////////////
+                //array 3
+                if (Util.reverseHora(u.arrayClientesF3.get(i).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) &&Util.reverseHora(u.arrayClientesF3.get(i).getTiempoInicio())  >= Util.reverseHora(Ventana.label)) {
+                    g.drawImage(img.getImage(), numero, pos3, 80, 80, null);
+                }/*else{
+                    numero += 140;
+                }*/
+                if (Util.reverseHora(u.arrayClientesF3.get(i).getTiempoInicio()) <=Util.reverseHora(Ventana.label)  &&Util.reverseHora(u.arrayClientesF3.get(i).getTiempoSalida() ) >= Util.reverseHora(Ventana.label)) {
+                    g.drawImage(img.getImage(), servicio4567, pos11, 80, 80, null);
+                }/*else{
+                    servicio4567 += 140;
+                }*/
+                ///////////////////////////////////////////
+                //array 4
+                if (Util.reverseHora(u.arrayClientesF4.get(i).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF4.get(i).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+                    g.drawImage(img.getImage(), numero, pos4, 80, 80, null);
+                }
+                /*else{
+                    numero += 140;
+                }*/
+                if (Util.reverseHora(u.arrayClientesF4.get(i).getTiempoInicio()) <= Util.reverseHora(Ventana.label) &&Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida())  >=Util.reverseHora( Ventana.label)) {
+                    g.drawImage(img.getImage(), servicio8, pos11, 80, 80, null);
+                }
+                ////////////////////////////////////
+                //salida
+                if (Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida())<=Util.reverseHora(Ventana.label)&&Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida()+0.5)>=Util.reverseHora(Ventana.label)) {
+                    g.drawImage(img.getImage(), 1435, 0, 80, 80, null);
+                }
+                
+                /*if (Ventana.label.equals(u.arrayClientesF4.get(i).getTiempoSalida())) {
+                    g.drawImage(img.getImage(), 1435, 0, 80, 80, null);
+                }
+
                 if (u.arrayClientesF1.get(i).getMomentoLllegada().equals(u.arrayClientesF1.get(i).getTiempoInicio())) {
                     if (Ventana.label.equals(u.arrayClientesF1.get(i).getTiempoInicio())) {
 
@@ -147,38 +205,32 @@ public class Contenedor extends JComponent {
                 }
                 if (u.arrayClientesF3.get(i).getMomentoLllegada().equals(u.arrayClientesF3.get(i).getTiempoInicio())) {
                     if (Ventana.label.equals(u.arrayClientesF3.get(i).getTiempoInicio())) {
-                        s = servicio4567;
-                        p = pos11;
+
                         g.drawImage(img.getImage(), servicio4567, pos11, 80, 80, null);
                     }
                 } else {
                     if (Ventana.label.equals(u.arrayClientesF3.get(i).getMomentoLllegada())) {
-                        s = numero;
-                        p = pos3;
+
                         g.drawImage(img.getImage(), numero, pos3, 80, 80, null);
                     }
                     if (Ventana.label.equals(u.arrayClientesF3.get(i).getTiempoInicio())) {
-                        s = servicio4567;
-                        p = pos11;
+
                         g.drawImage(img.getImage(), servicio4567, pos11, 80, 80, null);
                     }
                 }
 
                 if (u.arrayClientesF4.get(i).getMomentoLllegada().equals(u.arrayClientesF4.get(i).getTiempoInicio())) {
                     if (Ventana.label.equals(u.arrayClientesF4.get(i).getTiempoInicio())) {
-                        s = servicio8;
-                        p = pos11;
+
                         g.drawImage(img.getImage(), servicio8, pos11, 80, 80, null);
                     }
                 } else {
                     if (Ventana.label.equals(u.arrayClientesF4.get(i).getMomentoLllegada())) {
-                        s = numero;
-                        p = pos4;
+
                         g.drawImage(img.getImage(), numero, pos4, 80, 80, null);
                     }
                     if (Ventana.label.equals(u.arrayClientesF4.get(i).getTiempoInicio())) {
-                        s = servicio8;
-                        p = pos11;
+
                         g.drawImage(img.getImage(), servicio8, pos11, 80, 80, null);
                     }
                 }
@@ -186,11 +238,9 @@ public class Contenedor extends JComponent {
                     s = 1435;
                     p = 0;
                     g.drawImage(img.getImage(), 1435, 0, 80, 80, null);
-                }
+                }*/
             }
-            numero += 140;
-            servicio2_3 += 140;
-            servicio4567 += 140;
+
         }
     }
 }

@@ -14,7 +14,7 @@ public class Ventana extends javax.swing.JFrame {
         initComponents();
 
         panel.add(new Contenedor(panel));
-        t = new Timer(100, acciones);
+        t = new Timer(50, acciones);
         //timer tiempo de demora 15 se puede aumentar para hacer mas lento
 
     }
@@ -26,7 +26,7 @@ public class Ventana extends javax.swing.JFrame {
     public int i = 0;
     public static String label="08:00:00";
     private Timer t;
-    private int h = 8, m, s;
+    private int h = 8,h1, m, s;
     private ActionListener acciones = new ActionListener() {
 //acciones para recorrer hora, minuto y segundo
         @Override
@@ -39,11 +39,12 @@ public class Ventana extends javax.swing.JFrame {
             }
             if (m == 60) {
                 m = 0;
-
+                ++h1;
                 ++h;
             }
             if (h == 60) {
                 h = 0;
+                h1=0;
             }
 
             actualizarLabel();
@@ -56,7 +57,8 @@ public class Ventana extends javax.swing.JFrame {
         //ayudar a haecr el metodo eficiente para que se vean mas naturales las corridas AYUDA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         String tiempo = (h <= 9 ? "0" : "") + h + ":" + (m <= 9 ? "0" : "") + m + ":" + (s <= 9 ? "0" : "") + s;
         etiquetaTiempo.setText(tiempo);
-        label = etiquetaTiempo.getText();
+        String tiempo2 = (h1 <= 9 ? "0" : "") + h + ":" + (m <= 9 ? "0" : "") + m + ":" + (s <= 9 ? "0" : "") + s;
+        label = tiempo2;
         panel.repaint();
     }
 
