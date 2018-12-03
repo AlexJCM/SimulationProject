@@ -29,7 +29,7 @@ public class AllTables extends javax.swing.JFrame {
     private double servidores; // numero de servidores
     ////////////////
     private double capacidad;//  Capacidad de la FASE1
-    private double clientes;//   numero de clientes
+    public static double clientes;//   numero de clientes
     private double aleatorio1;
     private double tasaLlegada;//12/hora aprox. Tambien hay un array con un nombre similar
     private double momentoLlegada = 0;

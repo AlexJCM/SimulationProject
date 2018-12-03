@@ -35,6 +35,8 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="boton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="parar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="517" max="-2" attributes="0"/>
               <Component id="etiquetaTiempo" min="-2" pref="260" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
@@ -47,6 +49,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="boton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="etiquetaTiempo" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="parar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panel" pref="994" max="32767" attributes="0"/>
@@ -131,6 +134,17 @@
         </Property>
         <Property name="text" type="java.lang.String" value="08:00:00"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="parar">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Lucida Sans" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Parar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pararActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

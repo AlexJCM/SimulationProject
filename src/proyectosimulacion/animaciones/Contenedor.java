@@ -10,6 +10,7 @@ import java.awt.Graphics;
 
 import java.awt.Color;
 import proyectosimulacion.controladores.AllTables;
+import proyectosimulacion.animaciones.Ventana;
 import proyectosimulacion.modelo.Cliente;
 
 public class Contenedor extends JComponent {
@@ -20,9 +21,28 @@ public class Contenedor extends JComponent {
 
     static int fila = 0;
 
-    static int numero = 1;
+    int pos1 = 0;
+    int pos2 = 150;
+    int pos3 = 300;
+    int pos4 = 450;
 
-    static int cliente = 12;
+    int servicio1 = 35;
+    int servicio2 = 315;
+    int servicio3 = 455;
+    int servicio4 = 735;
+    int servicio5 = 875;
+    int servicio6 = 1015;
+    int servicio7 = 1155;
+    int servicio8 = 1435;
+
+    int servicio2_3 = 315;
+    int servicio4567 = 735;
+
+    int numero = 315;
+
+    int pos11 = 820;
+
+    int s, p;
 
     Contenedor(JPanel panel) {
         Contenedor.panel = panel;
@@ -30,18 +50,10 @@ public class Contenedor extends JComponent {
         setBounds(0, 0, panel.getWidth(), panel.getHeight());
     }
 //dibujado de la pantalla la columna, fila de el aspecto de movimiento mediante los hilos
+
     @Override
     public void paint(Graphics g) {
-        //solo prestar atencion al img de este depende que se dibujen los clientes
-        
-        AllTables u = new AllTables();
-        for (int i = 0; i < u.arrayClientesF1.size(); i++) {
-        ImageIcon img = new ImageIcon(new ImageIcon(getClass().getResource("imagenes/" + numero + ".png")).getImage());
-        g.drawImage(img.getImage(), columna, fila, 80, 80, null);
-        }
-
-        
-        ///solo hasta aqui hay que realizar algun metodo para recrear mas clientes AYUDA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //solo prestar atencion al img de este depende que se dibujen los clienteS
 
         ImageIcon silla = new ImageIcon(new ImageIcon(getClass().getResource("imagenes/silla.png")).getImage());
         ImageIcon puerta = new ImageIcon(new ImageIcon(getClass().getResource("imagenes/puerta.png")).getImage());
@@ -90,165 +102,95 @@ public class Contenedor extends JComponent {
         g.drawImage(silla.getImage(), 875, 450, 100, 100, null);
         g.drawImage(silla.getImage(), 1015, 450, 100, 100, null);
         g.drawImage(silla.getImage(), 1155, 450, 100, 100, null);
+        ImageIcon img = new ImageIcon(new ImageIcon(getClass().getResource("imagenes/1.png")).getImage());
+        AllTables u = new AllTables();
+        if (!Ventana.label.equals("08:00:00")) {
+            if (numero == 1155) {
+                numero = 315;
+            }
+            if (servicio2_3 == 455) {
+                servicio2_3 = 315;
+            }
+            if (servicio4567 == 1155) {
+                servicio4567 = 735;
+            }
 
+            for (int i = 0; i < u.arrayClientesF4.size() - 1; i++) {
+                if (u.arrayClientesF1.get(i).getMomentoLllegada().equals(u.arrayClientesF1.get(i).getTiempoInicio())) {
+                    if (Ventana.label.equals(u.arrayClientesF1.get(i).getTiempoInicio())) {
+
+                        g.drawImage(img.getImage(), servicio1, pos11, 80, 80, null);
+                    }
+                } else {
+                    if (Ventana.label.equals(u.arrayClientesF1.get(i).getMomentoLllegada())) {
+                        g.drawImage(img.getImage(), numero, pos1, 80, 80, null);
+                    }
+                    if (Ventana.label.equals(u.arrayClientesF1.get(i).getTiempoInicio())) {
+
+                        g.drawImage(img.getImage(), servicio1, pos11, 80, 80, null);
+                    }
+                }
+                if (u.arrayClientesF2.get(i).getMomentoLllegada().equals(u.arrayClientesF2.get(i).getTiempoInicio())) {
+                    if (Ventana.label.equals(u.arrayClientesF2.get(i).getTiempoInicio())) {
+
+                        g.drawImage(img.getImage(), servicio2_3, pos11, 80, 80, null);
+                    }
+                } else {
+                    if (Ventana.label.equals(u.arrayClientesF2.get(i).getMomentoLllegada())) {
+
+                        g.drawImage(img.getImage(), numero, pos2, 80, 80, null);
+                    }
+                    if (Ventana.label.equals(u.arrayClientesF2.get(i).getTiempoInicio())) {
+
+                        g.drawImage(img.getImage(), servicio2_3, pos11, 80, 80, null);
+                    }
+                }
+                if (u.arrayClientesF3.get(i).getMomentoLllegada().equals(u.arrayClientesF3.get(i).getTiempoInicio())) {
+                    if (Ventana.label.equals(u.arrayClientesF3.get(i).getTiempoInicio())) {
+                        s = servicio4567;
+                        p = pos11;
+                        g.drawImage(img.getImage(), servicio4567, pos11, 80, 80, null);
+                    }
+                } else {
+                    if (Ventana.label.equals(u.arrayClientesF3.get(i).getMomentoLllegada())) {
+                        s = numero;
+                        p = pos3;
+                        g.drawImage(img.getImage(), numero, pos3, 80, 80, null);
+                    }
+                    if (Ventana.label.equals(u.arrayClientesF3.get(i).getTiempoInicio())) {
+                        s = servicio4567;
+                        p = pos11;
+                        g.drawImage(img.getImage(), servicio4567, pos11, 80, 80, null);
+                    }
+                }
+
+                if (u.arrayClientesF4.get(i).getMomentoLllegada().equals(u.arrayClientesF4.get(i).getTiempoInicio())) {
+                    if (Ventana.label.equals(u.arrayClientesF4.get(i).getTiempoInicio())) {
+                        s = servicio8;
+                        p = pos11;
+                        g.drawImage(img.getImage(), servicio8, pos11, 80, 80, null);
+                    }
+                } else {
+                    if (Ventana.label.equals(u.arrayClientesF4.get(i).getMomentoLllegada())) {
+                        s = numero;
+                        p = pos4;
+                        g.drawImage(img.getImage(), numero, pos4, 80, 80, null);
+                    }
+                    if (Ventana.label.equals(u.arrayClientesF4.get(i).getTiempoInicio())) {
+                        s = servicio8;
+                        p = pos11;
+                        g.drawImage(img.getImage(), servicio8, pos11, 80, 80, null);
+                    }
+                }
+                if (Ventana.label.equals(u.arrayClientesF4.get(i).getTiempoSalida())) {
+                    s = 1435;
+                    p = 0;
+                    g.drawImage(img.getImage(), 1435, 0, 80, 80, null);
+                }
+            }
+            numero += 140;
+            servicio2_3 += 140;
+            servicio4567 += 140;
+        }
     }
-   //static Thread hilo_inicio_servicio = new Thread() {
-        //@/Override
-    //hilos para el movimiento del dibujo recive a cordenada del servcio a entrar todo funciona mediane filas y columnas 
-    
-        static void hilo_inicio_servicio(int servicio) {
-            //try {
-               
-
-                int pos1 = 820;
-
-                while (columna != servicio || fila != pos1) {
-                    numero++;
-                    if (numero == 8) {
-                        numero = 1;
-                    }
-                    if (fila < pos1) {
-                        panel.repaint();
-
-                        fila++;
-
-                       // hilo_inicio_servicio.sleep(1);
-
-                    } else {
-                        panel.repaint();
-
-                        fila--;
-
-                       // hilo_inicio_servicio.sleep(1);
-                    }
-                    if (fila == pos1) {
-
-                        if (columna < servicio) {
-                            panel.repaint();
-
-                            columna++;
-
-                        //    hilo_inicio_servicio.sleep(1);
-                        } else {
-                            panel.repaint();
-
-                            columna--;
-
-                          //  hilo_inicio_servicio.sleep(1);
-                        }
-                    }
-
-                }
-
-           // } catch (java.lang.InterruptedException ex) {
-
-             //   System.out.println(ex.getMessage());
-            //}
-        }
-    //};
-
-    //static Thread hilo_salida = new Thread() {
-        //@Override
-        static void hilo_salida() {
-           // try {
-                int servicio1 = 1435;
-                int pos1 = 0;
-
-                while (columna != servicio1 || fila != pos1) {
-                    numero++;
-                    if (numero == 8) {
-                        numero = 1;
-                    }
-                    if (fila < pos1) {
-                        panel.repaint();
-
-                        fila++;
-
-                       // hilo_salida.sleep(1);
-
-                    } else {
-                        panel.repaint();
-
-                        fila--;
-
-                      // hilo_salida.sleep(1);
-                    }
-                    if (fila == pos1) {
-
-                        if (columna < servicio1) {
-                            panel.repaint();
-
-                            columna++;
-
-                            //hilo_salida.sleep(1);
-                        } else {
-                            panel.repaint();
-
-                            columna--;
-
-                           // hilo_salida.sleep(1);
-                        }
-                    }
-
-                }
-
-          /*  } catch (java.lang.InterruptedException ex) {
-
-                System.out.println(ex.getMessage());
-            }*/
-        }
-   // };
-
-    //static Thread hilo_espera = new Thread() {
-        //@Override
-        static void hilo_espera(int silla, int pos) {
-           // try {
-                
-
-                while (columna != silla || fila != pos) {
-                    numero++;
-                    if (numero == 8) {
-                        numero = 1;
-                    }
-                    if (fila < pos) {
-                        panel.repaint();
-
-                        fila++;
-
-                      //  hilo_espera.sleep(1);
-
-                    } else {
-                        panel.repaint();
-
-                        fila--;
-
-                       // hilo_espera.sleep(1);
-                    }
-                    if (fila == pos) {
-
-                        if (columna < silla) {
-                            panel.repaint();
-
-                            columna++;
-
-                           // hilo_espera.sleep(1);
-                        } else {
-                            panel.repaint();
-
-                            columna--;
-
-                          //  hilo_espera.sleep(1);
-                        }
-                    }
-
-                }
-
-           /* } catch (java.lang.InterruptedException ex) {
-
-                System.out.println(ex.getMessage());
-            }*/
-        }
-    //};
-
-
 }

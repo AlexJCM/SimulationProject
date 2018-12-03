@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.Timer;
+import static proyectosimulacion.animaciones.Contenedor.columna;
 import proyectosimulacion.controladores.AllTables;
 import proyectosimulacion.modelo.Cliente;
 
@@ -13,7 +14,7 @@ public class Ventana extends javax.swing.JFrame {
         initComponents();
 
         panel.add(new Contenedor(panel));
-        t = new Timer(15, acciones);
+        t = new Timer(100, acciones);
         //timer tiempo de demora 15 se puede aumentar para hacer mas lento
 
     }
@@ -22,8 +23,8 @@ public class Ventana extends javax.swing.JFrame {
     private String tiempoInicio;
     private String tiempoAtencion;
     private String tiempoSalida;
-    public int i=0;
-
+    public int i = 0;
+    public static String label="08:00:00";
     private Timer t;
     private int h = 8, m, s;
     private ActionListener acciones = new ActionListener() {
@@ -55,122 +56,8 @@ public class Ventana extends javax.swing.JFrame {
         //ayudar a haecr el metodo eficiente para que se vean mas naturales las corridas AYUDA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         String tiempo = (h <= 9 ? "0" : "") + h + ":" + (m <= 9 ? "0" : "") + m + ":" + (s <= 9 ? "0" : "") + s;
         etiquetaTiempo.setText(tiempo);
-        AllTables u = new AllTables();
-        
-        if (tiempo.equals(u.arrayClientesF1.get(i).getMomentoLllegada())) {
-            int silla1 = 315;
-            int silla2 = 455;
-            int silla3 = 595;
-            int silla4 = 735;
-            int silla5 = 875;
-            int silla6 = 1015;
-            int silla7 = 1155;
-
-            int pos1 = 0;
-            int pos2 = 150;
-            int pos3 = 300;
-            int pos4 = 450;
-
-            Contenedor.hilo_espera(silla1, pos1);
-        }
-        if (tiempo.equals(u.arrayClientesF1.get(i).getTiempoInicio())) {
-            int servicio1 = 35;
-            int servicio2 = 315;
-            int servicio3 = 455;
-            int servicio4 = 735;
-            int servicio5 = 875;
-            int servicio6 = 1015;
-            int servicio7 = 1155;
-            int servicio8 = 1435;
-            Contenedor.hilo_inicio_servicio(servicio1);
-        }
-
-        if (tiempo.equals(u.arrayClientesF2.get(i).getMomentoLllegada())) {
-            int silla1 = 315;
-            int silla2 = 455;
-            int silla3 = 595;
-            int silla4 = 735;
-            int silla5 = 875;
-            int silla6 = 1015;
-            int silla7 = 1155;
-
-            int pos1 = 0;
-            int pos2 = 150;
-            int pos3 = 300;
-            int pos4 = 450;
-            Contenedor.hilo_espera(silla1, pos2);
-        }
-
-        if (tiempo.equals(u.arrayClientesF2.get(i).getTiempoInicio())) {
-            int servicio1 = 35;
-            int servicio2 = 315;
-            int servicio3 = 455;
-            int servicio4 = 735;
-            int servicio5 = 875;
-            int servicio6 = 1015;
-            int servicio7 = 1155;
-            int servicio8 = 1435;
-            Contenedor.hilo_inicio_servicio(servicio3);
-        }
-
-        if (tiempo.equals(u.arrayClientesF3.get(i).getMomentoLllegada())) {
-            int silla1 = 315;
-            int silla2 = 455;
-            int silla3 = 595;
-            int silla4 = 735;
-            int silla5 = 875;
-            int silla6 = 1015;
-            int silla7 = 1155;
-
-            int pos1 = 0;
-            int pos2 = 150;
-            int pos3 = 300;
-            int pos4 = 450;
-            Contenedor.hilo_espera(silla3, pos3);
-        }
-        if (tiempo.equals(u.arrayClientesF3.get(i).getTiempoInicio())) {
-            int servicio1 = 35;
-            int servicio2 = 315;
-            int servicio3 = 455;
-            int servicio4 = 735;
-            int servicio5 = 875;
-            int servicio6 = 1015;
-            int servicio7 = 1155;
-            int servicio8 = 1435;
-            Contenedor.hilo_inicio_servicio(servicio5);
-        }
-
-        if (tiempo.equals(u.arrayClientesF4.get(i).getMomentoLllegada())) {
-            int silla1 = 315;
-            int silla2 = 455;
-            int silla3 = 595;
-            int silla4 = 735;
-            int silla5 = 875;
-            int silla6 = 1015;
-            int silla7 = 1155;
-
-            int pos1 = 0;
-            int pos2 = 150;
-            int pos3 = 300;
-            int pos4 = 450;
-            Contenedor.hilo_espera(silla4, pos4);
-        }
-        if (tiempo.equals(u.arrayClientesF4.get(i).getTiempoInicio())) {
-            int servicio1 = 35;
-            int servicio2 = 315;
-            int servicio3 = 455;
-            int servicio4 = 735;
-            int servicio5 = 875;
-            int servicio6 = 1015;
-            int servicio7 = 1155;
-            int servicio8 = 1435;
-            Contenedor.hilo_inicio_servicio(servicio8);
-        }
-
-        if (tiempo.equals(u.arrayClientesF4.get(i).getTiempoSalida())) {
-
-            Contenedor.hilo_salida();
-        }
+        label = etiquetaTiempo.getText();
+        panel.repaint();
     }
 
     @SuppressWarnings("unchecked")
@@ -184,6 +71,7 @@ public class Ventana extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         etiquetaTiempo = new javax.swing.JLabel();
+        parar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(205, 255, 255));
@@ -233,6 +121,14 @@ public class Ventana extends javax.swing.JFrame {
         etiquetaTiempo.setFont(new java.awt.Font("Lucida Sans", 1, 24)); // NOI18N
         etiquetaTiempo.setText("08:00:00");
 
+        parar.setFont(new java.awt.Font("Lucida Sans", 1, 18)); // NOI18N
+        parar.setText("Parar");
+        parar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pararActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -244,6 +140,8 @@ public class Ventana extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(boton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(parar)
+                .addGap(517, 517, 517)
                 .addComponent(etiquetaTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -253,7 +151,8 @@ public class Ventana extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(boton)
-                    .addComponent(etiquetaTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(etiquetaTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(parar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 994, Short.MAX_VALUE))
         );
@@ -263,7 +162,16 @@ public class Ventana extends javax.swing.JFrame {
 
     private void botonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActionPerformed
         t.start();
+        boton.setEnabled(false);
+        boton.setText("Reanudar");
+        parar.setEnabled(true);
     }//GEN-LAST:event_botonActionPerformed
+
+    private void pararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pararActionPerformed
+        t.stop();
+        boton.setEnabled(true);
+        parar.setEnabled(false);
+    }//GEN-LAST:event_pararActionPerformed
 
     public static void main(String args[]) {
 
@@ -280,5 +188,6 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JPanel panel;
+    private javax.swing.JButton parar;
     // End of variables declaration//GEN-END:variables
 }
