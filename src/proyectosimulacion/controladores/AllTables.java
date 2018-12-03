@@ -42,6 +42,7 @@ public class AllTables extends javax.swing.JFrame {
     DefaultTableModel modeloF2;
     DefaultTableModel modeloF3;
     DefaultTableModel modeloF4;
+    DefaultTableModel modeloAExportar;
 
     clsExportarExcel obj;
 
@@ -81,6 +82,8 @@ public class AllTables extends javax.swing.JFrame {
         lblNumClientesF3 = new javax.swing.JLabel();
         lblNumClientesF4 = new javax.swing.JLabel();
         Animacion = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tblExportar = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -215,6 +218,19 @@ public class AllTables extends javax.swing.JFrame {
             }
         });
 
+        tblExportar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane5.setViewportView(tblExportar);
+
         javax.swing.GroupLayout panelInferiorLayout = new javax.swing.GroupLayout(panelInferior);
         panelInferior.setLayout(panelInferiorLayout);
         panelInferiorLayout.setHorizontalGroup(
@@ -232,7 +248,7 @@ public class AllTables extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel7))
-                        .addGap(0, 44, Short.MAX_VALUE)))
+                        .addGap(0, 48, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,6 +262,10 @@ public class AllTables extends javax.swing.JFrame {
                         .addGap(323, 323, 323)
                         .addComponent(btnExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(16, 16, 16))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInferiorLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(140, 140, 140))
         );
         panelInferiorLayout.setVerticalGroup(
             panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,7 +302,9 @@ public class AllTables extends javax.swing.JFrame {
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnExportarExcel)
                     .addComponent(Animacion))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -374,13 +396,10 @@ public class AllTables extends javax.swing.JFrame {
                 iF1++;
 
                 modeloF1.addRow(objF1);
+                modeloAExportar.addRow(objF1);
 
             }//Fin del forF1
-            //*****************************IMPRIME LISTA DE CLIENTES***********************************************
-            for (Cliente item : arrayClientesF1) {
-                System.out.println("Cliente: " + item.toString());
-            }
-            //***************************************************************************************************
+            
             System.out.print("tabla1 es de tamanio: " + tabla1.length + " _____ ");
             lblNumClientesF1.setText("Hay " + tabla1.length + " clientes");
             Object[][] tablaRecortadaF1 = Util.abandonan(tabla1);
@@ -399,6 +418,7 @@ public class AllTables extends javax.swing.JFrame {
             // </editor-fold>  
             
             // <editor-fold defaultstate="collapsed" desc="for  FASE 2">  
+            modeloAExportar.addRow(rowTitulosExportar());
             Double[] tiempoAtencionF2 = new Double[Integer.parseInt(txtCapacidad.getText())];
             int filaF2 = 0;
             for (int i = 1; i <= tablaRecortadaF1.length; i++) {
@@ -433,7 +453,8 @@ public class AllTables extends javax.swing.JFrame {
                 objectF2[3] = Util.horaMinutoSegundo(tiempoAtencionF2[i]);
                 objectF2[4] = Util.horaMinutoSegundo1(tiempoSalida);
 
-                modeloF2.addRow(objectF2);
+                modeloF2.addRow(objectF2);                
+                modeloAExportar.addRow(objectF2);
                 ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
                 Cliente clienteF2 = new Cliente();
                 clienteF2.setNumCliente(i + "");
@@ -448,6 +469,7 @@ public class AllTables extends javax.swing.JFrame {
             // </editor-fold>  
 
             // <editor-fold defaultstate="collapsed" desc="for  FASE 3">  
+            modeloAExportar.addRow(rowTitulosExportar());
             tabla3 = new Object[tablaRecortadaF1.length][5];//tabla 3 debe tener el tamño de la tabla 2 y 1
             Double[] tiempoAtencionF3 = new Double[Integer.parseInt(txtCapacidad.getText())];
 
@@ -481,6 +503,7 @@ public class AllTables extends javax.swing.JFrame {
                 objF3[4] = Util.horaMinutoSegundo1(tiempoSalida);
 
                 modeloF3.addRow(objF3);
+                modeloAExportar.addRow(objF3);
                 ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
                 Cliente clienteF3 = new Cliente();
                 clienteF3.setNumCliente(i + "");
@@ -515,6 +538,7 @@ public class AllTables extends javax.swing.JFrame {
             // </editor-fold>  
             
             // <editor-fold defaultstate="collapsed" desc="for  FASE 4">  
+            modeloAExportar.addRow(rowTitulosExportar());
             Double[] tiempoAtencionF4 = new Double[Integer.parseInt(txtCapacidad.getText())];
             int filaF4 = 0;
             for (int i = 1; i <= tablaRecortada3.length; i++) {
@@ -549,6 +573,7 @@ public class AllTables extends javax.swing.JFrame {
                 objectF4[4] = Util.horaMinutoSegundo1(tiempoSalida);
 
                 modeloF4.addRow(objectF4);
+                modeloAExportar.addRow(objectF4);
                 ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
                 Cliente clienteF4 = new Cliente();
                 clienteF4.setNumCliente(i + "");
@@ -569,7 +594,7 @@ public class AllTables extends javax.swing.JFrame {
     private void btnExportarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcelActionPerformed
         try {
             obj = new clsExportarExcel();
-            obj.exportarExcel(tblFase1);
+            obj.exportarExcel(tblExportar);
         } catch (IOException ex) {
             Logger.getLogger(AllTables.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -627,12 +652,14 @@ public class AllTables extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JLabel lblNumClientesF1;
     private javax.swing.JLabel lblNumClientesF2;
     private javax.swing.JLabel lblNumClientesF3;
     private javax.swing.JLabel lblNumClientesF4;
     private javax.swing.JPanel panelInferior;
     private javax.swing.JPanel panelSuperior;
+    private javax.swing.JTable tblExportar;
     private javax.swing.JTable tblFase1;
     private javax.swing.JTable tblFase2;
     private javax.swing.JTable tblFase3;
@@ -648,10 +675,12 @@ public class AllTables extends javax.swing.JFrame {
         modeloF2 = new DefaultTableModel();
         modeloF3 = new DefaultTableModel();
         modeloF4 = new DefaultTableModel();
+        modeloAExportar = new DefaultTableModel();
         tblFase1.setModel(modeloF1);
         tblFase2.setModel(modeloF2);
         tblFase3.setModel(modeloF3);
         tblFase4.setModel(modeloF4);
+        tblExportar.setModel(modeloAExportar);
 
         modeloF1.addColumn("Cliente");//aprox. 12 cada hora        
         // modelo.addColumn("Tiempo de Llegada");//Calculado en base al aleatiorio1  
@@ -684,8 +713,30 @@ public class AllTables extends javax.swing.JFrame {
         //  modelo.addColumn("Tiempo de Espera");//T. de I. de servicio - Momento de Llegada del mismo cliente        
         modeloF4.addColumn("T. de Atencion");//Calculado en base al aleatiorio2
         modeloF4.addColumn("T. de Salida");//T. de I. de servicio + T. de A. del mismo cliente
+        
+        cabeceraTablaExportar();
+    }
+    private void cabeceraTablaExportar(){
+     modeloAExportar.addColumn("Cliente");//aprox. 12 cada hora        
+        // modelo.addColumn("Tiempo de Llegada");//Calculado en base al aleatiorio1  
+        modeloAExportar.addColumn("Momento Llegada");//M. de Ll. del cliente que está adelante  + T. de Ll. de éste cliente.
+        modeloAExportar.addColumn("T. Inicio de Servicio");//(T. de I. de servicio + T. de Atencion) del cliente que está adelante
+        //  modelo.addColumn("Tiempo de Espera");//T. de I. de servicio - Momento de Llegada del mismo cliente        
+        modeloAExportar.addColumn("T. de Atencion");//Calculado en base al aleatiorio2
+        modeloAExportar.addColumn("T. de Salida");//T. de I. de servicio + T. de A. del mismo cliente
     }
 
+    private Object[] rowTitulosExportar(){
+        Object[]filaExportar=new Object[5];
+        filaExportar[0]= "Cliente";
+        filaExportar[1]= "Momento Llegada";
+        filaExportar[2]= "T. Inicio de Servicio";
+        filaExportar[3]= "T. de Atencion";
+        filaExportar[4]= "T. de Salida";    
+        
+        return filaExportar;
+    }
+    
     private void limpiar() {
         txtCapacidad.setText("");
         txtNroClientes.setText("");
