@@ -27,7 +27,7 @@ import javax.swing.JTable;
  *
  * @author Usuario
  */
-public class clsExportarpdf {
+public class clsExportarPdf {
 
     /**
      * Metodo que recibe una tabla para exportarla y guardarla como tipo

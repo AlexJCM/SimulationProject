@@ -50,6 +50,8 @@ public class AllTables extends javax.swing.JFrame {
     DefaultTableModel modeloAExportar;
 
     clsExportarExcel obj;
+    
+    clsExportarPdf objPdf;
 
     public AllTables() {
         initComponents();
@@ -92,6 +94,7 @@ public class AllTables extends javax.swing.JFrame {
         lblAbandonan = new javax.swing.JLabel();
         lblReprueban = new javax.swing.JLabel();
         lblDuplicado = new javax.swing.JLabel();
+        btnExportarPdf = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -245,6 +248,13 @@ public class AllTables extends javax.swing.JFrame {
 
         lblDuplicado.setText("--");
 
+        btnExportarPdf.setText("EXPORTAR PDF");
+        btnExportarPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarPdfActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelInferiorLayout = new javax.swing.GroupLayout(panelInferior);
         panelInferior.setLayout(panelInferiorLayout);
         panelInferiorLayout.setHorizontalGroup(
@@ -276,7 +286,9 @@ public class AllTables extends javax.swing.JFrame {
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(panelInferiorLayout.createSequentialGroup()
                         .addComponent(Animacion, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(323, 323, 323)
+                        .addGap(138, 138, 138)
+                        .addComponent(btnExportarPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(16, 16, 16))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInferiorLayout.createSequentialGroup()
@@ -323,7 +335,9 @@ public class AllTables extends javax.swing.JFrame {
                         .addComponent(lblNumClientesF4)))
                 .addGap(18, 18, 18)
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnExportarExcel)
+                    .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnExportarExcel)
+                        .addComponent(btnExportarPdf))
                     .addComponent(Animacion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -634,6 +648,18 @@ public class AllTables extends javax.swing.JFrame {
         ven.setVisible(true);
     }//GEN-LAST:event_AnimacionActionPerformed
 
+    private void btnExportarPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarPdfActionPerformed
+       try {
+          
+            objPdf= new clsExportarPdf();
+            objPdf.exportarPdf(tblExportar);
+        } catch (IOException ex) {
+            Logger.getLogger(AllTables.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_btnExportarPdfActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -669,6 +695,7 @@ public class AllTables extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Animacion;
     private javax.swing.JButton btnExportarExcel;
+    private javax.swing.JButton btnExportarPdf;
     private javax.swing.JButton btnGenerar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
