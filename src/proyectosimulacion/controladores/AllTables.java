@@ -1,11 +1,19 @@
 package proyectosimulacion.controladores;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import proyectosimulacion.controladores.exportar.*;
 import proyectosimulacion.controladores.utilidades.Util;
@@ -13,8 +21,9 @@ import proyectosimulacion.animaciones.Ventana;
 import proyectosimulacion.modelo.Cliente;
 
 public class AllTables extends javax.swing.JFrame {
-
-    //VARIABLES GLOBALES
+    
+    // <editor-fold defaultstate="collapsed" desc="VARIABLES"> 
+    //------- VARIABLES GLOBALES --------------------
     public Double[] tiempoDeSalidaFaseONE;
     public Double[] tiempoDeSalidaFaseTWO;
     public Double[] tiempoDeSalidaFaseTHREE;
@@ -25,15 +34,17 @@ public class AllTables extends javax.swing.JFrame {
     public static ArrayList<Cliente> arrayClientesF2 = new ArrayList<Cliente>();
     public static ArrayList<Cliente> arrayClientesF3 = new ArrayList<Cliente>();
     public static ArrayList<Cliente> arrayClientesF4 = new ArrayList<Cliente>();
-
-    //VARIABLES LOCALES
-    private int servidor_FaseONE = 1; // numero de servidores
-    private int servidor_FaseTWO = 2;
-    private int servidor_FaseTHREE = 4;
-    private int servidor_FaseFOUR = 1;
-   
-    ////////////////
+    //Numero de servidores  de cada Fase para enviar a otra clase
+    public static int servidor_FaseONE; // numero de servidores
+    public static int servidor_FaseTWO;
+    public static int servidor_FaseTHREE;
+    public static int servidor_FaseFOUR;
+    // Horas de Apertura y de Cierre
+    public static String horaInicio;
+    public static String horaCierre;
+    //-------- VARIABLES LOCALES ------------------
     private double capacidad;//  Capacidad de la FASE1
+    private int capacidadMaxima = 1000;
     public static double clientes;//   numero de clientes
     private double aleatorio1;
     private double tasaLlegada;//12/hora aprox. Tambien hay un array con un nombre similar
@@ -49,13 +60,14 @@ public class AllTables extends javax.swing.JFrame {
     DefaultTableModel modeloF4;
     DefaultTableModel modeloAExportar;
 
-    clsExportarExcel obj;
-    
+    clsExportarExcel obj;    
     clsExportarPdf objPdf;
-
+    // </editor-fold> 
+    
     public AllTables() {
         initComponents();
-        incializarTablas();
+        inicializarTablas();
+        inicializarSpinners();
     }
 
     @SuppressWarnings("unchecked")
@@ -64,12 +76,32 @@ public class AllTables extends javax.swing.JFrame {
 
         panelSuperior = new javax.swing.JPanel();
         btnGenerar = new javax.swing.JButton();
-        txtCapacidad = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtTasaLlegada = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtNroClientes = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        DateFormat formato2 = new SimpleDateFormat("HH:mm"); // Creamos un formato de fecha
+        Date fecha2 = null;
+        try {
+            fecha2 = formato2.parse("16:45"); // Creamos un date con la entrada en el formato especificado
+            // horaFormateada=formato.format(fecha);
+        } catch (ParseException ex) {
+            System.out.println("Ex: "+ex);
+        }
+        SpinnerDateModel sm2 = new SpinnerDateModel(fecha2, null, null,  Calendar.HOUR_OF_DAY);
+        spinHoraCierre = new javax.swing.JSpinner(sm2);
+        DateFormat formato = new SimpleDateFormat("HH:mm"); // Creamos un formato de fecha
+        Date fecha = null;
+        try {
+            fecha = formato.parse("08:00"); // Creamos un date con la entrada en el formato especificado
+            // horaFormateada=formato.format(fecha);
+        } catch (ParseException ex) {
+            System.out.println("Ex: "+ex);
+        }
+        SpinnerDateModel sm = new SpinnerDateModel(fecha, null, null,  Calendar.HOUR_OF_DAY);
+        spinHoraInicio = new javax.swing.JSpinner(sm);
         panelInferior = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblFase3 = new javax.swing.JTable();
@@ -95,6 +127,14 @@ public class AllTables extends javax.swing.JFrame {
         lblReprueban = new javax.swing.JLabel();
         lblDuplicado = new javax.swing.JLabel();
         btnExportarPdf = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        spinServidorF1 = new javax.swing.JSpinner();
+        spinServidorF2 = new javax.swing.JSpinner();
+        spinServidorF3 = new javax.swing.JSpinner();
+        spinServidorF4 = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,11 +145,19 @@ public class AllTables extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Capacidad");
-
         jLabel2.setText("Tasa Llegada");
 
         jLabel3.setText("Nro Clientes");
+
+        jLabel1.setText("Hora Inicio");
+
+        jLabel12.setText("Hora Cierre");
+
+        JSpinner.DateEditor de2 = new JSpinner.DateEditor(spinHoraCierre, "HH:mm");
+        spinHoraCierre.setEditor(de2);
+
+        JSpinner.DateEditor de = new JSpinner.DateEditor(spinHoraInicio, "HH:mm");
+        spinHoraInicio.setEditor(de);
 
         javax.swing.GroupLayout panelSuperiorLayout = new javax.swing.GroupLayout(panelSuperior);
         panelSuperior.setLayout(panelSuperiorLayout);
@@ -119,8 +167,12 @@ public class AllTables extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(spinHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spinHoraCierre, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTasaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -128,22 +180,24 @@ public class AllTables extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNroClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnGenerar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addGap(37, 37, 37)
+                .addComponent(btnGenerar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
         panelSuperiorLayout.setVerticalGroup(
             panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSuperiorLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(panelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(txtTasaLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(txtNroClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGenerar))
+                    .addComponent(btnGenerar)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel12)
+                    .addComponent(spinHoraCierre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spinHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -206,13 +260,13 @@ public class AllTables extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("FASE 1");
+        jLabel4.setText("FASE ONE");
 
-        jLabel5.setText("FASE 2");
+        jLabel5.setText("FASE TWO");
 
-        jLabel6.setText("FASE 3");
+        jLabel6.setText("FASE THREE");
 
-        jLabel7.setText("FASE 4");
+        jLabel7.setText("FASE FOUR");
 
         lblNumClientesF1.setText("--");
 
@@ -222,7 +276,7 @@ public class AllTables extends javax.swing.JFrame {
 
         lblNumClientesF4.setText("--");
 
-        Animacion.setText("Animacion");
+        Animacion.setText("ANIMACION");
         Animacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AnimacionActionPerformed(evt);
@@ -259,105 +313,152 @@ public class AllTables extends javax.swing.JFrame {
         panelInferior.setLayout(panelInferiorLayout);
         panelInferiorLayout.setHorizontalGroup(
             panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInferiorLayout.createSequentialGroup()
-                .addGap(90, 90, 90)
+            .addGroup(panelInferiorLayout.createSequentialGroup()
+                .addContainerGap(41, Short.MAX_VALUE)
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNumClientesF1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblReprueban, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblNumClientesF3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblNumClientesF2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblNumClientesF4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblAbandonan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelInferiorLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInferiorLayout.createSequentialGroup()
+                        .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblReprueban, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblNumClientesF3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblDuplicado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblNumClientesF2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblAbandonan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNumClientesF1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblNumClientesF4, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGap(0, 48, Short.MAX_VALUE))
-                    .addComponent(lblDuplicado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(panelInferiorLayout.createSequentialGroup()
-                        .addComponent(Animacion, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(138, 138, 138)
-                        .addComponent(btnExportarPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(16, 16, 16))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInferiorLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(140, 140, 140))
+                            .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelInferiorLayout.createSequentialGroup()
+                                .addComponent(Animacion, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(138, 138, 138)
+                                .addComponent(btnExportarPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(16, 16, 16))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInferiorLayout.createSequentialGroup()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(146, 146, 146))))
         );
         panelInferiorLayout.setVerticalGroup(
             panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInferiorLayout.createSequentialGroup()
+            .addGroup(panelInferiorLayout.createSequentialGroup()
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelInferiorLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblNumClientesF1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblAbandonan)))
-                .addGap(18, 18, 18)
+                        .addComponent(lblAbandonan))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelInferiorLayout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblNumClientesF2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblDuplicado)))
-                .addGap(32, 32, 32)
+                .addGap(28, 28, 28)
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelInferiorLayout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblNumClientesF3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblReprueban)))
-                .addGap(29, 29, 29)
+                        .addComponent(lblReprueban))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelInferiorLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblNumClientesF4)))
-                .addGap(18, 18, 18)
+                        .addComponent(lblNumClientesF4))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnExportarExcel)
-                        .addComponent(btnExportarPdf))
+                        .addComponent(btnExportarPdf)
+                        .addComponent(btnExportarExcel))
                     .addComponent(Animacion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        jLabel8.setText("SERVIDORES");
+
+        jLabel9.setText("SERVIDORES");
+
+        jLabel10.setText("SERVIDORES");
+
+        jLabel11.setText("SERVIDORES");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11))
+                .addGap(3, 3, 3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(spinServidorF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spinServidorF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spinServidorF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spinServidorF4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addComponent(panelInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelInferior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel8))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(spinServidorF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(94, 94, 94)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabel9))
+                            .addComponent(spinServidorF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(102, 102, 102)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabel10))
+                            .addComponent(spinServidorF3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(101, 101, 101)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel11))
+                            .addComponent(spinServidorF4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         pack();
@@ -365,25 +466,34 @@ public class AllTables extends javax.swing.JFrame {
 
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
         Random aleatorio = new Random(System.currentTimeMillis());
-        int iF1 = 0;//auxiliar para ayudar a guardar en el array bidimensional
-        int iF2 = 0;//auxiliar para ayudar a guardar en el array bidimensiona2
-        int iF3 = 0;//auxiliar para ayudar a guardar en el array bidimensional3      
-
+        int iF1 = 0;//auxiliar para ayudar a guardar en el array bidimensional 0l
+        int iF2 = 0;//auxiliar para ayudar a guardar en el array bidimensional 02
+        int iF3 = 0;//auxiliar para ayudar a guardar en el array bidimensional 03     
+       
         if (validarCampos()) {
 
-            // <editor-fold defaultstate="collapsed" desc="INICIALIZAR ARREGLOS"> 
-            //--------------------  ARREGLOS CON OBJETOS CLIENTE DE CADA TABLA -----------------------------
-            //----------------------------------------------------------------------------------------------            
-            Double[] tiempoLlegada = new Double[Integer.parseInt(txtCapacidad.getText())];
-            Double[] tiempoAtencion = new Double[Integer.parseInt(txtCapacidad.getText())];
-            tiempoDeSalidaFaseONE = new Double[Integer.parseInt(txtCapacidad.getText())];
-            tiempoDeSalidaFaseTWO = new Double[Integer.parseInt(txtCapacidad.getText())];
-            tiempoDeSalidaFaseTHREE = new Double[Integer.parseInt(txtCapacidad.getText())];
-            tabla1 = new Object[Integer.parseInt(txtNroClientes.getText())][5];
+            // <editor-fold defaultstate="collapsed" desc="INICIALIZAR ARREGLOS y SERVIDORES"> 
+            //*********************** SERVIDORES ****************************************************
+            servidor_FaseONE = (int) spinServidorF1.getValue();
+            servidor_FaseTWO = (int) spinServidorF2.getValue();
+            servidor_FaseTHREE = (int) spinServidorF3.getValue();
+            servidor_FaseFOUR = (int) spinServidorF4.getValue();
+            
+            //--------------------  ARREGLOS CON OBJETOS CLIENTE DE CADA TABLA -----------------------------                
+            Double[] tiempoLlegada = new Double[capacidadMaxima];
+            Double[] tiempoAtencion = new Double[capacidadMaxima];
+            tiempoDeSalidaFaseONE = new Double[capacidadMaxima];
+            tiempoDeSalidaFaseTWO = new Double[capacidadMaxima];
+            tiempoDeSalidaFaseTHREE = new Double[capacidadMaxima];
+            tabla1 = new Object[Integer.parseInt(txtNroClientes.getText())][7];
+            
+            //*********************** HORA DE APERTURA Y CIERRE ************************************
+            horaInicio = convertirFechaAString((Date) spinHoraInicio.getValue());
+            horaCierre = convertirFechaAString((Date) spinHoraCierre.getValue());
             // </editor-fold> 
 
             // <editor-fold defaultstate="collapsed" desc="for  FASE 1">
-            for (int i = 1; i <= clientes; i++) {
+            for (int i = 1; i <= clientes; i++) {              
                 aleatorio1 = aleatorio.nextDouble();
                 aleatorio2 = aleatorio.nextDouble();
 
@@ -396,7 +506,8 @@ public class AllTables extends javax.swing.JFrame {
                     tiempoInicio = tiempoLlegada[i];
                 } else {
                     momentoLlegada = momentoLlegada + tiempoLlegada[i];
-                    tiempoInicio = tiempoInicio + tiempoAtencion[i - 1];
+                    //tiempoInicio = tiempoInicio + tiempoAtencion[i - 1];
+                    tiempoInicio = tiempoInicio + tiempoAtencion[i];
                     if (tiempoInicio < momentoLlegada) {
                         tiempoInicio = momentoLlegada;
                     }
@@ -406,61 +517,107 @@ public class AllTables extends javax.swing.JFrame {
                         tiempoEspera = 0;
                     }
                 }
-                tiempoSalida = tiempoInicio + tiempoAtencion[i];
-                tiempoDeSalidaFaseONE[i] = tiempoSalida;//para enviarlo a la fase 2                
+                tiempoSalida = tiempoInicio + tiempoAtencion[i];                          
 
                 //Se guardará en el array y en la tabla los campos del cliente numero i
-                Object[] objF1 = new Object[5];
+                Object[] objF1 = new Object[7];
                 tabla1[iF1][0] = objF1[0] = i;
                 tabla1[iF1][1] = objF1[1] = Util.horaMinutoSegundo1(momentoLlegada);
                 tabla1[iF1][2] = objF1[2] = Util.horaMinutoSegundo1(tiempoInicio);
-                tabla1[iF1][3] = objF1[3] = Util.horaMinutoSegundo(tiempoAtencion[i]);
-                objF1[4] = Util.horaMinutoSegundo1(tiempoSalida);
-                tabla1[iF1][4] = tiempoSalida;
-                 iF1++;
-                ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////////
+                tabla1[iF1][3] = objF1[3] = Util.horaMinutoSegundo(tiempoEspera);
+                tabla1[iF1][4] = objF1[4] = Util.horaMinutoSegundo(tiempoAtencion[i]);
+                objF1[5] = Util.horaMinutoSegundo1(tiempoSalida);
+                tabla1[iF1][5] = tiempoSalida;
+                tabla1[iF1][6] = objF1[6] ="PASA";/////////////////
+                 iF1++;             
+                /////////////////////// OBJETO CLIENTE ///////////////////////////////////////////////////////
                 Cliente clienteF1 = new Cliente();
                 clienteF1.setNumCliente(i + "");
                 clienteF1.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada) + "");
                 clienteF1.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) + "");
                 clienteF1.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
                 clienteF1.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
-                arrayClientesF1.add(clienteF1);
-                /////////////////////////////////////////////////////////////////////////////////////////////                                        
+                arrayClientesF1.add(clienteF1);  
                
-                modeloF1.addRow(objF1);
-                modeloAExportar.addRow(objF1);
-
-            }//Fin del forF1
+            }// ===>>> Fin del forF1
             
-            System.out.print("tabla1 es de tamanio: " + tabla1.length + " _____ ");
-            lblNumClientesF1.setText("Hay " + tabla1.length + " clientes");
-            Object[][] tablaRecortadaF1 = Util.abandonan(tabla1);/////////////////////////////////////////////////
-            System.out.println("- tablaRecortadaF1 es de tamanio: " + tablaRecortadaF1.length);            
-            lblAbandonan.setText("Abandonan "+(tabla1.length - tablaRecortadaF1.length));//
+            // Proceso para poner "ABANDONA" en lugar de "PASA" aleatoriamente
+            Object[][] _tablaModificadaF1 = Util.ponerAbandona(tabla1);
+            Object [] objF001 = new Object[7];
+            int aux=0;
+            for (int i = 0; i < _tablaModificadaF1.length; i++) {               
+               objF001[0]=_tablaModificadaF1[aux][0];
+               objF001[1]=_tablaModificadaF1[aux][1];
+               objF001[2]=_tablaModificadaF1[aux][2];
+               objF001[3]=_tablaModificadaF1[aux][3];
+               objF001[4]=_tablaModificadaF1[aux][4];
+               objF001[5]=_tablaModificadaF1[aux][5];
+               objF001[6]=_tablaModificadaF1[aux][6];
+               aux++;
+               modeloF1.addRow(objF001);
+               modeloAExportar.addRow(objF001);
+            }   
+            // Fin proceso
+                              
+           
+            lblNumClientesF1.setText("Hay " + tabla1.length + " clientes");         
+            System.out.println(" _tablaModificadaF1 es de tamanio: " + _tablaModificadaF1.length);            
+           
             
-            ///////////en lugar de tiempoDesalidaFaseONE iria tablaRecortada[i-1][4]
-            System.out.print("***************** FIN FASE1 ******************");
+          /*for (int i = 0; i < _tablaModificadaF1.length; i++) {
+                for (int j = 0; j < _tablaModificadaF1[0].length; j++) {
+                    System.out.print(_tablaModificadaF1[i][j]+", ");
+                }
+                System.out.println("");
+            }*/
+            int auxA =0;
+            int auxB =0;
+            int filaX=0;
+            for (int i = 1; i <= _tablaModificadaF1.length; i++) {
+                if (_tablaModificadaF1[filaX][6].equals("PASA")) {                    
+                    auxA++;                    
+                }
+                else if(_tablaModificadaF1[filaX][6].equals("ABANDONA")){
+                auxB++;
+                }
+                filaX++;
+            }           
+            
+            int abandonan = auxB;
+            System.out.println("tamano de tabla quitaNDO LOS QUE ABANDONAN ES: "+(_tablaModificadaF1.length-abandonan));
+            lblAbandonan.setText(abandonan+"");
+            
+            System.out.println("********************************************** FIN FASE1 ********************************************************");
 
             // </editor-fold>  
-            
+         
             // <editor-fold defaultstate="collapsed" desc="for  FASE 2">  
-            tabla2 = new Object[tablaRecortadaF1.length][5];//tabla 2 debe tener el tamño de la tabla 1
+            tabla2 = new Object[_tablaModificadaF1.length - abandonan][7];
             modeloAExportar.addRow(rowTitulosExportar());
-            Double[] tiempoAtencionF2 = new Double[Integer.parseInt(txtCapacidad.getText())];
-            int filaF2 = 0;
-            for (int i = 1; i <= tablaRecortadaF1.length; i++) {
-                tiempoSalida = (double) tablaRecortadaF1[filaF2][4];
-                filaF2++;
+            Double[] tiempoAtencionF2 = new Double[capacidadMaxima];
+            int filaF2 = 0;            
+            int auxF2A = 0;
+            int auxF2B = 0;
+            int fila = 0;
+
+            for (int i = 1; i <= _tablaModificadaF1.length; i++) {
+                if(_tablaModificadaF1[fila][6].equals("PASA")){
+                auxF2A++;
+                 
+                //tiempoSalida = (double) _tablaRecortadaF1[filaF2][5];
+                tiempoSalida = (double) _tablaModificadaF1[fila][5];
+               // filaF2++;
                 aleatorio2 = aleatorio.nextDouble();
                 tiempoAtencionF2[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * (3600));
                 if (i == 1) {
                     momentoLlegada = tiempoSalida;//viene de la fase 1   
                     tiempoEspera = 0.0000000000;
                     tiempoInicio = tiempoSalida;//viene de la fase 1    
-                } else {
-                    momentoLlegada = tiempoSalida;//viene de la fase 1
-                    tiempoInicio = tiempoInicio + tiempoAtencionF2[i - 1];
+                } else 
+                {
+                    momentoLlegada = tiempoSalida;//viene de la fase 1                   
+                    //tiempoInicio = tiempoInicio + tiempoAtencionF2[i - 1];//***********BUG******************
+                    tiempoInicio = tiempoInicio + tiempoAtencionF2[i];
 
                     if (tiempoInicio < momentoLlegada) {
                         tiempoInicio = momentoLlegada;
@@ -470,30 +627,19 @@ public class AllTables extends javax.swing.JFrame {
                         tiempoEspera = 0;
                     }
                 }
-                tiempoSalida = tiempoInicio + tiempoAtencionF2[i];
-                tiempoDeSalidaFaseTWO[i] = tiempoSalida;//para enviarlo a la fase 3
-
-                //Se guardará en el array los campos del cliente numero i
-                /*Object[] objectF2 = new Object[5];
-                objectF2[0] = i;
-                objectF2[1] = Util.horaMinutoSegundo1(momentoLlegada);
-                objectF2[2] = Util.horaMinutoSegundo1(tiempoInicio);
-                objectF2[3] = Util.horaMinutoSegundo(tiempoAtencionF2[i]);
-                objectF2[4] = Util.horaMinutoSegundo1(tiempoSalida);*/
-                
+                tiempoSalida = tiempoInicio + tiempoAtencionF2[i];               
+                              
                 //Se guardará en el array y en la tabla los campos del cliente numero i
-                Object[] objF2 = new Object[5];
+                Object[] objF2 = new Object[7];
                 tabla2[iF2][0] = objF2[0] = i;
                 tabla2[iF2][1] = objF2[1] = Util.horaMinutoSegundo1(momentoLlegada);
                 tabla2[iF2][2] = objF2[2] = Util.horaMinutoSegundo1(tiempoInicio);
-                tabla2[iF2][3] = objF2[3] = Util.horaMinutoSegundo(tiempoAtencion[i]);
-                objF2[4] = Util.horaMinutoSegundo1(tiempoSalida);
-                tabla2[iF2][4] = tiempoSalida;
-                 iF2++;
-
-                modeloF2.addRow(objF2);                
-                modeloAExportar.addRow(objF2);
-                
+                tabla2[iF2][3] = objF2[3] = Util.horaMinutoSegundo(tiempoEspera);
+                tabla2[iF2][4] = objF2[4] = Util.horaMinutoSegundo(tiempoAtencion[i]);
+                objF2[5] = Util.horaMinutoSegundo1(tiempoSalida);
+                tabla2[iF2][5] = tiempoSalida;
+                tabla2[iF2][6] = objF2[6] = "PASA";/////////////////
+                 iF2++;               
                 ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
                 Cliente clienteF2 = new Cliente();
                 clienteF2.setNumCliente(i + "");
@@ -501,38 +647,80 @@ public class AllTables extends javax.swing.JFrame {
                 clienteF2.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) + "");
                 clienteF2.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
                 clienteF2.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
-                arrayClientesF2.add(clienteF2);
-                ////////////////////////////////////////////////////////////////////////////////////        
+                arrayClientesF2.add(clienteF2);                    
                 
-            
+                }//fin IF
+                else if(_tablaModificadaF1[fila][6].equals("ABANDONA")){
+                    auxF2B++;                    
+                    
+                }
+                fila++;
 
-            }//Fin del forF2    
+            }// ==== >>> Fin del forF2  
             
-            System.out.print("tabla2 es de tamanio: " + tabla2.length + " _____ ");
-            Object[][] tablaRecortadaF2 = Util.duplicado(tabla2);/////////////////////////////////////////////////
-            System.out.println("- tablaRecortadaF2 es de tamanio: " + tablaRecortadaF2.length);
-            lblNumClientesF2.setText("Hay " + tablaRecortadaF1.length + " clientes");
-            lblDuplicado.setText("Duplicado "+(tabla2.length - tablaRecortadaF2.length));//                  
-            ///////////en lugar de tiempoDesalidaFaseONE iria tablaRecortada[i-1][4]
-            System.out.print("***************** FIN FASE2 ******************");
+            // Proceso para poner "ABANDONA" en lugar de "PASA" aleatoriamente
+            Object[][] _tablaModificadaF2 = Util.ponerDuplicado(tabla2);            
+            Object [] objF002 = new Object[7];
+            int aux2=0;
+            for (int i = 0; i < _tablaModificadaF2.length; i++) {               
+               objF002[0]=_tablaModificadaF2[aux2][0];
+               objF002[1]=_tablaModificadaF2[aux2][1];
+               objF002[2]=_tablaModificadaF2[aux2][2];
+               objF002[3]=_tablaModificadaF2[aux2][3];
+               objF002[4]=_tablaModificadaF2[aux2][4];
+               objF002[5]=_tablaModificadaF2[aux2][5];
+               objF002[6]=_tablaModificadaF2[aux2][6];
+               aux2++;
+               modeloF2.addRow(objF002);
+               modeloAExportar.addRow(objF002);
+            }   
+            // Fin proceso
+            
+            int auxX =0;
+            int auxY =0;
+            int filaY=0;
+            for (int i = 1; i <= _tablaModificadaF2.length; i++) {
+                if (_tablaModificadaF2[filaY][6].equals("PASA")) {                    
+                    auxX++;                    
+                }
+                else if(_tablaModificadaF2[filaY][6].equals("DUPLICADO")){
+                auxY++;
+                }
+                filaY++;
+            }          
+            
+           System.out.print("tabla2 es de tamanio: " + tabla2.length + " _____ ");    
+           int duplicados= auxY;
+           lblNumClientesF2.setText("Hay "+ tabla2.length+ " clientes");
+           lblDuplicado.setText("Hay " + duplicados + " duplicados");                                   
+           System.out.println("************************************************ FIN FASE2 ****************************************************");
             
             // </editor-fold>  
 
             // <editor-fold defaultstate="collapsed" desc="for  FASE 3">  
             modeloAExportar.addRow(rowTitulosExportar());
-            tabla3 = new Object[tablaRecortadaF2.length][5];//tabla 3 debe tener el tamño de la tabla 2 y 1
-            Double[] tiempoAtencionF3 = new Double[Integer.parseInt(txtCapacidad.getText())];
+            tabla3 = new Object[_tablaModificadaF2.length - duplicados][7];//tabla 3 debe tener el tamño de la tabla 2 y 1
+            Double[] tiempoAtencionF3 = new Double[capacidadMaxima];
+             int filaF3 = 0;            
+            int auxF3A = 0;
+            int auxF3B = 0;
+            int filaaa = 0;
 
-            for (int i = 1; i <= tablaRecortadaF2.length; i++) {
+            for (int i = 1; i <= _tablaModificadaF2.length; i++) {
+                if(_tablaModificadaF2[filaaa][6].equals("PASA")){
+                auxF3A++;
+                
+                tiempoSalida =(double) _tablaModificadaF2[filaaa][5];
                 aleatorio2 = aleatorio.nextDouble();
                 tiempoAtencionF3[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * (3600));
                 if (i == 1) {
-                    momentoLlegada = tiempoDeSalidaFaseTWO[i];//viene de la fase 2                   
+                    momentoLlegada = tiempoSalida;//viene de la fase 2                   
                     tiempoEspera = 0.0000000000;
-                    tiempoInicio = tiempoDeSalidaFaseTWO[i];//viene de la fase 2                   
+                    tiempoInicio = tiempoSalida;//viene de la fase 2                   
                 } else {
-                    momentoLlegada = tiempoDeSalidaFaseTWO[i];//viene de la fase 2                 
-                    tiempoInicio = tiempoInicio + tiempoAtencionF3[i - 1];
+                    momentoLlegada = tiempoSalida;//viene de la fase 2  
+                    tiempoInicio = tiempoInicio + tiempoAtencionF3[i];
+                    //tiempoInicio = tiempoInicio + tiempoAtencionF3[i - 1];
                     if (tiempoInicio < momentoLlegada) {
                         tiempoInicio = momentoLlegada;
                     }
@@ -542,20 +730,18 @@ public class AllTables extends javax.swing.JFrame {
                     }
                 }
                 tiempoSalida = tiempoInicio + tiempoAtencionF3[i];
-                tiempoDeSalidaFaseTHREE[i] = tiempoSalida;//para enviarlo a la fase 4
-
+                
                 //Se guardará en el array los campos del cliente numero i
-                Object[] objF3 = new Object[5];
+                Object[] objF3 = new Object[7];
                 tabla3[iF3][0] = objF3[0] = i;
                 tabla3[iF3][1] = objF3[1] = Util.horaMinutoSegundo1(momentoLlegada);
                 tabla3[iF3][2] =objF3[2] = Util.horaMinutoSegundo1(tiempoInicio);
-                tabla3[iF3][3] = objF3[3] = Util.horaMinutoSegundo(tiempoAtencionF3[i]);
-                objF3[4] = Util.horaMinutoSegundo1(tiempoSalida);
-                tabla3[iF3][4] = tiempoSalida;
-                iF3++;
-                
-                modeloF3.addRow(objF3);
-                modeloAExportar.addRow(objF3);
+                tabla3[iF3][3] =objF3[3] = Util.horaMinutoSegundo(tiempoEspera);
+                tabla3[iF3][4] = objF3[4] = Util.horaMinutoSegundo(tiempoAtencionF3[i]);
+                objF3[5] = Util.horaMinutoSegundo1(tiempoSalida);
+                tabla3[iF3][5] = tiempoSalida;
+                tabla3[iF3][6] = objF3[6] = "PASA";/////////////////
+                iF3++;               
                 ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
                 Cliente clienteF3 = new Cliente();
                 clienteF3.setNumCliente(i + "");
@@ -564,28 +750,68 @@ public class AllTables extends javax.swing.JFrame {
                 clienteF3.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
                 clienteF3.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
                 arrayClientesF3.add(clienteF3);
-                ////////////////////////////////////////////////////////////////////////////////////
-                               
+                
+                }
+                else if(_tablaModificadaF2[filaaa][6].equals("DUPLICADO")){
+                    auxF3B++;
+                }
+                filaaa++;
 
-            }//Fin del forF3 
-
-            System.out.print("tabla3 es de tamanio: " + tabla3.length + " _____ ");
-            Object[][] tablaRecortada3 = Util.reprueban(tabla3);
-            System.out.println("- tablaRecortada3 es de tamanio: " + tablaRecortada3.length);
-            lblNumClientesF3.setText("Hay " + tablaRecortadaF2.length + " clientes");
-            lblNumClientesF4.setText("Hay " + tablaRecortada3.length + " clientes");
-            lblReprueban.setText("Reprueban "+(tabla3.length - tablaRecortada3.length));//       
-             //en lugar de tiempoDesalidaFaseTHREE iria tablaRecortada3[i-1][4]
-            System.out.println("***************** FIN FASE3 *****************");
+            }// ===>>> Fin del forF3 
+            
+            // Proceso para poner "ABANDONA" en lugar de "PASA" aleatoriamente
+            Object[][] _tablaModificadaF3 = Util.ponerReprueban(tabla3);
+           
+            Object [] objF003 = new Object[7];
+            int aux3=0;
+            for (int i = 0; i < _tablaModificadaF3.length; i++) {               
+               objF003[0]=_tablaModificadaF3[aux3][0];
+               objF003[1]=_tablaModificadaF3[aux3][1];
+               objF003[2]=_tablaModificadaF3[aux3][2];
+               objF003[3]=_tablaModificadaF3[aux3][3];
+               objF003[4]=_tablaModificadaF3[aux3][4];
+               objF003[5]=_tablaModificadaF3[aux3][5];
+               objF003[6]=_tablaModificadaF3[aux3][6];
+               aux3++;
+               modeloF3.addRow(objF003);
+               modeloAExportar.addRow(objF003);
+            }   
+            // Fin proceso
+            
+            int auxONE =0;
+            int auxTWO =0;
+            int filaREP=0;
+            for (int i = 1; i <= _tablaModificadaF3.length; i++) {
+                if (_tablaModificadaF3[filaREP][6].equals("PASA")) {                    
+                    auxONE++;                    
+                }
+                else if(_tablaModificadaF3[filaREP][6].equals("REPROBADO")){
+                auxTWO++;
+                }
+                filaREP++;
+            }          
+            
+           System.out.print("tabla3 es de tamanio: " + tabla3.length + " _____ ");    
+           int reprobados= auxTWO;
+           lblNumClientesF3.setText("Hay "+ tabla3.length+ " clientes");
+           lblReprueban.setText("Hay " + reprobados + " reprobados");          
+                                    
+            System.out.println("************************************************ FIN FASE3 **********************************************************");
 
             // </editor-fold>  
-            
+           
             // <editor-fold defaultstate="collapsed" desc="for  FASE 4">  
             modeloAExportar.addRow(rowTitulosExportar());
-            Double[] tiempoAtencionF4 = new Double[Integer.parseInt(txtCapacidad.getText())];
-            int filaF4 = 0;
-            for (int i = 1; i <= tablaRecortada3.length; i++) {
-                tiempoSalida = (double) tablaRecortada3[filaF4][4];
+            Double[] tiempoAtencionF4 = new Double[capacidadMaxima];
+            int filaF4 = 0;                       
+            int auxF4A = 0;
+            int auxF4B = 0;
+            int filaaaaaa = 0;
+            for (int i = 1; i <= _tablaModificadaF3.length-reprobados; i++) {
+                 if(_tablaModificadaF3[filaaaaaa][6].equals("PASA")){
+                auxF4A++;
+                
+                tiempoSalida = (double) _tablaModificadaF3[filaaaaaa][5];
                 filaF4++;
                 aleatorio2 = aleatorio.nextDouble();
                 tiempoAtencionF4[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 3600);///////
@@ -595,7 +821,8 @@ public class AllTables extends javax.swing.JFrame {
                     tiempoInicio = tiempoSalida;//viene de la fase 3                  
                 } else {
                     momentoLlegada = tiempoSalida;//viene de la fase 3                 
-                    tiempoInicio = tiempoInicio + tiempoAtencionF4[i - 1];
+                    //tiempoInicio = tiempoInicio + tiempoAtencionF4[i - 1];
+                    tiempoInicio = tiempoInicio + tiempoAtencionF4[i];
 
                     if (tiempoInicio < momentoLlegada) {
                         tiempoInicio = momentoLlegada;
@@ -608,12 +835,14 @@ public class AllTables extends javax.swing.JFrame {
                 tiempoSalida = tiempoInicio + tiempoAtencionF4[i];
 
                 //Se guardará en el array los campos del cliente numero i
-                Object[] objectF4 = new Object[5];
+                Object[] objectF4 = new Object[7];
                 objectF4[0] = i;
                 objectF4[1] = Util.horaMinutoSegundo1(momentoLlegada);
                 objectF4[2] = Util.horaMinutoSegundo1(tiempoInicio);
-                objectF4[3] = Util.horaMinutoSegundo(tiempoAtencionF4[i]);
-                objectF4[4] = Util.horaMinutoSegundo1(tiempoSalida);
+                objectF4[3] = Util.horaMinutoSegundo(tiempoEspera);
+                objectF4[4] = Util.horaMinutoSegundo(tiempoAtencionF4[i]);
+                objectF4[5] = Util.horaMinutoSegundo1(tiempoSalida);
+                objectF4[6] = "PASA";
 
                 modeloF4.addRow(objectF4);
                 modeloAExportar.addRow(objectF4);
@@ -625,9 +854,18 @@ public class AllTables extends javax.swing.JFrame {
                 clienteF4.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
                 clienteF4.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
                 arrayClientesF4.add(clienteF4);
-                ////////////////////////////////////////////////////////////////////////////////////
+                
+                 }
+                else if(_tablaModificadaF3[filaaaaaa][6].equals("REPROBADO")){
+                    auxF4B++;
+                }
+                filaaaaaa++;
 
-            }//Fin del forF4
+            }// ===>>> Fin del forF4
+                         
+            
+            lblNumClientesF4.setText("Hay "+(_tablaModificadaF3.length - auxF4B));
+            
             // </editor-fold>  
 
         }//// Fin del if
@@ -698,12 +936,17 @@ public class AllTables extends javax.swing.JFrame {
     private javax.swing.JButton btnExportarPdf;
     private javax.swing.JButton btnGenerar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -718,18 +961,23 @@ public class AllTables extends javax.swing.JFrame {
     private javax.swing.JLabel lblReprueban;
     private javax.swing.JPanel panelInferior;
     private javax.swing.JPanel panelSuperior;
+    private javax.swing.JSpinner spinHoraCierre;
+    private javax.swing.JSpinner spinHoraInicio;
+    private javax.swing.JSpinner spinServidorF1;
+    private javax.swing.JSpinner spinServidorF2;
+    private javax.swing.JSpinner spinServidorF3;
+    private javax.swing.JSpinner spinServidorF4;
     private javax.swing.JTable tblExportar;
     private javax.swing.JTable tblFase1;
     private javax.swing.JTable tblFase2;
     private javax.swing.JTable tblFase3;
     private javax.swing.JTable tblFase4;
-    private javax.swing.JTextField txtCapacidad;
     private javax.swing.JTextField txtNroClientes;
     private javax.swing.JTextField txtTasaLlegada;
     // End of variables declaration//GEN-END:variables
 
     // <editor-fold defaultstate="collapsed" desc="METODOS VARIOS">     
-    private void incializarTablas() {
+    private void inicializarTablas() {
         modeloF1 = new DefaultTableModel();
         modeloF2 = new DefaultTableModel();
         modeloF3 = new DefaultTableModel();
@@ -746,57 +994,93 @@ public class AllTables extends javax.swing.JFrame {
         primeraFilaDeCadaTabla(modeloF2);
         primeraFilaDeCadaTabla(modeloF3);
         primeraFilaDeCadaTabla(modeloF4);
-        primeraFilaDeCadaTabla(modeloAExportar);
-        
+        primeraFilaDeCadaTabla(modeloAExportar);       
+                
         //Ocultamos la tabla a Exportar
         tblExportar.setVisible(false);
         jScrollPane5.setVisible(false);      
        
     }
+    
+    private void inicializarSpinners() {
+        SpinnerNumberModel modelF1 =new SpinnerNumberModel();
+        modelF1.setMaximum(2);
+        modelF1.setMinimum(1);
+        modelF1.setValue(1);       
+        spinServidorF1.setModel(modelF1);
+        
+        SpinnerNumberModel modelF2 =new SpinnerNumberModel();
+        modelF2.setMaximum(2);
+        modelF2.setMinimum(1);
+        modelF2.setValue(1);       
+        spinServidorF2.setModel(modelF2);
+        
+        SpinnerNumberModel modelF3 =new SpinnerNumberModel();
+        modelF3.setMaximum(4);
+        modelF3.setMinimum(1);
+        modelF3.setValue(1);       
+        spinServidorF3.setModel(modelF3);
+        
+        SpinnerNumberModel modelF4 =new SpinnerNumberModel();
+        modelF4.setMaximum(2);
+        modelF4.setMinimum(1);
+        modelF4.setValue(1);       
+        spinServidorF4.setModel(modelF4);  
+        
+           
+    }    
+    	
+    public String convertirFechaAString(Date date) {
+        return new SimpleDateFormat("HH:mm").format(date);
+
+    }
+   
     /**
      * Metodo que recibe un modelo y le colaca la primera fila
      * @param model 
      */
     private void primeraFilaDeCadaTabla(DefaultTableModel model){
-        model.addColumn("Cliente");//aprox. 12 cada hora       
+        model.addColumn("Cliente");//aprox. 12 cada hora         
         model.addColumn("Momento Llegada");//M. de Ll. del cliente que está adelante  + T. de Ll. de éste cliente.
         model.addColumn("T. Inicio de Servicio");//(T. de I. de servicio + T. de Atencion) del cliente que está adelante
+        model.addColumn("T. de Espera");
         model.addColumn("T. de Atencion");//Calculado en base al aleatiorio2
         model.addColumn("T. de Salida");//T. de I. de servicio + T. de A. del mismo cliente
+        model.addColumn("Estado");//T. de I. de servicio + T. de A. del mismo cliente
     }
         
     private Object[] rowTitulosExportar(){
-        Object[]filaExportar=new Object[5];
+        Object[]filaExportar=new Object[7];
         filaExportar[0]= "Cliente";
         filaExportar[1]= "Momento Llegada";
         filaExportar[2]= "T. Inicio de Servicio";
-        filaExportar[3]= "T. de Atencion";
-        filaExportar[4]= "T. de Salida";    
+        filaExportar[3]= "T. Espera";
+        filaExportar[4]= "T. de Atencion";
+        filaExportar[5]= "T. de Salida";    
+        filaExportar[6]= "ESTADO"; 
         
         return filaExportar;
     }
     
-    private void limpiar() {
-        txtCapacidad.setText("");
+    private void limpiar() {        
         txtNroClientes.setText("");
         txtTasaLlegada.setText("");
     }
 
     public boolean validarCampos() {
-        boolean validar = txtCapacidad.getText().isEmpty() || txtNroClientes.getText().isEmpty()
+        boolean validar = txtNroClientes.getText().isEmpty()
                 || txtTasaLlegada.getText().isEmpty();
         boolean aux = false;
 
         if (validar) {
             JOptionPane.showMessageDialog(this, "Llene todos los campos", "Alerta", JOptionPane.WARNING_MESSAGE);
 
-        } else {
-            capacidad = Integer.parseInt(txtCapacidad.getText());
+        } else {            
             tasaLlegada = Integer.parseInt(txtTasaLlegada.getText());
             clientes = Integer.parseInt(txtNroClientes.getText());
 
-            if (clientes >= capacidad) {
-                JOptionPane.showMessageDialog(this, "El # de clientes NO debe ser mayor o igual a la Capacidad del Servidor");//
+            if (clientes >= capacidadMaxima) {
+                JOptionPane.showMessageDialog(this, "El # de clientes NO debe ser mayor o igual a la Capacidad Maxima del sistema");//
                 txtNroClientes.setText("");
             } else {
 

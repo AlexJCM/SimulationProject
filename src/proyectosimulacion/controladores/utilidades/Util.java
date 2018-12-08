@@ -1,5 +1,7 @@
 package proyectosimulacion.controladores.utilidades;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -30,21 +32,21 @@ public class Util {
 
     }
 
-     public static double reverseHora(String horaConvertir) {
-        
+    public static double reverseHora(String horaConvertir) {
+
         String string = horaConvertir;
         String[] parts = string.split(":");
         String part1 = parts[0]; //
         String part2 = parts[1]; // 
         String part3 = parts[2]; //      
-               
+
         int h, m, s, hh, mm;
         double resultado;
-        
+
         h = Integer.parseInt(part1);
-        
+
         m = Integer.parseInt(part2);
-        
+
         s = Integer.parseInt(part3);
         hh = h * 3600;
         mm = m * 60;
@@ -86,119 +88,7 @@ public class Util {
 
         return String.format(formato, hours, minute, second);
     }
-    
-    /**
-     * Recibe una lista de clientes de la fase 2 y retorna dicha lista con algunos clientes menos
-     * @param listaClientesF2
-     * @return 
-     */
-     public static Object[][]duplicado(Object[][] listaClientesF2) {
-        int numClientes = listaClientesF2.length;
-        int tasaDuplicado = 20;// 20% tiene duplicado en la fase 2      
-        int numClientesAEliminar = 0;
-        int seleccionClientes[];
-
-        numClientesAEliminar = cantidadClientesABorrar(numClientes, tasaDuplicado);
-        System.out.println("Nro. clientes a eliminar en fase2: " + numClientesAEliminar);
-
-        seleccionClientes = seleccionarClientes(numClientesAEliminar, listaClientesF2);//recibe un array con los clientes a borrar
-
-        Object[][] nuevaMatrizF2 = new Object[listaClientesF2.length][listaClientesF2[0].length];
-
-        nuevaMatrizF2 = removeRowFrom2dArray(seleccionClientes, listaClientesF2);///  envia el array con los clientes sleccionados
-
-        return nuevaMatrizF2;
-    }
-
-
-    /**
-     * Recibe una lista de clientes de la fase 3 y retorna dicha lista con
-     * algunos clientes menos
-     *
-     * @param listaClientes
-     * @return array2d
-     */
-    public static Object[][] reprueban(Object[][] listaClientesF3) {
-        int numClientes = listaClientesF3.length;
-        int tasaReprueban = 20;// 20% reprueban examen en fase3      
-        int numClientesAEliminar = 0;
-        int seleccionClientes[];
-
-        numClientesAEliminar = cantidadClientesABorrar(numClientes, tasaReprueban);
-        System.out.println("Nro. clientes a eliminar en fase3: " + numClientesAEliminar);
-
-        seleccionClientes = seleccionarClientes(numClientesAEliminar, listaClientesF3);//recibe un array con los clientes a borrar
-
-        Object[][] nuevaMatrizF3 = new Object[listaClientesF3.length][listaClientesF3[0].length];
-
-        nuevaMatrizF3 = removeRowFrom2dArray(seleccionClientes, listaClientesF3);///  envia el array con los clientes sleccionados
-
-        return nuevaMatrizF3;
-    }
-
-    /**
-     * Recibe una lista de clientes de la fase 1 y retorna dicha lista con
-     * algunos clientes menos
-     *
-     * @param listaClientes
-     * @return array2d
-     */
-    public static Object[][] abandonan(Object[][] listaClientesF1) {
-        int numClientes = listaClientesF1.length;
-        int tasaAbandono = 7;// 7% de abandono en la fase 1        
-        int numClientesAEliminar = 0;
-        int seleccionClientes[];
-
-        numClientesAEliminar = cantidadClientesABorrar(numClientes, tasaAbandono);
-        System.out.println("Nro. clientes a eliminar: " + numClientesAEliminar);
-
-        seleccionClientes = seleccionarClientes(numClientesAEliminar, listaClientesF1);//recibe un array con EL INDICE de clientes a borrar
-        int numFilas = numClientes - numClientesAEliminar;
-        System.out.println("numFilass: " + numFilas);
-
-        Object[][] nuevaMatrizF1 = new Object[listaClientesF1.length][listaClientesF1[0].length];
-
-        nuevaMatrizF1 = removeRowFrom2dArray(seleccionClientes, listaClientesF1);///  envia el array con los clientes sleccionados
-
-        return nuevaMatrizF1;
-    }
-
-    /**
-     * Recibe clientes selecionados y la listaClientes a recortar
-     *
-     * @param escogidos
-     * @param array
-     * @return
-     */
-    public static Object[][] removeRowFrom2dArray(int[] seleccionados, Object[][] array) {
-        int tamanioArr = array.length;
-        int cantidadSeleccionados = seleccionados.length;
-        int numFilas = tamanioArr - cantidadSeleccionados;
-        System.out.println("numFilas: " + numFilas);
-
-        Object[][] arrayToReturn = new Object[tamanioArr - cantidadSeleccionados][];
-
-        for (int f = 0; f < cantidadSeleccionados; f++) {
-            int escogid = seleccionados[f];
-
-            for (int i = 0; i < escogid; i++) {
-                arrayToReturn[i] = array[i];//clona el array hasta una pos. antes del cliente escogido para excluirlo 
-            }
-            /*
-            for (int i = escogid; i < arrayToReturn.length; i++) {
-                arrayToReturn[i++] = array[i];
-            }*/
-            //cambiado momentaneamente por el siguiente for para evitar desbordamientos ...CORREGUIR
-            int fox = escogid;
-            for (int i = escogid; i < arrayToReturn.length; i++) {
-                arrayToReturn[fox++] = array[fox];
-            }
-
-        }
-
-        return arrayToReturn;
-    }
-
+        
     /**
      * Calcula numero de clientes que abandona o reprueban segun la cantiad de
      * clientes que reciba
@@ -256,11 +146,185 @@ public class Util {
             n--;
         }
 
-        for (int i = 0; i < resutaldo.length; i++) {
+       /* for (int i = 0; i < resutaldo.length; i++) {
             System.out.println(resutaldo[i] + " y t = " + _t[i]);
         }
+*/
+        return resutaldo;
+    }
+
+    public static Object[][] ponerAbandona(Object[][] listaClientesF1) {
+        int numClientes = listaClientesF1.length;
+        int numClientesAEliminar = 0;
+        int seleccionClientes[];
+        double clientesAEliminar;
+
+        clientesAEliminar = (numClientes * 7) / 100;
+        if (clientesAEliminar <= 1) {
+            clientesAEliminar = 1;
+        }
+        int resultado = (int) clientesAEliminar;
+        numClientesAEliminar = resultado;
+
+       
+
+        seleccionClientes = seleccionarClientesPorIndex(numClientesAEliminar, listaClientesF1);//recibe un array con EL INDICE de cada cliente a borrar
+       
+        Object[][] nuevaMatrizF1 = new Object[listaClientesF1.length][listaClientesF1[0].length];
+
+        nuevaMatrizF1 = cambiarPasaPorAbandona(seleccionClientes, listaClientesF1);///  envia el array con los clientes sleccionados
+
+        return nuevaMatrizF1;
+    }
+
+    public static int[] seleccionarClientesPorIndex(int numClientesAEliminar, Object[][] listaClientes) {
+        //genera x aleatorios sin repetir entre el 0 y  n
+        Random rm = new Random();
+        int x = numClientesAEliminar;//cantidad de aleatorios a generar. 7
+        int t = 0; //temporal o numero aleatorio de seleccion
+        int n = listaClientes.length;//rango superior para tomar el alaeatorio. 111
+        int numeros[] = new int[n];
+        int resutaldo[] = new int[x];
+        int _t[] = new int[x];
+        //rellenamos un vector con numeros ordenados del 0..n para escoger entre ellos
+        for (int i = 0; i < numeros.length; i++) {
+            numeros[i] = i;
+        }
+
+        for (int i = 0; i < x; i++) {
+            t = rm.nextInt(n); //tira valor aleatorio desde 0 ...n (se le puso -1 para que no escoga el ultimo)           
+            resutaldo[i] = numeros[t];
+
+            if (resutaldo[i] > (n - x)) {
+                resutaldo[i] = (n - x); //para eitar el desbordamiento
+            }
+            _t[i] = t;
+
+            for (int j = t; j < numeros.length - 1; j++) {
+                numeros[j] = numeros[j + 1]; //corrimiento del vector
+            }
+            n--;
+        }
+
+        /*for (int i = 0; i < resutaldo.length; i++) {
+            System.out.println(resutaldo[i] + " y t = " + _t[i]);
+        }*/
 
         return resutaldo;
-
     }
+
+    public static Object[][] cambiarPasaPorAbandona(int[] seleccionados, Object[][] array) {
+        Object[][] arrayToReturn = new Object[array.length][array[0].length];
+        for (int x = 0; x < seleccionados.length; x++) {
+
+            for (int i = 0; i < array.length; i++) {
+                for (int j = 0; j < array[0].length; j++) {
+                    if (array[i][0].equals(seleccionados[x])) {
+                        array[i][6] = "ABANDONA";
+                    }
+
+                }
+
+            }
+
+        }
+        for (int iter = 0; iter < array.length; iter++) {
+            arrayToReturn[iter] = array[iter].clone();
+        }
+
+        return arrayToReturn;
+    }
+   
+    public static Object[][] ponerDuplicado(Object[][] listaClientesF2) {
+        int numClientes = listaClientesF2.length;
+        int numClientesAEliminar = 0;
+        int seleccionClientes[];
+        double clientesAEliminar;
+
+        clientesAEliminar = (numClientes * 20) / 100;
+        if (clientesAEliminar <= 1) {
+            clientesAEliminar = 1;
+        }
+        int resultado = (int) clientesAEliminar;
+        numClientesAEliminar = resultado;
+       
+
+        seleccionClientes = seleccionarClientesPorIndex(numClientesAEliminar, listaClientesF2);//recibe un array con EL INDICE de cada cliente a borrar
+       
+        Object[][] nuevaMatrizF2 = new Object[listaClientesF2.length][listaClientesF2[0].length];
+
+        nuevaMatrizF2 = cambiarPasaPorDuplicado(seleccionClientes, listaClientesF2);///  envia el array con los clientes sleccionados
+
+        return nuevaMatrizF2;
+            
+    }
+
+    private static Object[][] cambiarPasaPorDuplicado(int[] seleccionados, Object[][] array) {
+        Object[][] arrayToReturn = new Object[array.length][array[0].length];
+        for (int x = 0; x < seleccionados.length; x++) {
+
+            for (int i = 0; i < array.length; i++) {
+                for (int j = 0; j < array[0].length; j++) {
+                    if (array[i][0].equals(seleccionados[x])) {
+                        array[i][6] = "DUPLICADO";
+                    }
+
+                }
+
+            }
+
+        }
+        for (int iter = 0; iter < array.length; iter++) {
+            arrayToReturn[iter] = array[iter].clone();
+        }
+
+        return arrayToReturn;
+    }
+
+    public static Object[][] ponerReprueban(Object[][] listaClientesF3) {
+         int numClientes = listaClientesF3.length;
+        int numClientesAEliminar = 0;
+        int seleccionClientes[];
+        double clientesAEliminar;
+
+        clientesAEliminar = (numClientes * 20) / 100;
+        if (clientesAEliminar <= 1) {
+            clientesAEliminar = 1;
+        }
+        int resultado = (int) clientesAEliminar;
+        numClientesAEliminar = resultado;
+       
+
+        seleccionClientes = seleccionarClientesPorIndex(numClientesAEliminar, listaClientesF3);//recibe un array con EL INDICE de cada cliente a borrar
+       
+        Object[][] nuevaMatrizF2 = new Object[listaClientesF3.length][listaClientesF3[0].length];
+
+        nuevaMatrizF2 = cambiarPasaPorReprueban(seleccionClientes, listaClientesF3);///  envia el array con los clientes sleccionados
+
+        return nuevaMatrizF2;
+    }
+
+    private static Object[][] cambiarPasaPorReprueban(int[] seleccionados, Object[][] array) {
+         Object[][] arrayToReturn = new Object[array.length][array[0].length];
+        for (int x = 0; x < seleccionados.length; x++) {
+
+            for (int i = 0; i < array.length; i++) {
+                for (int j = 0; j < array[0].length; j++) {
+                    if (array[i][0].equals(seleccionados[x])) {
+                        array[i][6] = "REPROBADO";
+                    }
+
+                }
+
+            }
+
+        }
+        for (int iter = 0; iter < array.length; iter++) {
+            arrayToReturn[iter] = array[iter].clone();
+        }
+
+        return arrayToReturn;
+    }
+    
+    
 }
