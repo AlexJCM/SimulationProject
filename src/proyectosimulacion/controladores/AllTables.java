@@ -21,15 +21,15 @@ import proyectosimulacion.animaciones.Ventana;
 import proyectosimulacion.modelo.Cliente;
 
 public class AllTables extends javax.swing.JFrame {
-    
+
     // <editor-fold defaultstate="collapsed" desc="VARIABLES"> 
     //------- VARIABLES GLOBALES --------------------
     public Double[] tiempoDeSalidaFaseONE;
     public Double[] tiempoDeSalidaFaseTWO;
     public Double[] tiempoDeSalidaFaseTHREE;
     public Object[][] tabla1;
-    public Object[][] tabla2;    
-    public Object[][] tabla3;    
+    public Object[][] tabla2;
+    public Object[][] tabla3;
     public static ArrayList<Cliente> arrayClientesF1 = new ArrayList<Cliente>();
     public static ArrayList<Cliente> arrayClientesF2 = new ArrayList<Cliente>();
     public static ArrayList<Cliente> arrayClientesF3 = new ArrayList<Cliente>();
@@ -42,6 +42,7 @@ public class AllTables extends javax.swing.JFrame {
     // Horas de Apertura y de Cierre
     public static String horaInicio;
     public static String horaCierre;
+    
     //-------- VARIABLES LOCALES ------------------
     private double capacidad;//  Capacidad de la FASE1
     private int capacidadMaxima = 1000;
@@ -60,10 +61,10 @@ public class AllTables extends javax.swing.JFrame {
     DefaultTableModel modeloF4;
     DefaultTableModel modeloAExportar;
 
-    clsExportarExcel obj;    
+    clsExportarExcel obj;
     clsExportarPdf objPdf;
     // </editor-fold> 
-    
+
     public AllTables() {
         initComponents();
         inicializarTablas();
@@ -359,17 +360,17 @@ public class AllTables extends javax.swing.JFrame {
                         .addComponent(lblNumClientesF1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblAbandonan))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelInferiorLayout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblNumClientesF2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblDuplicado)))
-                .addGap(28, 28, 28)
+                        .addComponent(lblDuplicado))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInferiorLayout.createSequentialGroup()
                         .addComponent(jLabel6)
@@ -377,15 +378,15 @@ public class AllTables extends javax.swing.JFrame {
                         .addComponent(lblNumClientesF3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblReprueban))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInferiorLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblNumClientesF4))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnExportarPdf)
@@ -469,7 +470,7 @@ public class AllTables extends javax.swing.JFrame {
         int iF1 = 0;//auxiliar para ayudar a guardar en el array bidimensional 0l
         int iF2 = 0;//auxiliar para ayudar a guardar en el array bidimensional 02
         int iF3 = 0;//auxiliar para ayudar a guardar en el array bidimensional 03     
-       
+
         if (validarCampos()) {
 
             // <editor-fold defaultstate="collapsed" desc="INICIALIZAR ARREGLOS y SERVIDORES"> 
@@ -478,8 +479,8 @@ public class AllTables extends javax.swing.JFrame {
             servidor_FaseTWO = (int) spinServidorF2.getValue();
             servidor_FaseTHREE = (int) spinServidorF3.getValue();
             servidor_FaseFOUR = (int) spinServidorF4.getValue();
-            
-            //--------------------  ARREGLOS CON OBJETOS CLIENTE DE CADA TABLA -----------------------------                
+
+            //--------------------  ARREGLOS PARA ALMACENAR CIERTOS TIEMPOS-----------------------------                
             Double[] tiempoLlegada = new Double[capacidadMaxima];
             Double[] tiempoAtencion = new Double[capacidadMaxima];
             tiempoDeSalidaFaseONE = new Double[capacidadMaxima];
@@ -493,7 +494,7 @@ public class AllTables extends javax.swing.JFrame {
             // </editor-fold> 
 
             // <editor-fold defaultstate="collapsed" desc="for  FASE 1">
-            for (int i = 1; i <= clientes; i++) {              
+            for (int i = 1; i <= clientes; i++) {
                 aleatorio1 = aleatorio.nextDouble();
                 aleatorio2 = aleatorio.nextDouble();
 
@@ -517,19 +518,18 @@ public class AllTables extends javax.swing.JFrame {
                         tiempoEspera = 0;
                     }
                 }
-                tiempoSalida = tiempoInicio + tiempoAtencion[i];                          
+                tiempoSalida = tiempoInicio + tiempoAtencion[i];
+                tiempoDeSalidaFaseONE[i]= tiempoSalida;// PARA ENVIARLO A LA FASE 2
 
-                //Se guardará en el array y en la tabla los campos del cliente numero i
-                Object[] objF1 = new Object[7];
-                tabla1[iF1][0] = objF1[0] = i;
-                tabla1[iF1][1] = objF1[1] = Util.horaMinutoSegundo1(momentoLlegada);
-                tabla1[iF1][2] = objF1[2] = Util.horaMinutoSegundo1(tiempoInicio);
-                tabla1[iF1][3] = objF1[3] = Util.horaMinutoSegundo(tiempoEspera);
-                tabla1[iF1][4] = objF1[4] = Util.horaMinutoSegundo(tiempoAtencion[i]);
-                objF1[5] = Util.horaMinutoSegundo1(tiempoSalida);
-                tabla1[iF1][5] = tiempoSalida;
-                tabla1[iF1][6] = objF1[6] ="PASA";/////////////////
-                 iF1++;             
+                //Se guardará en el array y en la tabla los campos del cliente numero i                
+                tabla1[iF1][0] = i;
+                tabla1[iF1][1] = Util.horaMinutoSegundo1(momentoLlegada);
+                tabla1[iF1][2] = Util.horaMinutoSegundo1(tiempoInicio);
+                tabla1[iF1][3] = Util.horaMinutoSegundo(tiempoEspera);
+                tabla1[iF1][4] = Util.horaMinutoSegundo(tiempoAtencion[i]);
+                tabla1[iF1][5] = Util.horaMinutoSegundo1(tiempoSalida);
+                tabla1[iF1][6] = "PASA";/////////////////
+                iF1++;
                 /////////////////////// OBJETO CLIENTE ///////////////////////////////////////////////////////
                 Cliente clienteF1 = new Cliente();
                 clienteF1.setNumCliente(i + "");
@@ -537,265 +537,238 @@ public class AllTables extends javax.swing.JFrame {
                 clienteF1.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) + "");
                 clienteF1.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
                 clienteF1.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
-                arrayClientesF1.add(clienteF1);  
-               
+                arrayClientesF1.add(clienteF1);
+
             }// ===>>> Fin del forF1
-            
+
             // Proceso para poner "ABANDONA" en lugar de "PASA" aleatoriamente
             Object[][] _tablaModificadaF1 = Util.ponerAbandona(tabla1);
-            Object [] objF001 = new Object[7];
-            int aux=0;
-            for (int i = 0; i < _tablaModificadaF1.length; i++) {               
-               objF001[0]=_tablaModificadaF1[aux][0];
-               objF001[1]=_tablaModificadaF1[aux][1];
-               objF001[2]=_tablaModificadaF1[aux][2];
-               objF001[3]=_tablaModificadaF1[aux][3];
-               objF001[4]=_tablaModificadaF1[aux][4];
-               objF001[5]=_tablaModificadaF1[aux][5];
-               objF001[6]=_tablaModificadaF1[aux][6];
-               aux++;
-               modeloF1.addRow(objF001);
-               modeloAExportar.addRow(objF001);
-            }   
-            // Fin proceso
-                              
-           
-            lblNumClientesF1.setText("Hay " + tabla1.length + " clientes");         
-            System.out.println(" _tablaModificadaF1 es de tamanio: " + _tablaModificadaF1.length);            
-           
-            
-          /*for (int i = 0; i < _tablaModificadaF1.length; i++) {
-                for (int j = 0; j < _tablaModificadaF1[0].length; j++) {
-                    System.out.print(_tablaModificadaF1[i][j]+", ");
-                }
-                System.out.println("");
-            }*/
-            int auxA =0;
-            int auxB =0;
-            int filaX=0;
+            Object[] objF001 = new Object[7];
+            int aux = 0;
+            for (int i = 0; i < _tablaModificadaF1.length; i++) {
+                objF001[0] = _tablaModificadaF1[aux][0];
+                objF001[1] = _tablaModificadaF1[aux][1];
+                objF001[2] = _tablaModificadaF1[aux][2];
+                objF001[3] = _tablaModificadaF1[aux][3];
+                objF001[4] = _tablaModificadaF1[aux][4];
+                objF001[5] = _tablaModificadaF1[aux][5];
+                objF001[6] = _tablaModificadaF1[aux][6];
+                aux++;
+                modeloF1.addRow(objF001);
+                modeloAExportar.addRow(objF001);
+            }
+            // Fin proceso                              
+
+            lblNumClientesF1.setText("Hay " + tabla1.length + " clientes");
+
+            int auxA = 0;
+            int auxB = 0;
+            int filaX = 0;
             for (int i = 1; i <= _tablaModificadaF1.length; i++) {
-                if (_tablaModificadaF1[filaX][6].equals("PASA")) {                    
-                    auxA++;                    
-                }
-                else if(_tablaModificadaF1[filaX][6].equals("ABANDONA")){
-                auxB++;
+                if (_tablaModificadaF1[filaX][6].equals("PASA")) {
+                    auxA++;
+                } else if (_tablaModificadaF1[filaX][6].equals("ABANDONA")) {
+                    auxB++;
                 }
                 filaX++;
-            }           
-            
-            int abandonan = auxB;
-            System.out.println("tamano de tabla quitaNDO LOS QUE ABANDONAN ES: "+(_tablaModificadaF1.length-abandonan));
-            lblAbandonan.setText(abandonan+"");
-            
+            }
+            int abandonan = auxB;           
+            lblAbandonan.setText(abandonan + "");
             System.out.println("********************************************** FIN FASE1 ********************************************************");
 
             // </editor-fold>  
-         
+            
             // <editor-fold defaultstate="collapsed" desc="for  FASE 2">  
             tabla2 = new Object[_tablaModificadaF1.length - abandonan][7];
             modeloAExportar.addRow(rowTitulosExportar());
             Double[] tiempoAtencionF2 = new Double[capacidadMaxima];
-            int filaF2 = 0;            
+            
             int auxF2A = 0;
             int auxF2B = 0;
             int fila = 0;
-
             for (int i = 1; i <= _tablaModificadaF1.length; i++) {
-                if(_tablaModificadaF1[fila][6].equals("PASA")){
-                auxF2A++;
-                 
-                //tiempoSalida = (double) _tablaRecortadaF1[filaF2][5];
-                tiempoSalida = (double) _tablaModificadaF1[fila][5];
-               // filaF2++;
-                aleatorio2 = aleatorio.nextDouble();
-                tiempoAtencionF2[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * (3600));
-                if (i == 1) {
-                    momentoLlegada = tiempoSalida;//viene de la fase 1   
-                    tiempoEspera = 0.0000000000;
-                    tiempoInicio = tiempoSalida;//viene de la fase 1    
-                } else 
-                {
-                    momentoLlegada = tiempoSalida;//viene de la fase 1                   
-                    //tiempoInicio = tiempoInicio + tiempoAtencionF2[i - 1];//***********BUG******************
-                    tiempoInicio = tiempoInicio + tiempoAtencionF2[i];
-
-                    if (tiempoInicio < momentoLlegada) {
-                        tiempoInicio = momentoLlegada;
-                    }
-                    tiempoEspera = tiempoInicio - momentoLlegada;
-                    if (tiempoEspera < 0) {
-                        tiempoEspera = 0;
-                    }
-                }
-                tiempoSalida = tiempoInicio + tiempoAtencionF2[i];               
-                              
-                //Se guardará en el array y en la tabla los campos del cliente numero i
-                Object[] objF2 = new Object[7];
-                tabla2[iF2][0] = objF2[0] = i;
-                tabla2[iF2][1] = objF2[1] = Util.horaMinutoSegundo1(momentoLlegada);
-                tabla2[iF2][2] = objF2[2] = Util.horaMinutoSegundo1(tiempoInicio);
-                tabla2[iF2][3] = objF2[3] = Util.horaMinutoSegundo(tiempoEspera);
-                tabla2[iF2][4] = objF2[4] = Util.horaMinutoSegundo(tiempoAtencion[i]);
-                objF2[5] = Util.horaMinutoSegundo1(tiempoSalida);
-                tabla2[iF2][5] = tiempoSalida;
-                tabla2[iF2][6] = objF2[6] = "PASA";/////////////////
-                 iF2++;               
-                ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
-                Cliente clienteF2 = new Cliente();
-                clienteF2.setNumCliente(i + "");
-                clienteF2.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada) + "");
-                clienteF2.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) + "");
-                clienteF2.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
-                clienteF2.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
-                arrayClientesF2.add(clienteF2);                    
-                
-                }//fin IF
-                else if(_tablaModificadaF1[fila][6].equals("ABANDONA")){
-                    auxF2B++;                    
+                if (_tablaModificadaF1[fila][6].equals("PASA")) {
+                    auxF2A++;
                     
+                    tiempoSalida = tiempoDeSalidaFaseONE[i];//viene de la FASE 1
+                    aleatorio2 = aleatorio.nextDouble();
+                    tiempoAtencionF2[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * (3600));
+                    if (i == 1) {
+                        momentoLlegada = tiempoSalida;//viene de la fase 1   
+                        tiempoEspera = 0.0000000000;
+                        tiempoInicio = tiempoSalida;//viene de la fase 1    
+                    } else {
+                        momentoLlegada = tiempoSalida;//viene de la fase 1                   
+                        //tiempoInicio = tiempoInicio + tiempoAtencionF2[i - 1];//***********BUG******************
+                        tiempoInicio = tiempoInicio + tiempoAtencionF2[i];
+
+                        if (tiempoInicio < momentoLlegada) {
+                            tiempoInicio = momentoLlegada;
+                        }
+                        tiempoEspera = tiempoInicio - momentoLlegada;
+                        if (tiempoEspera < 0) {
+                            tiempoEspera = 0;
+                        }
+                    }
+                    tiempoSalida = tiempoInicio + tiempoAtencionF2[i];                    
+
+                    //Se guardará en el array y en la tabla los campos del cliente numero i                    
+                    tabla2[iF2][0] = i;
+                    tabla2[iF2][1] =  Util.horaMinutoSegundo1(momentoLlegada);
+                    tabla2[iF2][2] =  Util.horaMinutoSegundo1(tiempoInicio);
+                    tabla2[iF2][3] =  Util.horaMinutoSegundo(tiempoEspera);
+                    tabla2[iF2][4] =  Util.horaMinutoSegundo(tiempoAtencion[i]);                    
+                    tabla2[iF2][5] = tiempoSalida;
+                    tabla2[iF2][6] =  "PASA";/////////////////
+                    iF2++;
+                    ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
+                    Cliente clienteF2 = new Cliente();
+                    clienteF2.setNumCliente(i + "");
+                    clienteF2.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada) + "");
+                    clienteF2.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) + "");
+                    clienteF2.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
+                    clienteF2.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
+                    arrayClientesF2.add(clienteF2);
+
+                }//fin IF
+                else if (_tablaModificadaF1[fila][6].equals("ABANDONA")) {
+                    auxF2B++;
                 }
                 fila++;
 
             }// ==== >>> Fin del forF2  
-            
-            // Proceso para poner "ABANDONA" en lugar de "PASA" aleatoriamente
-            Object[][] _tablaModificadaF2 = Util.ponerDuplicado(tabla2);            
-            Object [] objF002 = new Object[7];
-            int aux2=0;
-            for (int i = 0; i < _tablaModificadaF2.length; i++) {               
-               objF002[0]=_tablaModificadaF2[aux2][0];
-               objF002[1]=_tablaModificadaF2[aux2][1];
-               objF002[2]=_tablaModificadaF2[aux2][2];
-               objF002[3]=_tablaModificadaF2[aux2][3];
-               objF002[4]=_tablaModificadaF2[aux2][4];
-               objF002[5]=_tablaModificadaF2[aux2][5];
-               objF002[6]=_tablaModificadaF2[aux2][6];
-               aux2++;
-               modeloF2.addRow(objF002);
-               modeloAExportar.addRow(objF002);
-            }   
+
+            // Proceso para poner "DUPLICADO" en lugar de "PASA" aleatoriamente
+            Object[][] _tablaModificadaF2 = Util.ponerDuplicado(tabla2);
+            Object[] objF002 = new Object[7];
+            int aux2 = 0;
+            for (int i = 0; i < _tablaModificadaF2.length; i++) {
+                objF002[0] = _tablaModificadaF2[aux2][0];
+                objF002[1] = _tablaModificadaF2[aux2][1];
+                objF002[2] = _tablaModificadaF2[aux2][2];
+                objF002[3] = _tablaModificadaF2[aux2][3];
+                objF002[4] = _tablaModificadaF2[aux2][4];
+                tiempoDeSalidaFaseTWO[i] = (Double) _tablaModificadaF2[aux2][5]; //PARA ENVIARLO A LA FASE 3
+                objF002[5] = Util.horaMinutoSegundo1((double) _tablaModificadaF2[aux2][5]);                
+                objF002[6] = _tablaModificadaF2[aux2][6];
+                aux2++;
+                modeloF2.addRow(objF002);
+                modeloAExportar.addRow(objF002);
+            }
             // Fin proceso
-            
-            int auxX =0;
-            int auxY =0;
-            int filaY=0;
+
+            int auxX = 0;
+            int auxY = 0;
+            int filaY = 0;
             for (int i = 1; i <= _tablaModificadaF2.length; i++) {
-                if (_tablaModificadaF2[filaY][6].equals("PASA")) {                    
-                    auxX++;                    
-                }
-                else if(_tablaModificadaF2[filaY][6].equals("DUPLICADO")){
-                auxY++;
+                if (_tablaModificadaF2[filaY][6].equals("PASA")) {
+                    auxX++;
+                } else if (_tablaModificadaF2[filaY][6].equals("DUPLICADO")) {
+                    auxY++;
                 }
                 filaY++;
-            }          
-            
-           System.out.print("tabla2 es de tamanio: " + tabla2.length + " _____ ");    
-           int duplicados= auxY;
-           lblNumClientesF2.setText("Hay "+ tabla2.length+ " clientes");
-           lblDuplicado.setText("Hay " + duplicados + " duplicados");                                   
-           System.out.println("************************************************ FIN FASE2 ****************************************************");
-            
-            // </editor-fold>  
+            }
+           
+            int duplicados = auxY;
+            lblNumClientesF2.setText("Hay " + tabla2.length + " clientes");
+            lblDuplicado.setText("Hay " + duplicados + " duplicados");
+            System.out.println("************************************************ FIN FASE2 ****************************************************");
+          
 
+            // </editor-fold>  
+            
             // <editor-fold defaultstate="collapsed" desc="for  FASE 3">  
             modeloAExportar.addRow(rowTitulosExportar());
-            tabla3 = new Object[_tablaModificadaF2.length - duplicados][7];//tabla 3 debe tener el tamño de la tabla 2 y 1
+            tabla3 = new Object[_tablaModificadaF2.length - duplicados][7];
             Double[] tiempoAtencionF3 = new Double[capacidadMaxima];
-             int filaF3 = 0;            
+            int filaF3 = 0;
             int auxF3A = 0;
             int auxF3B = 0;
-            int filaaa = 0;
-
+            int filaAUX = 0;
             for (int i = 1; i <= _tablaModificadaF2.length; i++) {
-                if(_tablaModificadaF2[filaaa][6].equals("PASA")){
-                auxF3A++;
-                
-                tiempoSalida =(double) _tablaModificadaF2[filaaa][5];
-                aleatorio2 = aleatorio.nextDouble();
-                tiempoAtencionF3[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * (3600));
-                if (i == 1) {
-                    momentoLlegada = tiempoSalida;//viene de la fase 2                   
-                    tiempoEspera = 0.0000000000;
-                    tiempoInicio = tiempoSalida;//viene de la fase 2                   
-                } else {
-                    momentoLlegada = tiempoSalida;//viene de la fase 2  
-                    tiempoInicio = tiempoInicio + tiempoAtencionF3[i];
-                    //tiempoInicio = tiempoInicio + tiempoAtencionF3[i - 1];
-                    if (tiempoInicio < momentoLlegada) {
-                        tiempoInicio = momentoLlegada;
+                if (_tablaModificadaF2[filaAUX][6].equals("PASA")) {
+                    auxF3A++;                    
+                    tiempoSalida = tiempoDeSalidaFaseTWO[i-1];//VIENE DE LA FASE 2
+                    aleatorio2 = aleatorio.nextDouble();
+                    tiempoAtencionF3[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * (3600));
+                    if (i == 1) {
+                        momentoLlegada = tiempoSalida;//viene de la fase 2                   
+                        tiempoEspera = 0.0000000000;
+                        tiempoInicio = tiempoSalida;//viene de la fase 2                   
+                    } else {
+                        momentoLlegada = tiempoSalida;//viene de la fase 2  
+                        tiempoInicio = tiempoInicio + tiempoAtencionF3[i];
+                        //tiempoInicio = tiempoInicio + tiempoAtencionF3[i - 1];//////////////////
+                        if (tiempoInicio < momentoLlegada) {
+                            tiempoInicio = momentoLlegada;
+                        }
+                        tiempoEspera = tiempoInicio - momentoLlegada;
+                        if (tiempoEspera < 0) {
+                            tiempoEspera = 0;
+                        }
                     }
-                    tiempoEspera = tiempoInicio - momentoLlegada;
-                    if (tiempoEspera < 0) {
-                        tiempoEspera = 0;
-                    }
-                }
-                tiempoSalida = tiempoInicio + tiempoAtencionF3[i];
-                
-                //Se guardará en el array los campos del cliente numero i
-                Object[] objF3 = new Object[7];
-                tabla3[iF3][0] = objF3[0] = i;
-                tabla3[iF3][1] = objF3[1] = Util.horaMinutoSegundo1(momentoLlegada);
-                tabla3[iF3][2] =objF3[2] = Util.horaMinutoSegundo1(tiempoInicio);
-                tabla3[iF3][3] =objF3[3] = Util.horaMinutoSegundo(tiempoEspera);
-                tabla3[iF3][4] = objF3[4] = Util.horaMinutoSegundo(tiempoAtencionF3[i]);
-                objF3[5] = Util.horaMinutoSegundo1(tiempoSalida);
-                tabla3[iF3][5] = tiempoSalida;
-                tabla3[iF3][6] = objF3[6] = "PASA";/////////////////
-                iF3++;               
-                ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
-                Cliente clienteF3 = new Cliente();
-                clienteF3.setNumCliente(i + "");
-                clienteF3.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada) + "");
-                clienteF3.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) + "");
-                clienteF3.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
-                clienteF3.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
-                arrayClientesF3.add(clienteF3);
-                
-                }
-                else if(_tablaModificadaF2[filaaa][6].equals("DUPLICADO")){
+                    tiempoSalida = tiempoInicio + tiempoAtencionF3[i];
+                    tiempoDeSalidaFaseTHREE[i] = tiempoSalida; // PARA ENVIARLO A LA FASE 4
+
+                    //Se guardará en el array los campos del cliente numero i                    
+                    tabla3[iF3][0] = i;
+                    tabla3[iF3][1] = Util.horaMinutoSegundo1(momentoLlegada);
+                    tabla3[iF3][2] = Util.horaMinutoSegundo1(tiempoInicio);
+                    tabla3[iF3][3] = Util.horaMinutoSegundo(tiempoEspera);
+                    tabla3[iF3][4] = Util.horaMinutoSegundo(tiempoAtencionF3[i]);
+                    tabla3[iF3][5] = tiempoSalida;
+                    tabla3[iF3][6] = "PASA";/////////////////
+                    iF3++;
+                    ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
+                    Cliente clienteF3 = new Cliente();
+                    clienteF3.setNumCliente(i + "");
+                    clienteF3.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada) + "");
+                    clienteF3.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) + "");
+                    clienteF3.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
+                    clienteF3.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
+                    arrayClientesF3.add(clienteF3);
+
+                } else if (_tablaModificadaF2[filaAUX][6].equals("DUPLICADO")) {
                     auxF3B++;
                 }
-                filaaa++;
+                filaAUX++;
 
             }// ===>>> Fin del forF3 
-            
-            // Proceso para poner "ABANDONA" en lugar de "PASA" aleatoriamente
+
+            // Proceso para poner "REPRUEBAN" en lugar de "PASA" aleatoriamente
             Object[][] _tablaModificadaF3 = Util.ponerReprueban(tabla3);
-           
-            Object [] objF003 = new Object[7];
-            int aux3=0;
-            for (int i = 0; i < _tablaModificadaF3.length; i++) {               
-               objF003[0]=_tablaModificadaF3[aux3][0];
-               objF003[1]=_tablaModificadaF3[aux3][1];
-               objF003[2]=_tablaModificadaF3[aux3][2];
-               objF003[3]=_tablaModificadaF3[aux3][3];
-               objF003[4]=_tablaModificadaF3[aux3][4];
-               objF003[5]=_tablaModificadaF3[aux3][5];
-               objF003[6]=_tablaModificadaF3[aux3][6];
-               aux3++;
-               modeloF3.addRow(objF003);
-               modeloAExportar.addRow(objF003);
-            }   
+            Object[] objF003 = new Object[7];
+            int aux3 = 0;
+            for (int i = 0; i < _tablaModificadaF3.length; i++) {
+                objF003[0] = _tablaModificadaF3[aux3][0];
+                objF003[1] = _tablaModificadaF3[aux3][1];
+                objF003[2] = _tablaModificadaF3[aux3][2];
+                objF003[3] = _tablaModificadaF3[aux3][3];
+                objF003[4] = _tablaModificadaF3[aux3][4];
+                tiempoDeSalidaFaseTHREE[i] = (Double) _tablaModificadaF3[aux3][5];
+                objF003[5] = Util.horaMinutoSegundo1((double) _tablaModificadaF3[aux3][5]);                
+                objF003[6] = _tablaModificadaF3[aux3][6];
+                aux3++;
+                modeloF3.addRow(objF003);
+                modeloAExportar.addRow(objF003);
+            }
             // Fin proceso
-            
-            int auxONE =0;
-            int auxTWO =0;
-            int filaREP=0;
+
+            int auxONE = 0;
+            int auxTWO = 0;
+            int filaREP = 0;
             for (int i = 1; i <= _tablaModificadaF3.length; i++) {
-                if (_tablaModificadaF3[filaREP][6].equals("PASA")) {                    
-                    auxONE++;                    
-                }
-                else if(_tablaModificadaF3[filaREP][6].equals("REPROBADO")){
-                auxTWO++;
+                if (_tablaModificadaF3[filaREP][6].equals("PASA")) {
+                    auxONE++;
+                } else if (_tablaModificadaF3[filaREP][6].equals("REPROBADO")) {
+                    auxTWO++;
                 }
                 filaREP++;
-            }          
-            
-           System.out.print("tabla3 es de tamanio: " + tabla3.length + " _____ ");    
-           int reprobados= auxTWO;
-           lblNumClientesF3.setText("Hay "+ tabla3.length+ " clientes");
-           lblReprueban.setText("Hay " + reprobados + " reprobados");          
-                                    
+            }
+         
+            int reprobados = auxTWO;
+            lblNumClientesF3.setText("Hay " + tabla3.length + " clientes");
+            lblReprueban.setText("Hay " + reprobados + " reprobados");
             System.out.println("************************************************ FIN FASE3 **********************************************************");
 
             // </editor-fold>  
@@ -803,71 +776,69 @@ public class AllTables extends javax.swing.JFrame {
             // <editor-fold defaultstate="collapsed" desc="for  FASE 4">  
             modeloAExportar.addRow(rowTitulosExportar());
             Double[] tiempoAtencionF4 = new Double[capacidadMaxima];
-            int filaF4 = 0;                       
+            int filaF4 = 0;
             int auxF4A = 0;
             int auxF4B = 0;
-            int filaaaaaa = 0;
-            for (int i = 1; i <= _tablaModificadaF3.length-reprobados; i++) {
-                 if(_tablaModificadaF3[filaaaaaa][6].equals("PASA")){
-                auxF4A++;
-                
-                tiempoSalida = (double) _tablaModificadaF3[filaaaaaa][5];
-                filaF4++;
-                aleatorio2 = aleatorio.nextDouble();
-                tiempoAtencionF4[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 3600);///////
-                if (i == 1) {
-                    momentoLlegada = tiempoSalida;//viene de la fase 3                   
-                    tiempoEspera = 0.0000000000;
-                    tiempoInicio = tiempoSalida;//viene de la fase 3                  
-                } else {
-                    momentoLlegada = tiempoSalida;//viene de la fase 3                 
-                    //tiempoInicio = tiempoInicio + tiempoAtencionF4[i - 1];
-                    tiempoInicio = tiempoInicio + tiempoAtencionF4[i];
+            int filaEXTRA= 0;
+            for (int i = 1; i <= _tablaModificadaF3.length - reprobados; i++) {
+                if (_tablaModificadaF3[filaEXTRA][6].equals("PASA")) {
+                    auxF4A++;
 
-                    if (tiempoInicio < momentoLlegada) {
-                        tiempoInicio = momentoLlegada;
+                    tiempoSalida = tiempoDeSalidaFaseTHREE[i-1];// VIENE DE LA FASE 3
+                    filaF4++;
+                    aleatorio2 = aleatorio.nextDouble();
+                    tiempoAtencionF4[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 3600);///////
+                    if (i == 1) {
+                        momentoLlegada = tiempoSalida;//viene de la fase 3                   
+                        tiempoEspera = 0.0000000000;
+                        tiempoInicio = tiempoSalida;//viene de la fase 3                  
+                    } else {
+                        momentoLlegada = tiempoSalida;//viene de la fase 3                 
+                        //tiempoInicio = tiempoInicio + tiempoAtencionF4[i - 1];
+                        tiempoInicio = tiempoInicio + tiempoAtencionF4[i];
+
+                        if (tiempoInicio < momentoLlegada) {
+                            tiempoInicio = momentoLlegada;
+                        }
+                        tiempoEspera = tiempoInicio - momentoLlegada;
+                        if (tiempoEspera < 0) {
+                            tiempoEspera = 0;
+                        }
                     }
-                    tiempoEspera = tiempoInicio - momentoLlegada;
-                    if (tiempoEspera < 0) {
-                        tiempoEspera = 0;
-                    }
-                }
-                tiempoSalida = tiempoInicio + tiempoAtencionF4[i];
+                    tiempoSalida = tiempoInicio + tiempoAtencionF4[i];
 
-                //Se guardará en el array los campos del cliente numero i
-                Object[] objectF4 = new Object[7];
-                objectF4[0] = i;
-                objectF4[1] = Util.horaMinutoSegundo1(momentoLlegada);
-                objectF4[2] = Util.horaMinutoSegundo1(tiempoInicio);
-                objectF4[3] = Util.horaMinutoSegundo(tiempoEspera);
-                objectF4[4] = Util.horaMinutoSegundo(tiempoAtencionF4[i]);
-                objectF4[5] = Util.horaMinutoSegundo1(tiempoSalida);
-                objectF4[6] = "PASA";
+                    //Se guardará en el array los campos del cliente numero i
+                    Object[] objectF4 = new Object[7];
+                    objectF4[0] = i;
+                    objectF4[1] = Util.horaMinutoSegundo1(momentoLlegada);
+                    objectF4[2] = Util.horaMinutoSegundo1(tiempoInicio);
+                    objectF4[3] = Util.horaMinutoSegundo(tiempoEspera);
+                    objectF4[4] = Util.horaMinutoSegundo(tiempoAtencionF4[i]);
+                    objectF4[5] = Util.horaMinutoSegundo1(tiempoSalida);
+                    objectF4[6] = "PASA";
 
-                modeloF4.addRow(objectF4);
-                modeloAExportar.addRow(objectF4);
-                ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
-                Cliente clienteF4 = new Cliente();
-                clienteF4.setNumCliente(i + "");
-                clienteF4.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada) + "");
-                clienteF4.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) + "");
-                clienteF4.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
-                clienteF4.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
-                arrayClientesF4.add(clienteF4);
-                
-                 }
-                else if(_tablaModificadaF3[filaaaaaa][6].equals("REPROBADO")){
+                    modeloF4.addRow(objectF4);
+                    modeloAExportar.addRow(objectF4);
+                    ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
+                    Cliente clienteF4 = new Cliente();                    
+                    clienteF4.setNumCliente(i + "");
+                    clienteF4.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada) + "");
+                    clienteF4.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) + "");
+                    clienteF4.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
+                    clienteF4.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
+                    arrayClientesF4.add(clienteF4);
+
+                } else if (_tablaModificadaF3[filaEXTRA][6].equals("REPROBADO")) {
                     auxF4B++;
                 }
-                filaaaaaa++;
+                filaEXTRA++;
 
             }// ===>>> Fin del forF4
-                         
-            
-            lblNumClientesF4.setText("Hay "+(_tablaModificadaF3.length - auxF4B));
-            
-            // </editor-fold>  
 
+            lblNumClientesF4.setText("Hay " + (_tablaModificadaF3.length - auxF4B));
+
+            // </editor-fold>  
+      
         }//// Fin del if
     }//GEN-LAST:event_btnGenerarActionPerformed
 
@@ -887,15 +858,14 @@ public class AllTables extends javax.swing.JFrame {
     }//GEN-LAST:event_AnimacionActionPerformed
 
     private void btnExportarPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarPdfActionPerformed
-       try {
-          
-            objPdf= new clsExportarPdf();
+        try {
+            objPdf = new clsExportarPdf();
             objPdf.exportarPdf(tblExportar);
         } catch (IOException ex) {
             Logger.getLogger(AllTables.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
+
     }//GEN-LAST:event_btnExportarPdfActionPerformed
 
     public static void main(String args[]) {
@@ -983,7 +953,7 @@ public class AllTables extends javax.swing.JFrame {
         modeloF3 = new DefaultTableModel();
         modeloF4 = new DefaultTableModel();
         modeloAExportar = new DefaultTableModel();
-        
+
         tblFase1.setModel(modeloF1);
         tblFase2.setModel(modeloF2);
         tblFase3.setModel(modeloF3);
@@ -994,52 +964,52 @@ public class AllTables extends javax.swing.JFrame {
         primeraFilaDeCadaTabla(modeloF2);
         primeraFilaDeCadaTabla(modeloF3);
         primeraFilaDeCadaTabla(modeloF4);
-        primeraFilaDeCadaTabla(modeloAExportar);       
-                
+        primeraFilaDeCadaTabla(modeloAExportar);
+
         //Ocultamos la tabla a Exportar
         tblExportar.setVisible(false);
-        jScrollPane5.setVisible(false);      
-       
+        jScrollPane5.setVisible(false);
+
     }
-    
+
     private void inicializarSpinners() {
-        SpinnerNumberModel modelF1 =new SpinnerNumberModel();
+        SpinnerNumberModel modelF1 = new SpinnerNumberModel();
         modelF1.setMaximum(2);
         modelF1.setMinimum(1);
-        modelF1.setValue(1);       
+        modelF1.setValue(1);
         spinServidorF1.setModel(modelF1);
-        
-        SpinnerNumberModel modelF2 =new SpinnerNumberModel();
+
+        SpinnerNumberModel modelF2 = new SpinnerNumberModel();
         modelF2.setMaximum(2);
         modelF2.setMinimum(1);
-        modelF2.setValue(1);       
+        modelF2.setValue(1);
         spinServidorF2.setModel(modelF2);
-        
-        SpinnerNumberModel modelF3 =new SpinnerNumberModel();
+
+        SpinnerNumberModel modelF3 = new SpinnerNumberModel();
         modelF3.setMaximum(4);
         modelF3.setMinimum(1);
-        modelF3.setValue(1);       
+        modelF3.setValue(1);
         spinServidorF3.setModel(modelF3);
-        
-        SpinnerNumberModel modelF4 =new SpinnerNumberModel();
+
+        SpinnerNumberModel modelF4 = new SpinnerNumberModel();
         modelF4.setMaximum(2);
         modelF4.setMinimum(1);
-        modelF4.setValue(1);       
-        spinServidorF4.setModel(modelF4);  
-        
-           
-    }    
-    	
+        modelF4.setValue(1);
+        spinServidorF4.setModel(modelF4);
+
+    }
+
     public String convertirFechaAString(Date date) {
         return new SimpleDateFormat("HH:mm").format(date);
 
     }
-   
+
     /**
      * Metodo que recibe un modelo y le colaca la primera fila
-     * @param model 
+     *
+     * @param model
      */
-    private void primeraFilaDeCadaTabla(DefaultTableModel model){
+    private void primeraFilaDeCadaTabla(DefaultTableModel model) {
         model.addColumn("Cliente");//aprox. 12 cada hora         
         model.addColumn("Momento Llegada");//M. de Ll. del cliente que está adelante  + T. de Ll. de éste cliente.
         model.addColumn("T. Inicio de Servicio");//(T. de I. de servicio + T. de Atencion) del cliente que está adelante
@@ -1048,21 +1018,21 @@ public class AllTables extends javax.swing.JFrame {
         model.addColumn("T. de Salida");//T. de I. de servicio + T. de A. del mismo cliente
         model.addColumn("Estado");//T. de I. de servicio + T. de A. del mismo cliente
     }
-        
-    private Object[] rowTitulosExportar(){
-        Object[]filaExportar=new Object[7];
-        filaExportar[0]= "Cliente";
-        filaExportar[1]= "Momento Llegada";
-        filaExportar[2]= "T. Inicio de Servicio";
-        filaExportar[3]= "T. Espera";
-        filaExportar[4]= "T. de Atencion";
-        filaExportar[5]= "T. de Salida";    
-        filaExportar[6]= "ESTADO"; 
-        
+
+    private Object[] rowTitulosExportar() {
+        Object[] filaExportar = new Object[7];
+        filaExportar[0] = "Cliente";
+        filaExportar[1] = "Momento Llegada";
+        filaExportar[2] = "T. Inicio de Servicio";
+        filaExportar[3] = "T. Espera";
+        filaExportar[4] = "T. de Atencion";
+        filaExportar[5] = "T. de Salida";
+        filaExportar[6] = "ESTADO";
+
         return filaExportar;
     }
-    
-    private void limpiar() {        
+
+    private void limpiar() {
         txtNroClientes.setText("");
         txtTasaLlegada.setText("");
     }
@@ -1075,7 +1045,7 @@ public class AllTables extends javax.swing.JFrame {
         if (validar) {
             JOptionPane.showMessageDialog(this, "Llene todos los campos", "Alerta", JOptionPane.WARNING_MESSAGE);
 
-        } else {            
+        } else {
             tasaLlegada = Integer.parseInt(txtTasaLlegada.getText());
             clientes = Integer.parseInt(txtNroClientes.getText());
 
@@ -1094,4 +1064,6 @@ public class AllTables extends javax.swing.JFrame {
     }
 
     // </editor-fold> 
+
+   
 }
