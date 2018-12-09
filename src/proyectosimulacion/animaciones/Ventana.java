@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.Timer;
-import static proyectosimulacion.animaciones.Contenedor.columna;
 import proyectosimulacion.controladores.AllTables;
 import proyectosimulacion.modelo.Cliente;
 
