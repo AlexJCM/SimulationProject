@@ -6,18 +6,42 @@ public class Cliente {
     private String numCliente;
     private String momentoLllegada;
     private String tiempoInicio;
+    private String tiempoEspera;
     private String tiempoAtencion;
     private String tiempoSalida;
+    private String estado;
+    
 
     public Cliente() {
     }
 
-    public Cliente(String numCliente, String momentoLllegada, String tiempoInicio, String tiempoAtencion) {
+    public Cliente(String numCliente, String momentoLllegada, String tiempoInicio, String tiempoEspera, String tiempoAtencion, String tiempoSalida, String estado) {
         this.numCliente = numCliente;
         this.momentoLllegada = momentoLllegada;
         this.tiempoInicio = tiempoInicio;
+        this.tiempoEspera = tiempoEspera;
         this.tiempoAtencion = tiempoAtencion;
+        this.tiempoSalida = tiempoSalida;
+        this.estado = estado;
     }
+
+    public String getTiempoEspera() {
+        return tiempoEspera;
+    }
+
+    public void setTiempoEspera(String tiempoEspera) {
+        this.tiempoEspera = tiempoEspera;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+   
 
     public String getNumCliente() {
         return numCliente;
@@ -64,8 +88,10 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return numCliente + ", momentoLllegada: " + momentoLllegada + ", tiempoInicio:" + tiempoInicio + ", tiempoAtencion: " + tiempoAtencion + ", tiempoSalida: " + tiempoSalida;
+        return "numCliente= " + numCliente + ", momentoLllegada=" + momentoLllegada + ", tiempoInicio=" + tiempoInicio + ", tiempoEspera=" + tiempoEspera + ", tiempoAtencion=" + tiempoAtencion + ", tiempoSalida=" + tiempoSalida + ", estado=" + estado + '}';
     }
+
+   
     
 
     
