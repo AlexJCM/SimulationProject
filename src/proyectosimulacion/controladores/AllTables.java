@@ -1006,10 +1006,10 @@ public class AllTables extends javax.swing.JFrame {
     private javax.swing.JPanel panelSuperior;
     private javax.swing.JSpinner spinHoraCierre;
     private javax.swing.JSpinner spinHoraInicio;
-    private javax.swing.JSpinner spinServidorF1;
-    private javax.swing.JSpinner spinServidorF2;
-    private javax.swing.JSpinner spinServidorF3;
-    private javax.swing.JSpinner spinServidorF4;
+    public static javax.swing.JSpinner spinServidorF1;
+    public static javax.swing.JSpinner spinServidorF2;
+    public static javax.swing.JSpinner spinServidorF3;
+    public static javax.swing.JSpinner spinServidorF4;
     public static javax.swing.JTable tblExportar;
     private javax.swing.JTable tblFase1;
     private javax.swing.JTable tblFase2;
