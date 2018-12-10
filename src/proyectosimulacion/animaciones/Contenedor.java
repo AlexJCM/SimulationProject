@@ -100,216 +100,225 @@ public class Contenedor extends JComponent {
         g.drawImage(silla.getImage(), 1015, 450, 100, 100, null);
         g.drawImage(silla.getImage(), 1155, 450, 100, 100, null);
 
-       /////////////////////////////////////// array 1 ///////////////////////////////////////////////
+        /////////////////////////////////////// array 1 ///////////////////////////////////////////////
         for (int i = 0; i < u.arrayClientesF1.size(); i++) {
             ///////////////////Sillas////////////////////////////////
-            /*if (Util.reverseHora(u.arrayClientesF1.get(i).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF1.get(i).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
-                g.drawImage(img.getImage(), 315, pos1, 80, 80, null);
-            }*/
             if (i + 1 < u.arrayClientesF1.size()) {
-                if (Util.reverseHora(u.arrayClientesF1.get(i + 1).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF1.get(i + 1).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF1.get(i + 1).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF1.get(i + 1).getTiempoInicio())) {
                     g.drawImage(img.getImage(), 315, pos1, 80, 80, null);
                 }
             }
             if (i + 2 < u.arrayClientesF1.size()) {
-                if (Util.reverseHora(u.arrayClientesF1.get(i + 2).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF1.get(i + 2).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF1.get(i + 2).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF1.get(i + 2).getTiempoInicio())) {
                     g.drawImage(img.getImage(), 455, pos1, 80, 80, null);
                 }
             }
             if (i + 3 < u.arrayClientesF1.size()) {
-                if (Util.reverseHora(u.arrayClientesF1.get(i + 3).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF1.get(i + 3).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF1.get(i + 3).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF1.get(i + 3).getTiempoInicio())) {
                     g.drawImage(img.getImage(), 595, pos1, 80, 80, null);
                 }
             }
             if (i + 4 < u.arrayClientesF1.size()) {
-                if (Util.reverseHora(u.arrayClientesF1.get(i + 4).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF1.get(i + 4).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF1.get(i + 4).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF1.get(i + 4).getTiempoInicio())) {
                     g.drawImage(img.getImage(), 735, pos1, 80, 80, null);
                 }
             }
             if (i + 5 < u.arrayClientesF1.size()) {
-                if (Util.reverseHora(u.arrayClientesF1.get(i + 5).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF1.get(i + 5).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF1.get(i + 5).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF1.get(i + 5).getTiempoInicio())) {
                     g.drawImage(img.getImage(), 875, pos1, 80, 80, null);
                 }
             }
             if (i + 6 < u.arrayClientesF1.size()) {
-                if (Util.reverseHora(u.arrayClientesF1.get(i + 6).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF1.get(i + 6).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF1.get(i + 6).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF1.get(i + 6).getTiempoInicio())) {
                     g.drawImage(img.getImage(), 1015, pos1, 80, 80, null);
                 }
             }
             if (i + 7 < u.arrayClientesF1.size()) {
-                if (Util.reverseHora(u.arrayClientesF1.get(i + 7).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF1.get(i + 7).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF1.get(i + 7).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF1.get(i + 7).getTiempoInicio())) {
                     g.drawImage(img.getImage(), 1155, pos1, 80, 80, null);
                 }
             }
             if (i + 8 < u.arrayClientesF1.size()) {
-                if (Util.reverseHora(u.arrayClientesF1.get(i + 8).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF1.get(i + 8).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF1.get(i + 8).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF1.get(i + 8).getTiempoInicio())) {
                     g.drawImage(img.getImage(), 1295, pos1, 80, 80, null);
                 }
             }
             ///////////////////Servicios////////////////////////////////
-            if (Util.reverseHora(u.arrayClientesF1.get(i).getTiempoInicio()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF1.get(i).getTiempoSalida()) >= Util.reverseHora(Ventana.label)) {
+            if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF1.get(i).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF1.get(i).getTiempoSalida())) {
                 g.drawImage(img.getImage(), servicio1, pos11, 80, 80, null);
             }
         }
         /////////////////////////////////////// array 2 ///////////////////////////////////////////////
         for (int i = 0; i < u.arrayClientesF2.size() - 1; i++) {
             ///////////////////Sillas////////////////////////////////
-            if (Util.reverseHora(u.arrayClientesF2.get(i).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF2.get(i).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
-                g.drawImage(img.getImage(), 315, pos2, 80, 80, null);
-            }
             if (i + 1 < u.arrayClientesF2.size()) {
-                if (Util.reverseHora(u.arrayClientesF2.get(i + 1).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF2.get(i + 1).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
-                    g.drawImage(img.getImage(), 455, pos2, 80, 80, null);
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF2.get(i + 1).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF2.get(i + 1).getTiempoInicio())) {
+                    g.drawImage(img.getImage(), 315, pos2, 80, 80, null);
                 }
             }
             if (i + 2 < u.arrayClientesF2.size()) {
-                if (Util.reverseHora(u.arrayClientesF2.get(i + 2).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF2.get(i + 2).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
-                    g.drawImage(img.getImage(), 595, pos2, 80, 80, null);
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF2.get(i + 2).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF2.get(i + 2).getTiempoInicio())) {
+                    g.drawImage(img.getImage(), 455, pos2, 80, 80, null);
                 }
             }
             if (i + 3 < u.arrayClientesF2.size()) {
-                if (Util.reverseHora(u.arrayClientesF2.get(i + 3).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF2.get(i + 3).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
-                    g.drawImage(img.getImage(), 735, pos2, 80, 80, null);
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF2.get(i + 3).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF2.get(i + 3).getTiempoInicio())) {
+                    g.drawImage(img.getImage(), 595, pos2, 80, 80, null);
                 }
             }
             if (i + 4 < u.arrayClientesF2.size()) {
-                if (Util.reverseHora(u.arrayClientesF2.get(i + 4).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF2.get(i + 4).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
-                    g.drawImage(img.getImage(), 875, pos2, 80, 80, null);
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF2.get(i + 4).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF2.get(i + 4).getTiempoInicio())) {
+                    g.drawImage(img.getImage(), 735, pos2, 80, 80, null);
                 }
             }
             if (i + 5 < u.arrayClientesF2.size()) {
-                if (Util.reverseHora(u.arrayClientesF2.get(i + 5).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF2.get(i + 5).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
-                    g.drawImage(img.getImage(), 1015, pos2, 80, 80, null);
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF2.get(i + 5).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF2.get(i + 5).getTiempoInicio())) {
+                    g.drawImage(img.getImage(), 875, pos2, 80, 80, null);
                 }
             }
             if (i + 6 < u.arrayClientesF2.size()) {
-                if (Util.reverseHora(u.arrayClientesF1.get(i + 6).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF2.get(i + 6).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
-                    g.drawImage(img.getImage(), 1155, pos2, 80, 80, null);
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF2.get(i + 6).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF2.get(i + 6).getTiempoInicio())) {
+                    g.drawImage(img.getImage(), 1015, pos2, 80, 80, null);
                 }
             }
             if (i + 7 < u.arrayClientesF2.size()) {
-                if (Util.reverseHora(u.arrayClientesF2.get(i + 7).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF2.get(i + 7).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF2.get(i + 7).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF2.get(i + 7).getTiempoInicio())) {
+                    g.drawImage(img.getImage(), 1155, pos2, 80, 80, null);
+
+                }
+            }
+            if (i + 8 < u.arrayClientesF2.size()) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF2.get(i + 8).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF2.get(i + 8).getTiempoInicio())) {
                     g.drawImage(img.getImage(), 1295, pos2, 80, 80, null);
                 }
             }
             ///////////////////Servicios////////////////////////////////
-            if (Util.reverseHora(u.arrayClientesF2.get(i).getTiempoInicio()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF2.get(i).getTiempoSalida()) >= Util.reverseHora(Ventana.label)) {
-                g.drawImage(img.getImage(), servicio2, pos11, 80, 80, null);
-            }
             if (i + 1 < u.arrayClientesF2.size()) {
-            if (Util.reverseHora(u.arrayClientesF2.get(i + 1).getTiempoInicio()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF2.get(i + 1).getTiempoSalida()) >= Util.reverseHora(Ventana.label)) {
-                g.drawImage(img.getImage(), servicio3, pos11, 80, 80, null);
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF2.get(i + 1).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF2.get(i + 1).getTiempoSalida())) {
+                    g.drawImage(img.getImage(), servicio2, pos11, 80, 80, null);
+                }
             }
+            if (i + 2 < u.arrayClientesF2.size()) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF2.get(i + 2).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF2.get(i + 2).getTiempoSalida())) {
+                    g.drawImage(img.getImage(), servicio3, pos11, 80, 80, null);
+                }
             }
         }
+
         /////////////////////////////////////// array 3 ///////////////////////////////////////////////
         for (int i = 0; i < u.arrayClientesF3.size() - 1; i++) {
             ///////////////////Sillas////////////////////////////////
-            if (Util.reverseHora(u.arrayClientesF3.get(i).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF3.get(i).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
-                g.drawImage(img.getImage(), 315, pos3, 80, 80, null);
-            }
             if (i + 1 < u.arrayClientesF3.size()) {
-                if (Util.reverseHora(u.arrayClientesF3.get(i + 1).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF3.get(i + 1).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 1).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 1).getTiempoInicio())) {
+                    g.drawImage(img.getImage(), 315, pos3, 80, 80, null);
+                }
+            }
+            if (i + 2 < u.arrayClientesF3.size()) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 2).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 2).getTiempoInicio())) {
                     g.drawImage(img.getImage(), 455, pos3, 80, 80, null);
                 }
             }
-            if (i + 2 < u.arrayClientesF3.size()) {
-                if (Util.reverseHora(u.arrayClientesF3.get(i + 2).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF3.get(i + 2).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+            if (i + 3 < u.arrayClientesF3.size()) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 3).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 3).getTiempoInicio())) {
                     g.drawImage(img.getImage(), 595, pos3, 80, 80, null);
                 }
             }
-            if (i + 3 < u.arrayClientesF3.size()) {
-                if (Util.reverseHora(u.arrayClientesF3.get(i + 3).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF3.get(i + 3).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+            if (i + 4 < u.arrayClientesF3.size()) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 4).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 4).getTiempoInicio())) {
                     g.drawImage(img.getImage(), 735, pos3, 80, 80, null);
                 }
             }
-            if (i + 4 < u.arrayClientesF3.size()) {
-                if (Util.reverseHora(u.arrayClientesF3.get(i + 4).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF3.get(i + 4).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+            if (i + 5 < u.arrayClientesF3.size()) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 5).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 5).getTiempoInicio())) {
                     g.drawImage(img.getImage(), 875, pos3, 80, 80, null);
                 }
             }
-            if (i + 5 < u.arrayClientesF3.size()) {
-                if (Util.reverseHora(u.arrayClientesF3.get(i + 5).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF3.get(i + 5).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+            if (i + 6 < u.arrayClientesF3.size()) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 6).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 6).getTiempoInicio())) {
                     g.drawImage(img.getImage(), 1015, pos3, 80, 80, null);
                 }
             }
-            if (i + 6 < u.arrayClientesF3.size()) {
-                if (Util.reverseHora(u.arrayClientesF3.get(i + 6).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF3.get(i + 6).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+            if (i + 7 < u.arrayClientesF3.size()) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 7).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 7).getTiempoInicio())) {
                     g.drawImage(img.getImage(), 1155, pos3, 80, 80, null);
                 }
             }
-            if (i + 7 < u.arrayClientesF3.size()) {
-                if (Util.reverseHora(u.arrayClientesF3.get(i + 7).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF3.get(i + 7).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+            if (i + 8 < u.arrayClientesF3.size()) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 8).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 8).getTiempoInicio())) {
                     g.drawImage(img.getImage(), 1295, pos3, 80, 80, null);
                 }
             }
-        ///////////////////Servicios////////////////////////////////
-            if (Util.reverseHora(u.arrayClientesF3.get(i).getTiempoInicio()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF3.get(i).getTiempoSalida()) >= Util.reverseHora(Ventana.label)) {
-                g.drawImage(img.getImage(), servicio4, pos11, 80, 80, null);
-            }
+            ///////////////////Servicios////////////////////////////////
             if (i + 1 < u.arrayClientesF3.size()) {
-            if (Util.reverseHora(u.arrayClientesF3.get(i + 1).getTiempoInicio()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF3.get(i + 1).getTiempoSalida()) >= Util.reverseHora(Ventana.label)) {
-                g.drawImage(img.getImage(), servicio5, pos11, 80, 80, null);
-            }
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 1).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 1).getTiempoSalida())) {
+                    g.drawImage(img.getImage(), servicio4, pos11, 80, 80, null);
+                }
             }
             if (i + 2 < u.arrayClientesF3.size()) {
-            if (Util.reverseHora(u.arrayClientesF3.get(i + 2).getTiempoInicio()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF3.get(i + 2).getTiempoSalida()) >= Util.reverseHora(Ventana.label)) {
-                g.drawImage(img.getImage(), servicio6, pos11, 80, 80, null);
-            }
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 2).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 2).getTiempoSalida())) {
+                    g.drawImage(img.getImage(), servicio5, pos11, 80, 80, null);
+                }
             }
             if (i + 3 < u.arrayClientesF3.size()) {
-            if (Util.reverseHora(u.arrayClientesF3.get(i + 3).getTiempoInicio()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF3.get(i + 3).getTiempoSalida()) >= Util.reverseHora(Ventana.label)) {
-                g.drawImage(img.getImage(), servicio7, pos11, 80, 80, null);
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 3).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 3).getTiempoSalida())) {
+                    g.drawImage(img.getImage(), servicio6, pos11, 80, 80, null);
+                }
             }
+            if (i + 4 < u.arrayClientesF3.size()) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 4).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 4).getTiempoSalida())) {
+                    g.drawImage(img.getImage(), servicio7, pos11, 80, 80, null);
+                }
             }
         }
         /////////////////////////////////////// array 4 ///////////////////////////////////////////////
         for (int i = 0; i < u.arrayClientesF4.size() - 1; i++) {
             ///////////////////Sillas////////////////////////////////
-            if (Util.reverseHora(u.arrayClientesF4.get(i).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF4.get(i).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
-                g.drawImage(img.getImage(), 315, pos4, 80, 80, null);
-            }
             if (i + 1 < u.arrayClientesF4.size()) {
-                if (Util.reverseHora(u.arrayClientesF4.get(i + 1).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF4.get(i + 1).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
-                    g.drawImage(img.getImage(), 455, pos4, 80, 80, null);
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF4.get(i + 1).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF4.get(i + 1).getTiempoInicio())) {
+                    g.drawImage(img.getImage(), 315, pos4, 80, 80, null);
                 }
             }
             if (i + 2 < u.arrayClientesF4.size()) {
-                if (Util.reverseHora(u.arrayClientesF4.get(i + 2).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF4.get(i + 2).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
-                    g.drawImage(img.getImage(), 595, pos4, 80, 80, null);
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF4.get(i + 2).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF4.get(i + 2).getTiempoInicio())) {
+                    g.drawImage(img.getImage(), 455, pos4, 80, 80, null);
                 }
             }
             if (i + 3 < u.arrayClientesF4.size()) {
-                if (Util.reverseHora(u.arrayClientesF4.get(i + 3).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF4.get(i + 3).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
-                    g.drawImage(img.getImage(), 735, pos4, 80, 80, null);
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF4.get(i + 3).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF4.get(i + 3).getTiempoInicio())) {
+                    g.drawImage(img.getImage(), 595, pos4, 80, 80, null);
                 }
             }
             if (i + 4 < u.arrayClientesF4.size()) {
-                if (Util.reverseHora(u.arrayClientesF4.get(i + 4).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF4.get(i + 4).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
-                    g.drawImage(img.getImage(), 875, pos4, 80, 80, null);
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF4.get(i + 4).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF4.get(i + 4).getTiempoInicio())) {
+                    g.drawImage(img.getImage(), 735, pos4, 80, 80, null);
                 }
             }
             if (i + 5 < u.arrayClientesF4.size()) {
-                if (Util.reverseHora(u.arrayClientesF4.get(i + 5).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF4.get(i + 5).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
-                    g.drawImage(img.getImage(), 1015, pos4, 80, 80, null);
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF4.get(i + 5).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF4.get(i + 5).getTiempoInicio())) {
+                    g.drawImage(img.getImage(), 875, pos4, 80, 80, null);
                 }
             }
             if (i + 6 < u.arrayClientesF4.size()) {
-                if (Util.reverseHora(u.arrayClientesF4.get(i + 6).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF4.get(i + 6).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
-                    g.drawImage(img.getImage(), 1155, pos4, 80, 80, null);
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF4.get(i + 6).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF4.get(i + 6).getTiempoInicio())) {
+                    g.drawImage(img.getImage(), 1015, pos4, 80, 80, null);
                 }
             }
             if (i + 7 < u.arrayClientesF4.size()) {
-                if (Util.reverseHora(u.arrayClientesF4.get(i + 7).getMomentoLllegada()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF4.get(i + 7).getTiempoInicio()) >= Util.reverseHora(Ventana.label)) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF4.get(i + 7).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF4.get(i + 7).getTiempoInicio())) {
+                    g.drawImage(img.getImage(), 1155, pos4, 80, 80, null);
+                }
+            }
+            if (i + 8 < u.arrayClientesF4.size()) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF4.get(i + 8).getMomentoLllegada()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF4.get(i + 8).getTiempoInicio())) {
                     g.drawImage(img.getImage(), 1295, pos4, 80, 80, null);
                 }
             }
             ///////////////////Servicios////////////////////////////////
-            if (Util.reverseHora(u.arrayClientesF4.get(i).getTiempoInicio()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida()) >= Util.reverseHora(Ventana.label)) {
+            if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF4.get(i).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida())) {
                 g.drawImage(img.getImage(), servicio8, pos11, 80, 80, null);
             }
             ///////////////////Salida////////////////////////////////
-            if (Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida()) <= Util.reverseHora(Ventana.label) && Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida() + 1) >= Util.reverseHora(Ventana.label)) {
+            if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida() + 1)) {
                 g.drawImage(img.getImage(), 1435, 0, 80, 80, null);
             }
         }

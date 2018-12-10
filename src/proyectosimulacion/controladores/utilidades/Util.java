@@ -51,7 +51,7 @@ public class Util {
         hh = h * 3600;
         mm = m * 60;
         resultado = hh + mm + s;
-        System.out.print(resultado);
+        //System.out.print(resultado);
 
         return resultado;
     }

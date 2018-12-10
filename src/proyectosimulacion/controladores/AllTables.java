@@ -640,7 +640,7 @@ public class AllTables extends javax.swing.JFrame {
             }
             int abandonan = auxB;           
             lblAbandonan.setText("Abandona "+abandonan);
-            System.out.println("********************************************** FIN FASE1 ********************************************************");
+            //System.out.println("********************************************** FIN FASE1 ********************************************************");
 
             // </editor-fold>  
             
@@ -738,7 +738,7 @@ public class AllTables extends javax.swing.JFrame {
             int duplicados = auxY;
             lblNumClientesF2.setText("Hay " + tabla2.length + " clientes");
             lblDuplicado.setText("Hay " + duplicados + " duplicados");
-            System.out.println("************************************************ FIN FASE2 ****************************************************");
+            //System.out.println("************************************************ FIN FASE2 ****************************************************");
           
 
             // </editor-fold>  
@@ -835,7 +835,7 @@ public class AllTables extends javax.swing.JFrame {
             int reprobados = auxTWO;
             lblNumClientesF3.setText("Hay " + tabla3.length + " clientes");
             lblReprueban.setText("Hay " + reprobados + " reprobados");
-            System.out.println("************************************************ FIN FASE3 **********************************************************");
+            //System.out.println("************************************************ FIN FASE3 **********************************************************");
 
             // </editor-fold>  
            
