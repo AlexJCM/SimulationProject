@@ -55,6 +55,15 @@ public class Util {
 
         return resultado;
     }
+    
+     public static String[] reverseHoraArreglo(String horaConvertir) {
+        String string = horaConvertir;
+        String[] parts = string.split(":");
+        String part1 = parts[0]; //
+        String part2 = parts[1]; // 
+        String part3 = parts[2]; // 
+        return parts;
+     }
 
     public static void calculateTime(long seconds) {
         long sec = seconds % 60;

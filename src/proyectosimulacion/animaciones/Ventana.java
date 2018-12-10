@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.Timer;
 import proyectosimulacion.controladores.AllTables;
+import proyectosimulacion.controladores.utilidades.Util;
 import proyectosimulacion.modelo.Cliente;
 
 public class Ventana extends javax.swing.JFrame {
@@ -14,6 +15,7 @@ public class Ventana extends javax.swing.JFrame {
 
         panel.add(new Contenedor(panel));
         t = new Timer(15, acciones);
+        etiquetaTiempo.setText(label);
         //timer tiempo de demora 15 se puede aumentar para hacer mas lento
 
     }
@@ -23,14 +25,14 @@ public class Ventana extends javax.swing.JFrame {
     private String tiempoAtencion;
     private String tiempoSalida;
     public int i = 0;
-    public static String label="08:00:00";
+    public static String label = AllTables.horaInicio + ":00";
     private Timer t;
-    private int h = 8,h1, m, s;
+    private int h = Integer.parseInt(Util.reverseHoraArreglo(label)[0]), h1, m = Integer.parseInt(Util.reverseHoraArreglo(label)[1]), s = Integer.parseInt(Util.reverseHoraArreglo(label)[2]);
     private ActionListener acciones = new ActionListener() {
 //acciones para recorrer hora, minuto y segundo
         @Override
         public void actionPerformed(ActionEvent ae) {
-            s=s+i;
+            s = s + i;
             if (s >= 60) {
                 s = 0;
 
@@ -43,22 +45,26 @@ public class Ventana extends javax.swing.JFrame {
             }
             if (h == 60) {
                 h = 0;
-                h1=0;
+                h1 = 0;
             }
 
             actualizarLabel();
         }
-
     };
-
+    
     private void actualizarLabel() {
         //actualiza el label para ser parecr que esta corriendo el tiempo y ademas se da la animacion median el reocrrido de los objeto ojo hay que hacer bien este metodo depende de toda la animacion
         //ayudar a haecr el metodo eficiente para que se vean mas naturales las corridas AYUDA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        String tiempo = (h <= 9 ? "0" : "") + h + ":" + (m <= 9 ? "0" : "") + m + ":" + (s <= 9 ? "0" : "") + s;
-        etiquetaTiempo.setText(tiempo);
-        String tiempo2 = (h1 <= 9 ? "0" : "") + h + ":" + (m <= 9 ? "0" : "") + m + ":" + (s <= 9 ? "0" : "") + s;
-        label = tiempo2;
-        panel.repaint();
+        if (!AllTables.horaCierre.toString().equals(etiquetaTiempo.getText().toString())) {
+            String tiempo = (h <= 9 ? "0" : "") + h + ":" + (m <= 9 ? "0" : "") + m + ":" + (s <= 9 ? "0" : "") + s;
+            etiquetaTiempo.setText(tiempo);
+            String tiempo2 = (h1 <= 9 ? "0" : "") + h + ":" + (m <= 9 ? "0" : "") + m + ":" + (s <= 9 ? "0" : "") + s;
+            label = tiempo2;
+            panel.repaint();
+        }else{
+            t.stop();
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -203,26 +209,26 @@ public class Ventana extends javax.swing.JFrame {
         if (boton.getText().toString().equals("Comenzar")) {
             t.start();
             boton.setText("Parar");
-        }else{
+        } else {
             t.stop();
             boton.setText("Comenzar");
         }
     }//GEN-LAST:event_botonActionPerformed
 
     private void bnormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnormalActionPerformed
-        i=1;
+        i = 1;
     }//GEN-LAST:event_bnormalActionPerformed
 
     private void bx5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bx5ActionPerformed
-        i=5;
+        i = 5;
     }//GEN-LAST:event_bx5ActionPerformed
 
     private void bx10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bx10ActionPerformed
-        i=10;
+        i = 10;
     }//GEN-LAST:event_bx10ActionPerformed
 
     private void bx15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bx15ActionPerformed
-        i=15;
+        i = 15;
     }//GEN-LAST:event_bx15ActionPerformed
 
     public static void main(String args[]) {
