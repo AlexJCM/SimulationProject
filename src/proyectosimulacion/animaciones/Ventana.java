@@ -3,6 +3,7 @@ package proyectosimulacion.animaciones;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import proyectosimulacion.controladores.AllTables;
 import proyectosimulacion.controladores.utilidades.Util;
@@ -25,6 +26,7 @@ public class Ventana extends javax.swing.JFrame {
     private String tiempoAtencion;
     private String tiempoSalida;
     public int i = 0;
+    public static String fin =" ";
     public static String label = AllTables.horaInicio + ":00";
     private Timer t;
     private int h = Integer.parseInt(Util.reverseHoraArreglo(label)[0]), h1, m = Integer.parseInt(Util.reverseHoraArreglo(label)[1]), s = Integer.parseInt(Util.reverseHoraArreglo(label)[2]);
@@ -51,7 +53,7 @@ public class Ventana extends javax.swing.JFrame {
             actualizarLabel();
         }
     };
-    
+
     private void actualizarLabel() {
         //actualiza el label para ser parecr que esta corriendo el tiempo y ademas se da la animacion median el reocrrido de los objeto ojo hay que hacer bien este metodo depende de toda la animacion
         //ayudar a haecr el metodo eficiente para que se vean mas naturales las corridas AYUDA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -61,8 +63,14 @@ public class Ventana extends javax.swing.JFrame {
             String tiempo2 = (h1 <= 9 ? "0" : "") + h + ":" + (m <= 9 ? "0" : "") + m + ":" + (s <= 9 ? "0" : "") + s;
             label = tiempo2;
             panel.repaint();
-        }else{
+        } else {
             t.stop();
+        }
+        if (Util.reverseHora(label) >= Util.reverseHora(AllTables.arrayClientesF4.get(AllTables.arrayClientesF4.size()-1).getTiempoSalida())) {
+            t.stop();
+            fin="fin";
+            panel.repaint();
+            JOptionPane.showMessageDialog(rootPane, "Se fue el ultimo Cliente");
         }
 
     }
@@ -208,6 +216,7 @@ public class Ventana extends javax.swing.JFrame {
 
         if (boton.getText().toString().equals("Comenzar")) {
             t.start();
+            i = 1;
             boton.setText("Parar");
         } else {
             t.stop();
