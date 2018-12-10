@@ -59,15 +59,37 @@ public class Contenedor extends JComponent {
         g.drawImage(puerta.getImage(), 35, 0, 100, 100, null);
         g.drawImage(puerta.getImage(), 1435, 0, 100, 100, null);
 
+        /////////////////////////servidores dibujados///////////////////////////////////////////////////////
+        //////
         g.drawImage(venta.getImage(), 35, 900, 100, 100, null);
+        if (u.servidor_FaseONE == 2) {
+            g.drawImage(venta.getImage(), 175, 900, 100, 100, null);
+        }
+        /////////////
         g.drawImage(venta.getImage(), 315, 900, 100, 100, null);
-        g.drawImage(venta.getImage(), 455, 900, 100, 100, null);
+        if (u.servidor_FaseTWO == 2) {
+            g.drawImage(venta.getImage(), 455, 900, 100, 100, null);
+        }
+        ///////////////////
         g.drawImage(venta.getImage(), 735, 900, 100, 100, null);
-        g.drawImage(venta.getImage(), 875, 900, 100, 100, null);
-        g.drawImage(venta.getImage(), 1015, 900, 100, 100, null);
-        g.drawImage(venta.getImage(), 1155, 900, 100, 100, null);
-        g.drawImage(venta.getImage(), 1435, 900, 100, 100, null);
-
+        if (u.servidor_FaseTHREE == 2) {
+            g.drawImage(venta.getImage(), 875, 900, 100, 100, null);
+        }
+        if (u.servidor_FaseTHREE == 3) {
+            g.drawImage(venta.getImage(), 875, 900, 100, 100, null);
+            g.drawImage(venta.getImage(), 1015, 900, 100, 100, null);
+        }
+        if (u.servidor_FaseTHREE == 4) {
+            g.drawImage(venta.getImage(), 875, 900, 100, 100, null);
+            g.drawImage(venta.getImage(), 1015, 900, 100, 100, null);
+            g.drawImage(venta.getImage(), 1155, 900, 100, 100, null);
+        }
+        //////////////////////////
+        g.drawImage(venta.getImage(), 1295, 900, 100, 100, null);
+        if (u.servidor_FaseFOUR == 2) {
+            g.drawImage(venta.getImage(), 1435, 900, 100, 100, null);
+        }
+        ///////////////////////////////////////////////////////////fin  servidores//////////////////////////////////
         g.drawImage(silla.getImage(), 315, 0, 100, 100, null);
         g.drawImage(silla.getImage(), 455, 0, 100, 100, null);
         g.drawImage(silla.getImage(), 595, 0, 100, 100, null);
@@ -144,9 +166,19 @@ public class Contenedor extends JComponent {
                 }
             }
             ///////////////////Servicios////////////////////////////////
-            if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF1.get(i).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF1.get(i).getTiempoSalida())) {
-                g.drawImage(img.getImage(), servicio1, pos11, 80, 80, null);
+            if (i + 1 < u.arrayClientesF1.size()) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF1.get(i + 1).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF1.get(i + 1).getTiempoSalida())) {
+                    g.drawImage(img.getImage(), servicio1, pos11, 80, 80, null);
+                }
             }
+            if (u.servidor_FaseONE == 2) {
+                if (i + 2 < u.arrayClientesF1.size()) {
+                    if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF1.get(i + 2).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF1.get(i + 2).getTiempoSalida())) {
+                        g.drawImage(img.getImage(), 175, pos11, 80, 80, null);
+                    }
+                }
+            }
+
         }
         /////////////////////////////////////// array 2 ///////////////////////////////////////////////
         for (int i = 0; i < u.arrayClientesF2.size() - 1; i++) {
@@ -198,9 +230,11 @@ public class Contenedor extends JComponent {
                     g.drawImage(img.getImage(), servicio2, pos11, 80, 80, null);
                 }
             }
-            if (i + 2 < u.arrayClientesF2.size()) {
-                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF2.get(i + 2).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF2.get(i + 2).getTiempoSalida())) {
-                    g.drawImage(img.getImage(), servicio3, pos11, 80, 80, null);
+            if (u.servidor_FaseTWO == 2) {
+                if (i + 2 < u.arrayClientesF2.size()) {
+                    if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF2.get(i + 2).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF2.get(i + 2).getTiempoSalida())) {
+                        g.drawImage(img.getImage(), servicio3, pos11, 80, 80, null);
+                    }
                 }
             }
         }
@@ -254,19 +288,25 @@ public class Contenedor extends JComponent {
                     g.drawImage(img.getImage(), servicio4, pos11, 80, 80, null);
                 }
             }
-            if (i + 2 < u.arrayClientesF3.size()) {
-                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 2).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 2).getTiempoSalida())) {
-                    g.drawImage(img.getImage(), servicio5, pos11, 80, 80, null);
+            if (u.servidor_FaseTHREE == 2) {
+                if (i + 2 < u.arrayClientesF3.size()) {
+                    if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 2).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 2).getTiempoSalida())) {
+                        g.drawImage(img.getImage(), servicio5, pos11, 80, 80, null);
+                    }
                 }
             }
-            if (i + 3 < u.arrayClientesF3.size()) {
-                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 3).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 3).getTiempoSalida())) {
-                    g.drawImage(img.getImage(), servicio6, pos11, 80, 80, null);
+            if (u.servidor_FaseTHREE == 3) {
+                if (i + 3 < u.arrayClientesF3.size()) {
+                    if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 3).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 3).getTiempoSalida())) {
+                        g.drawImage(img.getImage(), servicio6, pos11, 80, 80, null);
+                    }
                 }
             }
-            if (i + 4 < u.arrayClientesF3.size()) {
-                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 4).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 4).getTiempoSalida())) {
-                    g.drawImage(img.getImage(), servicio7, pos11, 80, 80, null);
+            if (u.servidor_FaseTHREE == 4) {
+                if (i + 4 < u.arrayClientesF3.size()) {
+                    if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF3.get(i + 4).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF3.get(i + 4).getTiempoSalida())) {
+                        g.drawImage(img.getImage(), servicio7, pos11, 80, 80, null);
+                    }
                 }
             }
         }
@@ -314,11 +354,21 @@ public class Contenedor extends JComponent {
                 }
             }
             ///////////////////Servicios////////////////////////////////
-            if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF4.get(i).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida())) {
-                g.drawImage(img.getImage(), servicio8, pos11, 80, 80, null);
+            if (i + 1 < u.arrayClientesF4.size()) {
+                if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF4.get(i + 1).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF4.get(i + 1).getTiempoSalida())) {
+                    g.drawImage(img.getImage(), 1295, pos11, 80, 80, null);
+                }
             }
+            if (u.servidor_FaseFOUR == 2) {
+                if (i + 2 < u.arrayClientesF4.size()) {
+                    if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF4.get(i + 2).getTiempoInicio()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF4.get(i + 2).getTiempoSalida())) {
+                        g.drawImage(img.getImage(), 1435, pos11, 80, 80, null);
+                    }
+                }
+            }
+
             ///////////////////Salida////////////////////////////////
-            if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida() + 1)) {
+            if (Util.reverseHora(Ventana.label) >= Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida()) && Util.reverseHora(Ventana.label) <= Util.reverseHora(u.arrayClientesF4.get(i).getTiempoSalida() + 0.5)) {
                 g.drawImage(img.getImage(), 1435, 0, 80, 80, null);
             }
         }
