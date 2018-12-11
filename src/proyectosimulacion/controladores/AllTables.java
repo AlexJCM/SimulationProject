@@ -49,7 +49,7 @@ public class AllTables extends javax.swing.JFrame {
     // Horas de Apertura y de Cierre
     public static String horaInicio;
     public static String horaCierre;
-    
+
     //-------- VARIABLES LOCALES ------------------
     private double capacidad;//  Capacidad de la FASE1
     private int capacidadMaxima = 1000;
@@ -76,8 +76,8 @@ public class AllTables extends javax.swing.JFrame {
         initComponents();
         inicializarTablas();
         inicializarSpinners();
-        deshabilitarBotones();       
-        
+        deshabilitarBotones();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -511,17 +511,18 @@ public class AllTables extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
+        btnGenerar.setEnabled(false);
         Random aleatorio = new Random(System.currentTimeMillis());
         int iF1 = 0;//auxiliar para ayudar a guardar en el array bidimensional 0l
         int iF2 = 0;//auxiliar para ayudar a guardar en el array bidimensional 02
         int iF3 = 0;//auxiliar para ayudar a guardar en el array bidimensional 03     
-               
+
         limpiarTablas();
         inicializarTablas();
 
         if (validarCampos()) {
-            
-             habilitarBotones();
+
+            habilitarBotones();
 
             // <editor-fold defaultstate="collapsed" desc="INICIALIZAR ARREGLOS y SERVIDORES"> 
             //*********************** SERVIDORES ****************************************************
@@ -537,7 +538,7 @@ public class AllTables extends javax.swing.JFrame {
             tiempoDeSalidaFaseTWO = new Double[capacidadMaxima];
             tiempoDeSalidaFaseTHREE = new Double[capacidadMaxima];
             tabla1 = new Object[Integer.parseInt(txtNroClientes.getText())][7];
-            
+
             //*********************** HORA DE APERTURA Y CIERRE ************************************
             horaInicio = convertirFechaAString((Date) spinHoraInicio.getValue());
             horaCierre = convertirFechaAString((Date) spinHoraCierre.getValue());
@@ -569,7 +570,7 @@ public class AllTables extends javax.swing.JFrame {
                     }
                 }
                 tiempoSalida = tiempoInicio + tiempoAtencion[i];
-                tiempoDeSalidaFaseONE[i]= tiempoSalida;// PARA ENVIARLO A LA FASE 2
+                tiempoDeSalidaFaseONE[i] = tiempoSalida;// PARA ENVIARLO A LA FASE 2
 
                 //Se guardará en el array y en la tabla los campos del cliente numero i                
                 tabla1[iF1][0] = i;
@@ -583,11 +584,11 @@ public class AllTables extends javax.swing.JFrame {
                 /////////////////////// OBJETO CLIENTE ///////////////////////////////////////////////////////
                 Cliente clienteF1 = new Cliente();
                 clienteF1.setNumCliente(i + "");
-                clienteF1.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada) + "");                
-                clienteF1.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) + "");
+                clienteF1.setMomentoLllegada(Util.horaMinutoSegundo(momentoLlegada) + "");
+                clienteF1.setTiempoInicio(Util.horaMinutoSegundo(tiempoInicio) + "");
                 clienteF1.setTiempoEspera(Util.horaMinutoSegundo(tiempoEspera) + "");
                 clienteF1.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
-                clienteF1.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
+                clienteF1.setTiempoSalida(Util.horaMinutoSegundo(tiempoSalida) + "");
                 clienteF1.setEstado("??");
                 arrayClientesF1.add(clienteF1);
 
@@ -597,7 +598,7 @@ public class AllTables extends javax.swing.JFrame {
             Object[][] _tablaModificadaF1 = Util.ponerAbandona(tabla1);
             Object[] objF001 = new Object[7];
             int aux = 0;
-            int auxEx=0;
+            int auxEx = 0;
             for (int i = 0; i < _tablaModificadaF1.length; i++) {
                 objF001[0] = _tablaModificadaF1[aux][0];
                 objF001[1] = _tablaModificadaF1[aux][1];
@@ -609,19 +610,19 @@ public class AllTables extends javax.swing.JFrame {
                 aux++;
                 modeloF1.addRow(objF001);
                 modeloAExportar.addRow(objF001);
-                
-                 /////////////////////// OBJETO CLIENTE A EXPORTAR ///////////////////////////////////////////////////////
+
+                /////////////////////// OBJETO CLIENTE A EXPORTAR ///////////////////////////////////////////////////////
                 Cliente clienteF1Exportar = new Cliente();
-                clienteF1Exportar.setNumCliente(_tablaModificadaF1[auxEx][0]+ "");
-                clienteF1Exportar.setMomentoLllegada(_tablaModificadaF1[auxEx][1] + "");                
+                clienteF1Exportar.setNumCliente(_tablaModificadaF1[auxEx][0] + "");
+                clienteF1Exportar.setMomentoLllegada(_tablaModificadaF1[auxEx][1] + "");
                 clienteF1Exportar.setTiempoInicio(_tablaModificadaF1[auxEx][2] + "");
                 clienteF1Exportar.setTiempoEspera(_tablaModificadaF1[auxEx][3] + "");
                 clienteF1Exportar.setTiempoAtencion(_tablaModificadaF1[auxEx][4] + "");
                 clienteF1Exportar.setTiempoSalida(_tablaModificadaF1[auxEx][5] + "");
-                clienteF1Exportar.setEstado(_tablaModificadaF1[auxEx][6]+"");                
+                clienteF1Exportar.setEstado(_tablaModificadaF1[auxEx][6] + "");
                 arrayClientesF1Exportar.add(clienteF1Exportar);
                 auxEx++;
-               
+
             }
             // Fin proceso                              
 
@@ -638,24 +639,23 @@ public class AllTables extends javax.swing.JFrame {
                 }
                 filaX++;
             }
-            int abandonan = auxB;           
-            lblAbandonan.setText("Abandona "+abandonan);
+            int abandonan = auxB;
+            lblAbandonan.setText("Abandona " + abandonan);
             //System.out.println("********************************************** FIN FASE1 ********************************************************");
 
             // </editor-fold>  
-            
             // <editor-fold defaultstate="collapsed" desc="for  FASE 2">  
             tabla2 = new Object[_tablaModificadaF1.length - abandonan][7];
             modeloAExportar.addRow(rowTitulosExportar());
             Double[] tiempoAtencionF2 = new Double[capacidadMaxima];
-            
+
             int auxF2A = 0;
             int auxF2B = 0;
             int fila = 0;
             for (int i = 1; i <= _tablaModificadaF1.length; i++) {
                 if (_tablaModificadaF1[fila][6].equals("PASA")) {
                     auxF2A++;
-                    
+
                     tiempoSalida = tiempoDeSalidaFaseONE[i];//viene de la FASE 1
                     aleatorio2 = aleatorio.nextDouble();
                     tiempoAtencionF2[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * (3600));
@@ -676,24 +676,24 @@ public class AllTables extends javax.swing.JFrame {
                             tiempoEspera = 0;
                         }
                     }
-                    tiempoSalida = tiempoInicio + tiempoAtencionF2[i];                    
+                    tiempoSalida = tiempoInicio + tiempoAtencionF2[i];
 
                     //Se guardará en el array y en la tabla los campos del cliente numero i                    
                     tabla2[iF2][0] = i;
-                    tabla2[iF2][1] =  Util.horaMinutoSegundo1(momentoLlegada);
-                    tabla2[iF2][2] =  Util.horaMinutoSegundo1(tiempoInicio);
-                    tabla2[iF2][3] =  Util.horaMinutoSegundo(tiempoEspera);
-                    tabla2[iF2][4] =  Util.horaMinutoSegundo(tiempoAtencion[i]);                    
+                    tabla2[iF2][1] = Util.horaMinutoSegundo1(momentoLlegada);
+                    tabla2[iF2][2] = Util.horaMinutoSegundo1(tiempoInicio);
+                    tabla2[iF2][3] = Util.horaMinutoSegundo(tiempoEspera);
+                    tabla2[iF2][4] = Util.horaMinutoSegundo(tiempoAtencion[i]);
                     tabla2[iF2][5] = tiempoSalida;
-                    tabla2[iF2][6] =  "PASA";/////////////////
+                    tabla2[iF2][6] = "PASA";/////////////////
                     iF2++;
                     ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
                     Cliente clienteF2 = new Cliente();
                     clienteF2.setNumCliente(i + "");
-                    clienteF2.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada) + "");
-                    clienteF2.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) + "");
+                    clienteF2.setMomentoLllegada(Util.horaMinutoSegundo(momentoLlegada) + "");
+                    clienteF2.setTiempoInicio(Util.horaMinutoSegundo(tiempoInicio) + "");
                     clienteF2.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
-                    clienteF2.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
+                    clienteF2.setTiempoSalida(Util.horaMinutoSegundo(tiempoSalida) + "");
                     arrayClientesF2.add(clienteF2);
 
                 }//fin IF
@@ -715,7 +715,7 @@ public class AllTables extends javax.swing.JFrame {
                 objF002[3] = _tablaModificadaF2[aux2][3];
                 objF002[4] = _tablaModificadaF2[aux2][4];
                 tiempoDeSalidaFaseTWO[i] = (Double) _tablaModificadaF2[aux2][5]; //PARA ENVIARLO A LA FASE 3
-                objF002[5] = Util.horaMinutoSegundo1((double) _tablaModificadaF2[aux2][5]);                
+                objF002[5] = Util.horaMinutoSegundo1((double) _tablaModificadaF2[aux2][5]);
                 objF002[6] = _tablaModificadaF2[aux2][6];
                 aux2++;
                 modeloF2.addRow(objF002);
@@ -734,15 +734,13 @@ public class AllTables extends javax.swing.JFrame {
                 }
                 filaY++;
             }
-           
+
             int duplicados = auxY;
             lblNumClientesF2.setText("Hay " + tabla2.length + " clientes");
             lblDuplicado.setText("Hay " + duplicados + " duplicados");
             //System.out.println("************************************************ FIN FASE2 ****************************************************");
-          
 
             // </editor-fold>  
-            
             // <editor-fold defaultstate="collapsed" desc="for  FASE 3">  
             modeloAExportar.addRow(rowTitulosExportar());
             tabla3 = new Object[_tablaModificadaF2.length - duplicados][7];
@@ -753,8 +751,8 @@ public class AllTables extends javax.swing.JFrame {
             int filaAUX = 0;
             for (int i = 1; i <= _tablaModificadaF2.length; i++) {
                 if (_tablaModificadaF2[filaAUX][6].equals("PASA")) {
-                    auxF3A++;                    
-                    tiempoSalida = tiempoDeSalidaFaseTWO[i-1];//VIENE DE LA FASE 2
+                    auxF3A++;
+                    tiempoSalida = tiempoDeSalidaFaseTWO[i - 1];//VIENE DE LA FASE 2
                     aleatorio2 = aleatorio.nextDouble();
                     tiempoAtencionF3[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * (3600));
                     if (i == 1) {
@@ -788,10 +786,10 @@ public class AllTables extends javax.swing.JFrame {
                     ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
                     Cliente clienteF3 = new Cliente();
                     clienteF3.setNumCliente(i + "");
-                    clienteF3.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada) + "");
-                    clienteF3.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) + "");
+                    clienteF3.setMomentoLllegada(Util.horaMinutoSegundo(momentoLlegada) + "");
+                    clienteF3.setTiempoInicio(Util.horaMinutoSegundo(tiempoInicio) + "");
                     clienteF3.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
-                    clienteF3.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
+                    clienteF3.setTiempoSalida(Util.horaMinutoSegundo(tiempoSalida) + "");
                     arrayClientesF3.add(clienteF3);
 
                 } else if (_tablaModificadaF2[filaAUX][6].equals("DUPLICADO")) {
@@ -812,7 +810,7 @@ public class AllTables extends javax.swing.JFrame {
                 objF003[3] = _tablaModificadaF3[aux3][3];
                 objF003[4] = _tablaModificadaF3[aux3][4];
                 tiempoDeSalidaFaseTHREE[i] = (Double) _tablaModificadaF3[aux3][5];
-                objF003[5] = Util.horaMinutoSegundo1((double) _tablaModificadaF3[aux3][5]);                
+                objF003[5] = Util.horaMinutoSegundo1((double) _tablaModificadaF3[aux3][5]);
                 objF003[6] = _tablaModificadaF3[aux3][6];
                 aux3++;
                 modeloF3.addRow(objF003);
@@ -831,26 +829,25 @@ public class AllTables extends javax.swing.JFrame {
                 }
                 filaREP++;
             }
-         
+
             int reprobados = auxTWO;
             lblNumClientesF3.setText("Hay " + tabla3.length + " clientes");
             lblReprueban.setText("Hay " + reprobados + " reprobados");
             //System.out.println("************************************************ FIN FASE3 **********************************************************");
 
             // </editor-fold>  
-           
             // <editor-fold defaultstate="collapsed" desc="for  FASE 4">  
             modeloAExportar.addRow(rowTitulosExportar());
             Double[] tiempoAtencionF4 = new Double[capacidadMaxima];
             int filaF4 = 0;
             int auxF4A = 0;
             int auxF4B = 0;
-            int filaEXTRA= 0;
+            int filaEXTRA = 0;
             for (int i = 1; i <= _tablaModificadaF3.length - reprobados; i++) {
                 if (_tablaModificadaF3[filaEXTRA][6].equals("PASA")) {
                     auxF4A++;
 
-                    tiempoSalida = tiempoDeSalidaFaseTHREE[i-1];// VIENE DE LA FASE 3
+                    tiempoSalida = tiempoDeSalidaFaseTHREE[i - 1];// VIENE DE LA FASE 3
                     filaF4++;
                     aleatorio2 = aleatorio.nextDouble();
                     tiempoAtencionF4[i] = (-(Math.log(1 - aleatorio2)) * (1 / tasaLlegada) * 3600);///////
@@ -886,12 +883,12 @@ public class AllTables extends javax.swing.JFrame {
                     modeloF4.addRow(objectF4);
                     modeloAExportar.addRow(objectF4);
                     ///////////////////////OBJETO CLIENTE///////////////////////////////////////////////////
-                    Cliente clienteF4 = new Cliente();                    
+                    Cliente clienteF4 = new Cliente();
                     clienteF4.setNumCliente(i + "");
-                    clienteF4.setMomentoLllegada(Util.horaMinutoSegundo1(momentoLlegada) + "");
-                    clienteF4.setTiempoInicio(Util.horaMinutoSegundo1(tiempoInicio) + "");
+                    clienteF4.setMomentoLllegada(Util.horaMinutoSegundo(momentoLlegada) + "");
+                    clienteF4.setTiempoInicio(Util.horaMinutoSegundo(tiempoInicio) + "");
                     clienteF4.setTiempoAtencion(Util.horaMinutoSegundo(tiempoAtencion[i]) + "");
-                    clienteF4.setTiempoSalida(Util.horaMinutoSegundo1(tiempoSalida) + "");
+                    clienteF4.setTiempoSalida(Util.horaMinutoSegundo(tiempoSalida) + "");
                     arrayClientesF4.add(clienteF4);
 
                 } else if (_tablaModificadaF3[filaEXTRA][6].equals("REPROBADO")) {
@@ -904,11 +901,11 @@ public class AllTables extends javax.swing.JFrame {
             lblNumClientesF4.setText("Hay " + (_tablaModificadaF3.length - auxF4B));
 
             // </editor-fold>  
-      
         }//// Fin del if
     }//GEN-LAST:event_btnGenerarActionPerformed
 
     private void btnExportarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarExcelActionPerformed
+        btnExportarExcel.setEnabled(false);
         try {
             obj = new clsExportarExcel();
             obj.exportarExcel(tblExportar);
@@ -918,11 +915,13 @@ public class AllTables extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExportarExcelActionPerformed
 
     private void AnimacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnimacionActionPerformed
+        Animacion.setEnabled(false);
         Ventana ven = new Ventana();
         ven.setVisible(true);
     }//GEN-LAST:event_AnimacionActionPerformed
 
     private void btnExportarPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarPdfActionPerformed
+        btnExportarPdf.setEnabled(false);
         try {
             objPdf = new clsExportarPdf();
             objPdf.exportarPdf(tblExportar);
@@ -934,10 +933,11 @@ public class AllTables extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExportarPdfActionPerformed
 
     private void btnResumenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResumenActionPerformed
-         TablaResumen tablaResumen = new TablaResumen();
-         tablaResumen.setVisible(true);
-         tablaResumen.setLocationRelativeTo(null);     
-        
+        btnResumen.setEnabled(false);
+        TablaResumen tablaResumen = new TablaResumen();
+        tablaResumen.setVisible(true);
+        tablaResumen.setLocationRelativeTo(null);
+
     }//GEN-LAST:event_btnResumenActionPerformed
 
     public static void main(String args[]) {
@@ -1025,22 +1025,20 @@ public class AllTables extends javax.swing.JFrame {
         modeloF2 = new DefaultTableModel();
         modeloF3 = new DefaultTableModel();
         modeloF4 = new DefaultTableModel();
-        modeloAExportar = new DefaultTableModel();       
+        modeloAExportar = new DefaultTableModel();
 
-        
         tblFase1.setModel(modeloF1);
         tblFase2.setModel(modeloF2);
         tblFase3.setModel(modeloF3);
         tblFase4.setModel(modeloF4);
         tblExportar.setModel(modeloAExportar);
-        
-        
+
         primeraFilaDeCadaTabla(modeloF1);
         primeraFilaDeCadaTabla(modeloF2);
         primeraFilaDeCadaTabla(modeloF3);
         primeraFilaDeCadaTabla(modeloF4);
-        primeraFilaDeCadaTabla(modeloAExportar);     
-        
+        primeraFilaDeCadaTabla(modeloAExportar);
+
         txtTasaLlegada.requestFocus();
 
         //Ocultamos la tabla a Exportar
@@ -1108,7 +1106,6 @@ public class AllTables extends javax.swing.JFrame {
 
         return filaExportar;
     }
-   
 
     public boolean validarCampos() {
         boolean validar = txtNroClientes.getText().isEmpty()
@@ -1164,10 +1161,4 @@ public class AllTables extends javax.swing.JFrame {
     }
 
     // </editor-fold> 
-
-  
-
-   
-
-   
 }

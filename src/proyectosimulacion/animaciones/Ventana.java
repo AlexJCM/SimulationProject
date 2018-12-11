@@ -29,7 +29,7 @@ public class Ventana extends javax.swing.JFrame {
     public static String fin =" ";
     public static String label = AllTables.horaInicio + ":00";
     private Timer t;
-    private int h = Integer.parseInt(Util.reverseHoraArreglo(label)[0]), h1, m = Integer.parseInt(Util.reverseHoraArreglo(label)[1]), s = Integer.parseInt(Util.reverseHoraArreglo(label)[2]);
+    private int h = Integer.parseInt(Util.reverseHoraArreglo(label)[0]), h1=0, m = Integer.parseInt(Util.reverseHoraArreglo(label)[1]), s = Integer.parseInt(Util.reverseHoraArreglo(label)[2]);
     private ActionListener acciones = new ActionListener() {
 //acciones para recorrer hora, minuto y segundo
         @Override
@@ -37,7 +37,6 @@ public class Ventana extends javax.swing.JFrame {
             s = s + i;
             if (s >= 60) {
                 s = 0;
-
                 ++m;
             }
             if (m == 60) {
@@ -47,7 +46,7 @@ public class Ventana extends javax.swing.JFrame {
             }
             if (h == 60) {
                 h = 0;
-                h1 = 0;
+               h1 = 0;
             }
 
             actualizarLabel();
@@ -60,8 +59,7 @@ public class Ventana extends javax.swing.JFrame {
         if (!AllTables.horaCierre.toString().equals(etiquetaTiempo.getText().toString())) {
             String tiempo = (h <= 9 ? "0" : "") + h + ":" + (m <= 9 ? "0" : "") + m + ":" + (s <= 9 ? "0" : "") + s;
             etiquetaTiempo.setText(tiempo);
-            String tiempo2 = (h1 <= 9 ? "0" : "") + h + ":" + (m <= 9 ? "0" : "") + m + ":" + (s <= 9 ? "0" : "") + s;
-            label = tiempo2;
+            label = (h1 <= 9 ? "0" : "") + h1 + ":" + (m <= 9 ? "0" : "") + m + ":" + (s <= 9 ? "0" : "") + s;
             panel.repaint();
         } else {
             t.stop();
@@ -72,7 +70,6 @@ public class Ventana extends javax.swing.JFrame {
             panel.repaint();
             JOptionPane.showMessageDialog(rootPane, "Se fue el ultimo Cliente");
         }
-
     }
 
     @SuppressWarnings("unchecked")
